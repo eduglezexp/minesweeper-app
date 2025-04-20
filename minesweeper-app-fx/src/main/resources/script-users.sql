@@ -1,0 +1,114 @@
+PRAGMA foreign_keys = OFF;
+
+-- Elimina tablas en orden inverso de dependencias
+DROP TABLE IF EXISTS objeto_traducciones;
+DROP TABLE IF EXISTS objetos;
+DROP TABLE IF EXISTS usuarios;
+DROP TABLE IF EXISTS nivel_traducciones;
+DROP TABLE IF EXISTS niveles;
+
+PRAGMA foreign_keys = ON;
+
+-- 1. Tabla de niveles base
+CREATE TABLE niveles (
+    id INTEGER PRIMARY KEY AUTOINCREMENT
+);
+
+INSERT INTO niveles (id) VALUES (1), (2), (3);
+
+-- 2. Traducciones de niveles: nombre (dificultad) + descripción para cada idioma
+CREATE TABLE nivel_traducciones (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_nivel   INTEGER NOT NULL,
+    idioma     TEXT    NOT NULL,
+    dificultad      TEXT    NOT NULL,
+    descripcion TEXT   NOT NULL,
+    UNIQUE (id_nivel, idioma),
+    FOREIGN KEY (id_nivel) REFERENCES niveles(id)
+);
+
+-- Ejemplos de inserción por idioma
+-- Nivel 1 (Beginner / Principiante / Facile)
+INSERT INTO nivel_traducciones (id_nivel, idioma, dificultad, descripcion) VALUES
+    (1, 'en', 'Beginner',    '9×9 grid, 10 bombs'),
+    (1, 'es', 'Principiante','Cuadrícula 9×9, 10 bombas'),
+    (1, 'fr', 'Facile',      'Grille 9×9, 10 bombes');
+
+-- Nivel 2 (Intermediate / Intermedio / Moyen)
+INSERT INTO nivel_traducciones (id_nivel, idioma, dificultad, descripcion) VALUES
+    (2, 'en', 'Intermediate','16×16 grid, 40 bombs'),
+    (2, 'es', 'Intermedio', 'Cuadrícula 16×16, 40 bombas'),
+    (2, 'fr', 'Moyen',      'Grille 16×16, 40 bombes');
+
+-- Nivel 3 (Expert / Experto / Difficile)
+INSERT INTO nivel_traducciones (id_nivel, idioma, dificultad, descripcion) VALUES
+    (3, 'en', 'Expert',      '30×16 grid, 99 bombs'),
+    (3, 'es', 'Experto',     'Cuadrícula 30×16, 99 bombas'),
+    (3, 'fr', 'Difficile',   'Grille 30×16, 99 bombes');
+
+-- 3. Usuarios
+CREATE TABLE usuarios (
+    id         INTEGER PRIMARY KEY AUTOINCREMENT,
+    user       TEXT    NOT NULL UNIQUE,
+    email      TEXT    NOT NULL UNIQUE,
+    name       TEXT    NOT NULL,
+    password   TEXT    NOT NULL,
+    points     INTEGER DEFAULT 0,
+    victories  INTEGER DEFAULT 0,
+    defeats    INTEGER DEFAULT 0,
+    id_nivel   INTEGER NOT NULL,
+    FOREIGN KEY (id_nivel) REFERENCES niveles(id)
+);
+
+-- Ejemplo de inserción de usuarios
+INSERT INTO usuarios (user, email, name, password, id_nivel) VALUES 
+    ('Usuario-1', 'email1@example.com', 'Nombre1', 'contraseña123', 1),
+    ('Usuario-2', 'email2@example.com', 'Nombre2', 'abc456', 1),
+    ('Usuario-3', 'email3@example.com', 'Nombre3', 'xyz789', 1),
+    ('Usuario-4', 'email4@example.com', 'Nombre4', '123456', 1),
+    ('Usuario-5', 'email5@example.com', 'Nombre5', '123456', 1),
+    ('Usuario-6', 'email6@example.com', 'Nombre6', '123456', 1),
+    ('Usuario-7', 'email7@example.com', 'Nombre7', '123456', 1),
+    ('Usuario-8', 'email8@example.com', 'Nombre8', '123456', 1);
+
+-- 4. Objetos base
+CREATE TABLE objetos (
+    id       INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_nivel INTEGER NOT NULL,
+    FOREIGN KEY (id_nivel) REFERENCES niveles(id)
+);
+
+INSERT INTO objetos (id_nivel) VALUES
+    (1),  -- bomba
+    (1),  -- bandera
+    (2);  -- cascada
+
+-- 5. Traducciones de objetos: objeto + ejemplo
+CREATE TABLE objeto_traducciones (
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_objeto  INTEGER NOT NULL,
+    idioma      TEXT    NOT NULL,
+    objeto     TEXT    NOT NULL,
+    ejemplo     TEXT    NOT NULL,
+    UNIQUE (id_objeto, idioma),
+    FOREIGN KEY (id_objeto) REFERENCES objetos(id)
+);
+
+-- Inserción de traducciones para objetos
+-- Objeto 1: bomba / bomb / bombe
+INSERT INTO objeto_traducciones (id_objeto, idioma, objeto, ejemplo) VALUES
+    (1, 'en', 'bomb',   'A hidden dangerous element'),
+    (1, 'es', 'bomba',  'Un elemento peligroso oculto'),
+    (1, 'fr', 'bombe',  'Un élément dangereux caché');
+
+-- Objeto 2: bandera / flag / drapeau
+INSERT INTO objeto_traducciones (id_objeto, idioma, objeto, ejemplo) VALUES
+    (2, 'en', 'flag',   'Marks a suspicious cell'),
+    (2, 'es', 'bandera','Marca una casilla sospechosa'),
+    (2, 'fr', 'drapeau','Marque une case suspecte');
+
+-- Objeto 3: cascading reveal / cascada / cascade
+INSERT INTO objeto_traducciones (id_objeto, idioma, objeto, ejemplo) VALUES
+    (3, 'en', 'cascade','Reveal multiple cells at once'),
+    (3, 'es', 'cascada','Revelar varias casillas a la vez'),
+    (3, 'fr', 'cascade','Révéler plusieurs cases à la fois');

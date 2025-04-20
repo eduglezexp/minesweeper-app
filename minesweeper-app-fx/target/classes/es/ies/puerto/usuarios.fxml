@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<VBox alignment="CENTER" prefHeight="770.0" prefWidth="350.0" spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.ies.puerto.controller.UsuariosController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+    <children>
+        <Text fx:id="textListaUsuario" text="Lista de Usuarios" />
+      <HBox prefHeight="24.0" prefWidth="285.0">
+         <children>
+            <TextField fx:id="textFieldBuscarUsuario" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="213.0" />
+          <Button fx:id="buscarUsuariosButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="72.0" mnemonicParsing="false" onAction="#onBuscarUsuarios" prefHeight="25.0" prefWidth="0.0" text="Buscar" />
+         </children>
+      </HBox>
+        <Text fx:id="textMensaje" strokeType="OUTSIDE" strokeWidth="0.0" />
+        <ListView fx:id="listViewUsuarios" onMouseClicked="#onMouseClicked" prefHeight="400.0" prefWidth="301.0" />
+        <Button fx:id="buttonVolverAtras" mnemonicParsing="false" onAction="#onVolverAtrasClick" prefHeight="32.0" prefWidth="110.0" text="Volver Atrás" />
+    </children>
+</VBox>
