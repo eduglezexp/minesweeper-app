@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="770.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.ies.puerto.controller.JuegoController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="770.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.ies.puerto.controller.JuegoController">
    <top>
       <HBox alignment="CENTER" prefHeight="130.0" prefWidth="350.0" BorderPane.alignment="CENTER">
          <children>
@@ -103,10 +103,14 @@
             </Text>
             <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="350.0" translateY="-5.0">
                <children>
-                  <Button fx:id="ayudaButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAyudaClick" prefHeight="25.0" prefWidth="100.0" text="Ayuda" />
+                  <Button fx:id="ayudaButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAyudaClick" prefHeight="25.0" prefWidth="100.0" text="Ayuda">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin></Button>
+                  <Button fx:id="inventarioButton" mnemonicParsing="false" onAction="#onInventarioClick" text="Inventario" />
                   <Button fx:id="buttonVolverAtras" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onVolverAtrasClick" prefHeight="25.0" prefWidth="100.0" text="Volver Atrás">
                      <HBox.margin>
-                        <Insets left="20.0" />
+                        <Insets left="10.0" />
                      </HBox.margin>
                   </Button>
                </children>
@@ -266,7 +270,7 @@
                   </TextFlow>
                </children>
             </VBox>
-            <VBox fx:id="mostrarTiendaVbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="300.0">
+            <VBox fx:id="mostrarTiendaVbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="300.0" visible="false">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tienda">
                      <font>
@@ -286,11 +290,6 @@
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="usarMinaFantasmaButton" layoutX="129.0" layoutY="243.0" mnemonicParsing="false" onAction="#onUsarMinaFantasmaClick" text="Usar">
-                     <VBox.margin>
-                        <Insets bottom="10.0" />
-                     </VBox.margin>
-                  </Button>
                   <Text fx:id="textEscudoAntiMinas" layoutX="102.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Escudo Anti-Minas (100 puntos)">
                      <font>
                         <Font size="18.0" />
@@ -304,10 +303,6 @@
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="usarEscudoButton" layoutX="140.0" layoutY="251.0" mnemonicParsing="false" onAction="#onUsarEscudoClick" text="Usar">
-                     <VBox.margin>
-                        <Insets bottom="10.0" />
-                     </VBox.margin></Button>
                   <Text fx:id="textZonaSegura" layoutX="86.0" layoutY="284.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Zona Segura">
                      <font>
                         <Font size="18.0" />
@@ -321,18 +316,36 @@
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="usarZonaSeguraButton" layoutX="140.0" layoutY="313.0" mnemonicParsing="false" onAction="#onUsarZonaSeguraClick" text="Usar">
-                     <VBox.margin>
-                        <Insets bottom="10.0" />
-                     </VBox.margin>
-                  </Button>
                   <TextField fx:id="textFieldPuntosTienda" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" />
                   <Text fx:id="textMensajeTienda" strokeType="OUTSIDE" strokeWidth="0.0">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </Text>
-                  <Button fx:id="onVolverTiendaClick" mnemonicParsing="false" text="Volver" />
+                  <Button fx:id="volverTiendaButton" mnemonicParsing="false" onAction="#onVolverTiendaClick" text="Volver" />
+               </children>
+            </VBox>
+            <VBox fx:id="mostrarInventarioVbox" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" visible="false">
+               <children>
+                  <Text fx:id="textInventario" strokeType="OUTSIDE" strokeWidth="0.0" text="Inventario">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="usarEscudoButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onUsarEscudoClick" prefHeight="80.0" prefWidth="80.0" text="Escudo">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin></Button>
+                  <Button fx:id="usarMinaFantasmaButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onUsarMinaFantasmaClick" prefHeight="80.0" prefWidth="80.0" text="Fantasma">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="usarZonaSeguraButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onUsarZonaSeguraClick" prefHeight="80.0" prefWidth="80.0" text="Zona Segura">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Button>
                </children>
             </VBox>
             <StackPane fx:id="contenedorTablero" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="300.0">

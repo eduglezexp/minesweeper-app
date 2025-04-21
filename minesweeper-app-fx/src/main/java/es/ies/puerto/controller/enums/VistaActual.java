@@ -5,5 +5,6 @@ public enum VistaActual {
     PERSONALIZACION,
     ESTADISTICAS,
     AYUDA,
-    TIENDA
+    TIENDA,
+    INVENTARIO
 }
