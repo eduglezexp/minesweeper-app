@@ -1,11 +1,14 @@
 package es.ies.puerto.controller;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
 import es.ies.puerto.config.ConfigManager;
 import es.ies.puerto.controller.abstractas.AbstractController;
+import es.ies.puerto.controller.enums.VistaActual;
 import es.ies.puerto.model.entities.UsuarioEntity;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -33,6 +36,9 @@ import javafx.util.Duration;
 public class JuegoController extends AbstractController{
 
     @FXML
+    private StackPane mostrarPantallasVbox;
+
+    @FXML
     private Button tiendaButton;
 
     @FXML
@@ -49,6 +55,9 @@ public class JuegoController extends AbstractController{
 
     @FXML
     private Text textTemporizador;
+
+    @FXML
+    private ImageView imageViewBandera;
 
     @FXML
     private ImageView imageViewFotoPerfil;
@@ -108,7 +117,7 @@ public class JuegoController extends AbstractController{
     private Text textVictorias;
 
     @FXML 
-    private TextField extFieldVictorias;
+    private TextField textFieldVictorias;
 
     @FXML
     private Text textDerrotas;
@@ -137,8 +146,32 @@ public class JuegoController extends AbstractController{
     @FXML 
     private TextField textFieldMejorRacha;
 
+    @FXML 
+    private VBox mostrarTiendaVbox;
+
+    @FXML 
+    private Button comprarMinaFantasmaButton;
+
+    @FXML 
+    private Button usarMinaFantasmaButton;
+
+    @FXML 
+    private TextField textFieldPuntosTienda;
+
     @FXML
     private StackPane contenedorTablero;
+    
+    @FXML
+    private VBox mostrarFinDelJuegoVbox;
+
+    @FXML
+    private Text textFinJuego;
+
+    @FXML
+    private Text textResultado;
+
+    @FXML
+    private Button reintentarButton;
 
     @FXML
     private Text textMensaje;
@@ -160,6 +193,9 @@ public class JuegoController extends AbstractController{
     private Timeline timeline;
     private int segundosTranscurridos = 0;
     private Button[][] celdas;
+    private VistaActual vistaAnterior = VistaActual.TABLERO;
+    private int minasFantasmaDisponibles = 0;
+    private UsuarioEntity usuario;
 
     /**
      * Metodo que se ejecuta al iniciar el controlador
@@ -183,16 +219,29 @@ public class JuegoController extends AbstractController{
      * Inicializa nivel puntos victorias derrotas y comienza el juego
      */
     public void cargarDatosUsuario(UsuarioEntity usuario) {
+        this.usuario = usuario;
         if (usuario != null) {
-
-        }
+            textFieldUsuario.setText(usuario.getUser());
+            textFieldPuntos.setText(String.valueOf(usuario.getPuntos()));
+            textFieldVictorias.setText(String.valueOf(usuario.getVictorias()));
+            textFieldDerrotas.setText(String.valueOf(usuario.getDerrotas()));
+            //textFieldRacha.setText(String.valueOf(usuario.getRachaActual()));
+            //textFieldMejorRacha.setText(String.valueOf(usuario.getMejorRacha()));
+        }      
     }
+    
 
     /**
      * Metodo para iniciar el tablero
      */
     private void iniciarTablero(BoardConfig boardConfig) {
-        contenedorTablero.getChildren().clear();
+        personalizarTableroVbox.setVisible(false);
+        mostrarEstadisticasVbox.setVisible(false);
+        mostrarAyudaVBox.setVisible(false);
+        mostrarFinDelJuegoVbox.setVisible(false);
+        mostrarTiendaVbox.setVisible(false);
+        contenedorTablero.getChildren().removeIf(node -> node instanceof GridPane);
+        contenedorTablero.setVisible(true);
         GridPane tablero = crearTablero(boardConfig.filas(), boardConfig.columnas(), boardConfig.minas());
         tablero.setMinSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
         tablero.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
@@ -238,8 +287,8 @@ public class JuegoController extends AbstractController{
      * Metodo para acceder a la pantalla de personalizacion del tablero
      */
     private void accederPersonalizarTablero() {
-        contenedorTablero.getChildren().clear();
-        contenedorTablero.getChildren().add(personalizarTableroVbox);
+        contenedorTablero.setVisible(false);
+        mostrarAyudaVBox.setVisible(false);
         personalizarTableroVbox.setVisible(true);
     }
 
@@ -286,8 +335,9 @@ public class JuegoController extends AbstractController{
                 textMensajePersonalizar.setText("Los valores deben ser mayores que cero");
                 return;
             }
-            if (minas >= filas * columnas) {
-                textMensajePersonalizar.setText("Demasiadas minas para el tamaño del tablero");
+            int maxMinas = filas * columnas - 9;
+            if (minas > maxMinas) {
+                textMensajePersonalizar.setText("Demasiadas minas. Máximo permitido: " + maxMinas);
                 return;
             }
             if (!validarDimensiones(filas, columnas)) {
@@ -338,7 +388,7 @@ public class JuegoController extends AbstractController{
                     if (button == MouseButton.PRIMARY) {
                         revelarCelda(filaActual, columnaActual);
                         celda.setStyle("-fx-background-color: grey; -fx-opacity: 1;");
-                    } else if (button == MouseButton.SECONDARY) {
+                    } else if (button == MouseButton.SECONDARY && !primerClick) {
                         colocarBandera(filaActual, columnaActual, celda);
                     }
                 });
@@ -370,11 +420,11 @@ public class JuegoController extends AbstractController{
             }
         }
         while (minesToPlace > 0) {
-            int row = random.nextInt(configActual.filas());
-            int col = random.nextInt(configActual.columnas());
+            int fila = random.nextInt(configActual.filas());
+            int columna = random.nextInt(configActual.columnas());
             
-            if (!celdasProtejidas.contains(row + "," + col) && !minas[row][col]) {
-                minas[row][col] = true;
+            if (!celdasProtejidas.contains(fila + "," + columna) && !minas[fila][columna]) {
+                minas[fila][columna] = true;
                 minesToPlace--;
             }
         }
@@ -398,13 +448,13 @@ public class JuegoController extends AbstractController{
      * @param columna de la celda
      * @return numero de minas adyacentes
      */
-    private int contarMinasAdyacentes(int row, int col) {
+    private int contarMinasAdyacentes(int fila, int columna) {
         int contador = 0;
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 if (i == 0 && j == 0) continue;
-                int nuevaFila = row + i;
-                int nuevaColumna = col + j;
+                int nuevaFila = fila + i;
+                int nuevaColumna = columna + j;
                 if (nuevaFila >= 0 && nuevaFila < configActual.filas() && 
                     nuevaColumna >= 0 && nuevaColumna < configActual.columnas()) {
                     if (minas[nuevaFila][nuevaColumna]) contador++;
@@ -433,11 +483,24 @@ public class JuegoController extends AbstractController{
             gameOver = true;
             pararTemporizador();
             revelarTodasMinas();
-            textMensaje.setText("¡Has perdido!");
+            mostrarDerrota();
             return;
         }
         revealEmptyCells(fila, columna);
         revisarVictoria();
+    }
+
+    /**
+     * Metodo para mostrar el mensaje de derrota
+     */
+    private void mostrarDerrota() {
+        textFinJuego.setText("Fin del juego");
+        textResultado.setText("Derrota");
+        textFinJuego.setVisible(true);
+        textResultado.setVisible(true);
+        reintentarButton.setVisible(true);
+        mostrarFinDelJuegoVbox.setVisible(true);
+        mostrarFinDelJuegoVbox.toFront();
     }
 
     /**
@@ -521,9 +584,22 @@ public class JuegoController extends AbstractController{
         if (revelarCeldas == noCeldasMinas) {
             gameOver = true;
             pararTemporizador();
-            textMensaje.setText("¡Has ganado!");
+            mostrarVictoria();
             revelarTodasMinas();
         }
+    }
+
+    /**
+     * Metodo para mostrar el mensaje de victoria
+     */
+    private void mostrarVictoria() {
+        textFinJuego.setText("¡Has Ganado!");
+        textResultado.setText("Ganador");
+        textFinJuego.setVisible(true);
+        textResultado.setVisible(true);
+        reintentarButton.setVisible(true);
+        mostrarFinDelJuegoVbox.setVisible(true);
+        mostrarFinDelJuegoVbox.toFront();
     }
     
     /**
@@ -558,6 +634,20 @@ public class JuegoController extends AbstractController{
     }
 
     /**
+     * Metodo para pausar el temporizador
+     */
+    public void pausarTemporizador(boolean estaPausado) {
+        if (timeline == null) return; 
+        if (estaPausado) {
+            timeline.play(); 
+            estaPausado = false;
+        } else {
+            timeline.pause(); 
+            estaPausado = true;
+        }
+    }
+
+    /**
      * Metodo para cambiar la dificultad de la partida
      */
     @FXML
@@ -572,14 +662,12 @@ public class JuegoController extends AbstractController{
      */
     @FXML
     protected void onRegresarClick() {
-    }
-
-    /**
-     * Metodo que abre la tienda
-     * Se encarga de abrir la tienda para comprar objetos
-     */
-    @FXML
-    protected void onTiendaClick() {
+        personalizarTableroVbox.setVisible(false);
+        contenedorTablero.setVisible(true);
+        regresarButton.setVisible(false);
+        personalizarButton.setVisible(true);
+        textMensajePersonalizar.setText("");
+        pausarTemporizador(true);
     }
 
     /**
@@ -587,9 +675,14 @@ public class JuegoController extends AbstractController{
      */
     @FXML
     protected void onPersonalizarClick() {
-        accederPersonalizarTablero();
+        contenedorTablero.setVisible(false);
+        mostrarEstadisticasVbox.setVisible(false);
+        mostrarAyudaVBox.setVisible(false);
+        personalizarTableroVbox.setVisible(true);
         personalizarButton.setVisible(false);
         regresarButton.setVisible(true);
+        textMensajePersonalizar.setText("");
+        pausarTemporizador(false);
     }
 
     /**
@@ -606,6 +699,46 @@ public class JuegoController extends AbstractController{
      */
     @FXML
     protected void onEstadisticasClick() {
+        boolean estadisticasVisible = mostrarEstadisticasVbox.isVisible();
+        if (estadisticasVisible) {
+            mostrarEstadisticasVbox.setVisible(false);
+            switch (vistaAnterior) {
+                case PERSONALIZACION:
+                    personalizarTableroVbox.setVisible(true);
+                    break;
+                case AYUDA:
+                    mostrarAyudaVBox.setVisible(true);
+                    break;
+                case TIENDA:
+                    mostrarTiendaVbox.setVisible(true);
+                    break;
+                default:
+                    contenedorTablero.setVisible(true); 
+                    if (primerClick) {
+                        pausarTemporizador(false); 
+                    } else {
+                        pausarTemporizador(true);
+                    }
+                    break;
+            }
+        } else {
+            if (personalizarTableroVbox.isVisible()) {
+                vistaAnterior = VistaActual.PERSONALIZACION;
+            } else if (mostrarAyudaVBox.isVisible()) {
+                vistaAnterior = VistaActual.AYUDA;
+            } else if (mostrarTiendaVbox.isVisible()) {
+                vistaAnterior = VistaActual.TIENDA;
+            } else {
+                vistaAnterior = VistaActual.TABLERO;
+                
+            }
+            personalizarTableroVbox.setVisible(false);
+            contenedorTablero.setVisible(false);
+            mostrarAyudaVBox.setVisible(false);
+            mostrarTiendaVbox.setVisible(false);
+            mostrarEstadisticasVbox.setVisible(true);
+            pausarTemporizador(false); 
+        }
     }
 
     /**
@@ -613,13 +746,155 @@ public class JuegoController extends AbstractController{
      */
     @FXML
     protected void onAyudaClick() {
-        contenedorTablero.getChildren().clear();
-        contenedorTablero.getChildren().add(mostrarAyudaVBox);
-        mostrarAyudaVBox.setVisible(true);
-        textAyuda.setText("Instrucciones del juego:\n" +
-                          "1. Haz clic en una celda para descubrirla.\n" +
-                          "2. Haz clic derecho para colocar una bandera.\n" +
-                          "3. Evita las minas y descubre todas las celdas.");
+        boolean ayudaVisible = mostrarAyudaVBox.isVisible();
+        if (ayudaVisible) {
+            mostrarAyudaVBox.setVisible(false);
+            switch (vistaAnterior) {
+                case PERSONALIZACION:
+                    personalizarTableroVbox.setVisible(true);
+                    break;
+                case ESTADISTICAS:
+                    mostrarEstadisticasVbox.setVisible(true);
+                    break;
+                case TIENDA:
+                    mostrarTiendaVbox.setVisible(true);
+                    break;
+                default:
+                    contenedorTablero.setVisible(true);
+                    if (primerClick) {
+                        pausarTemporizador(false); 
+                    } else {
+                        pausarTemporizador(true);
+                    }
+                    break;
+            }
+        } else {
+            if (personalizarTableroVbox.isVisible()) {
+                vistaAnterior = VistaActual.PERSONALIZACION;
+            } else if (mostrarEstadisticasVbox.isVisible()) {
+                vistaAnterior = VistaActual.ESTADISTICAS;
+            } else if (mostrarTiendaVbox.isVisible()) {
+                vistaAnterior = VistaActual.TIENDA;
+            } else {
+                vistaAnterior = VistaActual.TABLERO;
+            }
+            personalizarTableroVbox.setVisible(false);
+            mostrarEstadisticasVbox.setVisible(false);
+            mostrarTiendaVbox.setVisible(false);
+            contenedorTablero.setVisible(false);
+            mostrarAyudaVBox.setVisible(true);
+            pausarTemporizador(false);
+        }
+    }
+
+    /**
+     * Metodo que maneja el evento de clic en el boton de reintentar
+     * Reinicia el juego y vuelve a cargar el tablero
+     */
+    @FXML
+    protected void onReintentarClick() {
+        mostrarFinDelJuegoVbox.setVisible(false);
+        textFinJuego.setVisible(false);
+        textResultado.setVisible(false);
+        reintentarButton.setVisible(false);
+        iniciarTablero(configActual);
+    }
+
+    @FXML
+    private void onTiendaClick() {
+        boolean tiendaVisible = mostrarTiendaVbox.isVisible();
+        if (tiendaVisible) {
+            mostrarTiendaVbox.setVisible(false);
+            switch (vistaAnterior) {
+                case PERSONALIZACION:
+                    personalizarTableroVbox.setVisible(true);
+                    break;
+                case ESTADISTICAS:
+                    mostrarEstadisticasVbox.setVisible(true);
+                    break;
+                case AYUDA:
+                    mostrarAyudaVBox.setVisible(true);
+                    break;
+                default:
+                    contenedorTablero.setVisible(true);
+                    if (primerClick) {
+                        pausarTemporizador(false); 
+                    } else {
+                        pausarTemporizador(true);
+                    }
+                    break;
+            }
+        } else {
+            if (personalizarTableroVbox.isVisible()) {
+                vistaAnterior = VistaActual.PERSONALIZACION;
+            } else if (mostrarEstadisticasVbox.isVisible()) {
+                vistaAnterior = VistaActual.ESTADISTICAS;
+            } else if (mostrarAyudaVBox.isVisible()) {
+                vistaAnterior = VistaActual.AYUDA;
+            } else {
+                vistaAnterior = VistaActual.TABLERO;
+            }
+            personalizarTableroVbox.setVisible(false);
+            mostrarEstadisticasVbox.setVisible(false);
+            mostrarAyudaVBox.setVisible(false);
+            contenedorTablero.setVisible(false);
+            mostrarTiendaVbox.setVisible(true);
+            pausarTemporizador(false);
+        }
+    }
+
+    @FXML
+    private void onVolverTiendaClick() {
+        mostrarTiendaVbox.setVisible(false);
+        contenedorTablero.setVisible(true);
+    }
+
+    @FXML
+    private void onComprarMinaFantasmaClick() {
+        int puntos = usuario.getPuntos();
+        if (puntos >= 0) {
+            //usuario.setPuntos(puntos - 50);
+            minasFantasmaDisponibles++;
+            actualizarUI();
+            usarMinaFantasmaButton.setText("Usar Mina Fantasma (Disponibles: " + minasFantasmaDisponibles + ")");
+        }
+    }
+
+    @FXML
+    private void onUsarMinaFantasmaClick() {
+        if (minasFantasmaDisponibles > 0 && !primerClick) {
+            resaltarMinaAleatoria();
+            minasFantasmaDisponibles--;
+            actualizarUI();
+        }
+    }
+
+    private void resaltarMinaAleatoria() {
+        List<int[]> minasPosiciones = new ArrayList<>();
+        for (int i = 0; i < configActual.filas(); i++) {
+            for (int j = 0; j < configActual.columnas(); j++) {
+                if (minas[i][j]) {
+                    minasPosiciones.add(new int[]{i, j});
+                }
+            }
+        }
+        if (!minasPosiciones.isEmpty()) {
+            Random rand = new Random();
+            int[] pos = minasPosiciones.get(rand.nextInt(minasPosiciones.size()));
+            Button celda = celdas[pos[0]][pos[1]];
+            String estiloOriginal = celda.getStyle();
+            celda.setStyle(estiloOriginal + "-fx-background-color: yellow;");
+            
+            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), e -> {
+                celda.setStyle(estiloOriginal);
+            }));
+            timeline.play();
+        }
+    }
+
+    private void actualizarUI() {
+        textFieldPuntosTienda.setText(String.valueOf(usuario.getPuntos()));
+        usarMinaFantasmaButton.setText("Usar Mina Fantasma (Disponibles: " + minasFantasmaDisponibles + ")");
     }
 
     /**

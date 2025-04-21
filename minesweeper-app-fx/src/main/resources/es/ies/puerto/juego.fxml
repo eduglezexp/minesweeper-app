@@ -14,9 +14,108 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="770.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.ies.puerto.controller.JuegoController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="770.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.ies.puerto.controller.JuegoController">
+   <top>
+      <HBox alignment="CENTER" prefHeight="130.0" prefWidth="350.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="95.0" prefWidth="100.0">
+               <children>
+                  <Button fx:id="tiendaButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onTiendaClick" prefHeight="25.0" prefWidth="100.0" text="Tienda">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <ComboBox fx:id="comboDificultad" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#seleccionarDificultadClick" prefWidth="100.0" promptText="Dificultad">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </ComboBox>
+                  <Button fx:id="personalizarButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onPersonalizarClick" prefWidth="100.0" text="Personalizar" visible="false" />
+                  <Button fx:id="aleatorioButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAleatorioClick" prefWidth="100.0" text="Aleatorio" visible="false">
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="-25.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+               <HBox.margin>
+                  <Insets top="20.0" />
+               </HBox.margin>
+            </VBox>
+            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="90.0" prefWidth="90.0">
+               <children>
+                  <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="100.0">
+                     <children>
+                        <ImageView fx:id="imageViewBandera" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                           <image>
+                              <Image url="@img/flag.png" />
+                           </image>
+                        </ImageView>
+                        <Text fx:id="textBanderas" strokeType="OUTSIDE" strokeWidth="0.0" text="10">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </HBox>
+                  <Text fx:id="textTemporizador" strokeType="OUTSIDE" strokeWidth="0.0" text="00:00">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+               </children>
+               <HBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </HBox.margin>
+            </VBox>
+            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="80.0">
+               <children>
+                  <ImageView fx:id="imageViewFotoPerfil" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <image>
+                        <Image url="@img/usuario.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="estadisticasButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onEstadisticasClick" prefWidth="80.0" text="Estadisticas">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+               <HBox.margin>
+                  <Insets top="20.0" />
+               </HBox.margin>
+            </VBox>
+         </children>
+      </HBox>
+   </top>
+   <bottom>
+      <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="350.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text fx:id="textMensaje" strokeType="OUTSIDE" strokeWidth="0.0">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Text>
+            <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="350.0" translateY="-5.0">
+               <children>
+                  <Button fx:id="ayudaButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAyudaClick" prefHeight="25.0" prefWidth="100.0" text="Ayuda" />
+                  <Button fx:id="buttonVolverAtras" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onVolverAtrasClick" prefHeight="25.0" prefWidth="100.0" text="Volver Atrás">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </bottom>
    <center>
-      <StackPane fx:id="contenedorTablero" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="300.0">
+      <StackPane fx:id="mostrarPantallasVbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="300.0" BorderPane.alignment="CENTER">
          <children>
             <VBox fx:id="personalizarTableroVbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="250.0" visible="false">
                <children>
@@ -72,7 +171,7 @@
                   </Button>
                </children>
             </VBox>
-            <VBox fx:id="mostrarEstadisticasVBox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="250.0" visible="false">
+            <VBox fx:id="mostrarEstadisticasVbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="250.0" visible="false">
                <children>
                   <Text fx:id="textUsuario" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuario">
                      <font>
@@ -167,105 +266,75 @@
                   </TextFlow>
                </children>
             </VBox>
-         </children></StackPane>
-   </center>
-   <top>
-      <HBox alignment="CENTER" prefHeight="130.0" prefWidth="350.0" BorderPane.alignment="CENTER">
-         <children>
-            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="95.0" prefWidth="100.0">
+            <VBox fx:id="mostrarTiendaVbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="300.0">
                <children>
-                  <Button fx:id="tiendaButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onTiendaClick" prefHeight="25.0" prefWidth="100.0" text="Tienda">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tienda">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="textMinaFantasma" strokeType="OUTSIDE" strokeWidth="0.0" text="Mina Fantasma (50 puntos)">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Text>
+                  <TextField fx:id="textFieldPuntosTienda" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" />
+                  <Button fx:id="comprarMinaFantasmaButton" mnemonicParsing="false" onAction="#onComprarMinaFantasmaClick" text="Comprar">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </Button>
-                  <ComboBox fx:id="comboDificultad" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#seleccionarDificultadClick" prefWidth="100.0" promptText="Dificultad">
+                  <Button fx:id="usarMinaFantasmaButton" layoutX="129.0" layoutY="243.0" mnemonicParsing="false" onAction="#onUsarMinaFantasmaClick" text="Usar">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
-                  </ComboBox>
-                  <Button fx:id="personalizarButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onPersonalizarClick" prefWidth="100.0" text="Personalizar" visible="false" />
-                  <Button fx:id="aleatorioButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAleatorioClick" prefWidth="100.0" text="Aleatorio" visible="false">
-                     <VBox.margin>
-                        <Insets bottom="10.0" top="-25.0" />
-                     </VBox.margin>
                   </Button>
-               </children>
-               <HBox.margin>
-                  <Insets top="20.0" />
-               </HBox.margin>
-            </VBox>
-            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="90.0" prefWidth="90.0">
-               <children>
-                  <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="100.0">
-                     <children>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                           <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
-                           <image>
-                              <Image url="@img/usuario.png" />
-                           </image>
-                        </ImageView>
-                        <Text fx:id="textBanderas" strokeType="OUTSIDE" strokeWidth="0.0" text="10">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </HBox>
-                  <Text fx:id="textTemporizador" strokeType="OUTSIDE" strokeWidth="0.0" text="00:00">
+                  <Text fx:id="textEscudoAntiMinas" layoutX="102.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Escudo Anti-Minas">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Text>
+                  <Text fx:id="textZonaSegura" layoutX="86.0" layoutY="284.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Zona Segura">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-               </children>
-               <HBox.margin>
-                  <Insets left="10.0" right="10.0" />
-               </HBox.margin>
-            </VBox>
-            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="80.0">
-               <children>
-                  <ImageView fx:id="imageViewFotoPerfil" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                  <Text fx:id="textMensajeTienda" strokeType="OUTSIDE" strokeWidth="0.0">
                      <VBox.margin>
-                        <Insets />
+                        <Insets bottom="10.0" />
                      </VBox.margin>
-                     <image>
-                        <Image url="@img/usuario.png" />
-                     </image>
-                  </ImageView>
-                  <Button fx:id="estadisticasButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onEstadisticasClick" prefWidth="80.0" text="Estadisticas">
-                     <VBox.margin>
-                        <Insets top="5.0" />
-                     </VBox.margin>
-                  </Button>
+                  </Text>
+                  <Button fx:id="onVolverTiendaClick" mnemonicParsing="false" text="Volver" />
                </children>
-               <HBox.margin>
-                  <Insets top="20.0" />
-               </HBox.margin>
             </VBox>
-         </children>
-      </HBox>
-   </top>
-   <bottom>
-      <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="350.0" BorderPane.alignment="CENTER">
-         <children>
-            <Text fx:id="textMensaje" strokeType="OUTSIDE" strokeWidth="0.0">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </Text>
-            <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="350.0" translateY="-5.0">
+            <StackPane fx:id="contenedorTablero" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="300.0">
                <children>
-                  <Button fx:id="ayudaButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAyudaClick" prefHeight="25.0" prefWidth="100.0" text="Ayuda" />
-                  <Button fx:id="buttonVolverAtras" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onVolverAtrasClick" prefHeight="25.0" prefWidth="100.0" text="Volver Atrás">
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-            </HBox>
+                  <VBox fx:id="mostrarFinDelJuegoVbox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Text fx:id="textFinJuego" strokeType="OUTSIDE" strokeWidth="0.0" text="Fin de la partida" visible="false">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text fx:id="textResultado" strokeType="OUTSIDE" strokeWidth="0.0" text="resultado" visible="false">
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Button fx:id="reintentarButton" mnemonicParsing="false" onAction="#onReintentarClick" text="Reintentar" visible="false" />
+                     </children>
+                  </VBox>
+               </children></StackPane>
          </children>
-      </VBox>
-   </bottom>
+      </StackPane>
+   </center>
 </BorderPane>

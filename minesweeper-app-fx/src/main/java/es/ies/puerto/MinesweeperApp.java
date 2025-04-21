@@ -21,8 +21,8 @@ public class MinesweeperApp extends Application {
         Scene scene = new Scene(fxmlLoader.load());
         String css = this.getClass().getResource("css/style.css").toExternalForm();
         scene.getStylesheets().add(css);
-        //Image icon = new Image(getClass().getResource("/es/ies/puerto/img/icon.png").toExternalForm());
-        //stage.getIcons().add(icon);
+        Image icon = new Image(getClass().getResource("/es/ies/puerto/img/bomb.png").toExternalForm());
+        stage.getIcons().add(icon);
         stage.setTitle("Pantalla Princial");
         stage.setResizable(false);
         stage.setScene(scene);

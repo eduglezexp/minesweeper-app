@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 
 import es.ies.puerto.MinesweeperApp;
 import es.ies.puerto.config.ConfigManager;
+import es.ies.puerto.controller.enums.VistaActual;
 import es.ies.puerto.model.entities.UsuarioEntity;
 import es.ies.puerto.model.services.NivelService;
 import es.ies.puerto.model.services.ObjetoService;
@@ -13,9 +14,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -165,6 +170,111 @@ public abstract class AbstractController {
     private Button openJugarButton;
 
     /**
+     * JuegoController
+     */
+    @FXML
+    private StackPane mostrarBotonesVbox;
+
+    @FXML
+    private Button tiendaButton;
+
+    @FXML
+    private ComboBox<String> comboDificultad;
+
+    @FXML
+    private Button personalizarButton;
+
+    @FXML
+    private Button aleatorioButton;
+
+    @FXML
+    private Text textBanderas;
+
+    @FXML
+    private Text textTemporizador;
+
+    @FXML
+    private Button estadisticasButton;
+
+    @FXML
+    private VBox personalizarTableroVbox;
+
+    @FXML
+    private Text textPersonalizarPartida;
+
+    @FXML
+    private Text textFilas;
+
+    @FXML
+    private TextField textFieldFilas;
+
+    @FXML
+    private Text textColumnas;
+
+    @FXML 
+    private TextField textFieldColumnas;
+
+    @FXML
+    private Text textMinas;
+    
+    @FXML 
+    private TextField textFieldMinas;
+
+    @FXML
+    private Text textMensajePersonalizar;
+
+    @FXML
+    private Button regresarButton;
+
+    @FXML
+    private VBox mostrarEstadisticasVbox;
+
+    @FXML
+    private Text textPuntos;
+
+    @FXML 
+    private TextField textFieldPuntos;
+
+    @FXML
+    private Text textVictorias;
+
+    @FXML 
+    private TextField textFieldVictorias;
+
+    @FXML
+    private Text textDerrotas;
+
+    @FXML 
+    private TextField textFieldDerrotas;
+
+    @FXML
+    private Text textRacha;
+
+    @FXML 
+    private TextField textFieldRacha;
+
+    @FXML
+    private Text textMejorRacha;
+
+    @FXML
+    private VBox mostrarAyudaVBox;
+
+    @FXML
+    private Text textTituloAyuda;
+
+    @FXML
+    private Text textAyuda;
+
+    @FXML 
+    private TextField textFieldMejorRacha;
+
+    @FXML
+    private StackPane contenedorTablero;
+
+    @FXML
+    private Button ayudaButton;
+
+    /**
      * Metodo para cambiar el idioma
      */
     @FXML
@@ -274,8 +384,8 @@ public abstract class AbstractController {
             newController.setPreviousTitle(stage.getTitle());
             textMensaje.setText(" ");
             scene.getStylesheets().add(getClass().getResource("/es/ies/puerto/css/style.css").toExternalForm());
-            //Image icon = new Image(getClass().getResource("/es/ies/puerto/img/icon.png").toExternalForm());
-            //stage.getIcons().add(icon);
+            Image icon = new Image(getClass().getResource("/es/ies/puerto/img/bomb.png").toExternalForm());
+            stage.getIcons().add(icon);
             stage.setTitle(titulo);
             stage.setResizable(false);
             stage.setScene(scene);      
@@ -308,8 +418,8 @@ public abstract class AbstractController {
             textMensaje.setText(" ");
             Method method = controller.getClass().getMethod("cargarDatosUsuario", UsuarioEntity.class);
             method.invoke(controller, usuario); 
-            //Image icon = new Image(getClass().getResource("/es/ies/puerto/img/icon.png").toExternalForm());
-            //stage.getIcons().add(icon);
+            Image icon = new Image(getClass().getResource("/es/ies/puerto/img/bomb.png").toExternalForm());
+            stage.getIcons().add(icon);
             stage.setTitle(titulo);
             stage.setResizable(false);
             stage.setScene(scene);
