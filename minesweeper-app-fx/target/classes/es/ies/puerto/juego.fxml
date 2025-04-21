@@ -281,7 +281,6 @@
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </Text>
-                  <TextField fx:id="textFieldPuntosTienda" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" />
                   <Button fx:id="comprarMinaFantasmaButton" mnemonicParsing="false" onAction="#onComprarMinaFantasmaClick" text="Comprar">
                      <VBox.margin>
                         <Insets bottom="10.0" />
@@ -292,7 +291,7 @@
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </Button>
-                  <Text fx:id="textEscudoAntiMinas" layoutX="102.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Escudo Anti-Minas">
+                  <Text fx:id="textEscudoAntiMinas" layoutX="102.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Escudo Anti-Minas (100 puntos)">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -300,11 +299,34 @@
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </Text>
+                  <Button fx:id="comprarEscudoButton" layoutX="129.0" layoutY="216.0" mnemonicParsing="false" onAction="#onComprarEscudoClick" text="Comprar">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="usarEscudoButton" layoutX="140.0" layoutY="251.0" mnemonicParsing="false" onAction="#onUsarEscudoClick" text="Usar">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin></Button>
                   <Text fx:id="textZonaSegura" layoutX="86.0" layoutY="284.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Zona Segura">
                      <font>
                         <Font size="18.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
                   </Text>
+                  <Button fx:id="comprarZonaSeguraButton" layoutX="129.0" layoutY="290.0" mnemonicParsing="false" onAction="#onComprarZonaSeguraClick" text="Comprar">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="usarZonaSeguraButton" layoutX="140.0" layoutY="313.0" mnemonicParsing="false" onAction="#onUsarZonaSeguraClick" text="Usar">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <TextField fx:id="textFieldPuntosTienda" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" />
                   <Text fx:id="textMensajeTienda" strokeType="OUTSIDE" strokeWidth="0.0">
                      <VBox.margin>
                         <Insets bottom="10.0" />

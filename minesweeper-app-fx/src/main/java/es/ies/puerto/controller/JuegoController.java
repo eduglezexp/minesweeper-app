@@ -156,7 +156,19 @@ public class JuegoController extends AbstractController{
     private Button usarMinaFantasmaButton;
 
     @FXML 
+    private Button comprarEscudoButton;
+
+    @FXML 
+    private Button usarEscudoButton;
+
+    @FXML 
     private TextField textFieldPuntosTienda;
+    
+    @FXML 
+    private Button comprarZonaSeguraButton;
+
+    @FXML 
+    private Button usarZonaSeguraButton;
 
     @FXML
     private StackPane contenedorTablero;
@@ -195,6 +207,8 @@ public class JuegoController extends AbstractController{
     private Button[][] celdas;
     private VistaActual vistaAnterior = VistaActual.TABLERO;
     private int minasFantasmaDisponibles = 0;
+    private int escudosDisponibles = 0;
+    private boolean escudoActivado = false;
     private UsuarioEntity usuario;
 
     /**
@@ -480,11 +494,18 @@ public class JuegoController extends AbstractController{
         }
     
         if (minas[fila][columna]) {
-            gameOver = true;
-            pararTemporizador();
-            revelarTodasMinas();
-            mostrarDerrota();
-            return;
+            if (escudoActivado) {
+                minas[fila][columna] = false;
+                calcularMinasAdyacentes();
+                escudoActivado = false;
+                revealEmptyCells(fila, columna);
+                revisarVictoria();
+            } else {
+                gameOver = true;
+                pararTemporizador();
+                revelarTodasMinas();
+                mostrarDerrota();
+            }
         }
         revealEmptyCells(fila, columna);
         revisarVictoria();
@@ -800,6 +821,9 @@ public class JuegoController extends AbstractController{
         iniciarTablero(configActual);
     }
 
+    /**
+     * Metodo que maneja el evento de clic en el boton de tienda
+     */
     @FXML
     private void onTiendaClick() {
         boolean tiendaVisible = mostrarTiendaVbox.isVisible();
@@ -843,12 +867,20 @@ public class JuegoController extends AbstractController{
         }
     }
 
+    /**
+     * Metodo que maneja el evento de clic en el boton de volver a la tienda
+     * Vuelve a la tienda y oculta el tablero
+     */
     @FXML
     private void onVolverTiendaClick() {
         mostrarTiendaVbox.setVisible(false);
         contenedorTablero.setVisible(true);
     }
 
+    /**
+     * Metodo que maneja el evento de clic en el boton de comprar mina fantasma
+     * Se encarga de comprar una mina fantasma y actualizar la interfaz
+     */
     @FXML
     private void onComprarMinaFantasmaClick() {
         int puntos = usuario.getPuntos();
@@ -860,6 +892,10 @@ public class JuegoController extends AbstractController{
         }
     }
 
+    /**
+     * Metodo que maneja el evento de clic en el boton de usar mina fantasma
+     * Se encarga de usar una mina fantasma y resaltar una mina aleatoria en el tablero
+     */
     @FXML
     private void onUsarMinaFantasmaClick() {
         if (minasFantasmaDisponibles > 0 && !primerClick) {
@@ -869,6 +905,10 @@ public class JuegoController extends AbstractController{
         }
     }
 
+    /**
+     * Metodo que resalta una mina aleatoria en el tablero
+     * Se encarga de resaltar una mina aleatoria en el tablero durante 5 segundos
+     */
     private void resaltarMinaAleatoria() {
         List<int[]> minasPosiciones = new ArrayList<>();
         for (int i = 0; i < configActual.filas(); i++) {
@@ -879,12 +919,11 @@ public class JuegoController extends AbstractController{
             }
         }
         if (!minasPosiciones.isEmpty()) {
-            Random rand = new Random();
-            int[] pos = minasPosiciones.get(rand.nextInt(minasPosiciones.size()));
-            Button celda = celdas[pos[0]][pos[1]];
+            Random random = new Random();
+            int[] posicion = minasPosiciones.get(random.nextInt(minasPosiciones.size()));
+            Button celda = celdas[posicion[0]][posicion[1]];
             String estiloOriginal = celda.getStyle();
             celda.setStyle(estiloOriginal + "-fx-background-color: yellow;");
-            
             Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), e -> {
                 celda.setStyle(estiloOriginal);
             }));
@@ -892,9 +931,31 @@ public class JuegoController extends AbstractController{
         }
     }
 
+    @FXML
+    private void onComprarEscudoClick() {
+        if (usuario.getPuntos() >= 0) {
+            //usuario.setPuntos(usuario.getPuntos() - 100);
+            escudosDisponibles++;
+            actualizarUI();
+        }
+    }
+
+    @FXML
+    private void onUsarEscudoClick() {
+        if (escudosDisponibles > 0 && !escudoActivado) {
+            escudoActivado = true;
+            escudosDisponibles--;
+            actualizarUI();
+        }
+    }
+
+    /**
+     * Metodo para actualizar la interfaz
+     */
     private void actualizarUI() {
         textFieldPuntosTienda.setText(String.valueOf(usuario.getPuntos()));
         usarMinaFantasmaButton.setText("Usar Mina Fantasma (Disponibles: " + minasFantasmaDisponibles + ")");
+        usarEscudoButton.setText("Escudo Activado: " + (escudoActivado ? "Sí" : "No") + " | Disponibles: " + escudosDisponibles);
     }
 
     /**
