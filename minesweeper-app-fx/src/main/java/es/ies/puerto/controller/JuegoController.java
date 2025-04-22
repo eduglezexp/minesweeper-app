@@ -14,13 +14,16 @@ import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
@@ -152,6 +155,9 @@ public class JuegoController extends AbstractController{
     private VBox mostrarTiendaVbox;
 
     @FXML 
+    private Text textPuntosTienda;
+
+    @FXML 
     private Button comprarMinaFantasmaButton;
 
     @FXML 
@@ -170,6 +176,9 @@ public class JuegoController extends AbstractController{
     private VBox mostrarInventarioVbox;
 
     @FXML 
+    private Text textPuntosInventario;
+
+    @FXML 
     private Button usarMinaFantasmaButton;
 
     @FXML 
@@ -182,13 +191,16 @@ public class JuegoController extends AbstractController{
     private VBox mostrarInformacionVbox;
 
     @FXML
+    private ImageView imageViewObjeto;
+
+    @FXML
     private Text textObjeto;       
 
     @FXML
     private Text textInformacion;
 
-    @FXML
-    private StackPane stackPaneContenedorTablero;
+    @FXML 
+    private Button salirInformacionButton;
     
     @FXML
     private VBox mostrarFinDelJuegoVbox;
@@ -204,6 +216,12 @@ public class JuegoController extends AbstractController{
 
     @FXML
     private Text textMensaje;
+
+    @FXML
+    private StackPane stackPaneContenedorTablero;
+
+    @FXML
+    private VBox mostrarMensajeVbox;
 
     @FXML
     private Button ayudaButton;
@@ -270,12 +288,7 @@ public class JuegoController extends AbstractController{
      * Metodo para iniciar el tablero
      */
     private void iniciarTablero(BoardConfig boardConfig) {
-        mostrarPersonalizarVbox.setVisible(false);
-        mostrarEstadisticasVbox.setVisible(false);
-        mostrarAyudaVBox.setVisible(false);
-        mostrarFinDelJuegoVbox.setVisible(false);
-        mostrarTiendaVbox.setVisible(false);
-        mostrarInventarioVbox.setVisible(false);
+        deshabilitarVboxes();
         stackPaneContenedorTablero.getChildren().removeIf(node -> node instanceof GridPane);
         stackPaneContenedorTablero.setVisible(true);
         GridPane tablero = crearTablero(boardConfig.filas(), boardConfig.columnas(), boardConfig.minas());
@@ -283,6 +296,19 @@ public class JuegoController extends AbstractController{
         tablero.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
         stackPaneContenedorTablero.getChildren().add(tablero);
         StackPane.setAlignment(tablero, Pos.CENTER);
+    }
+
+    /**
+     * Metodo para desactivar los vboxes
+     */
+    private void deshabilitarVboxes() {
+        mostrarPersonalizarVbox.setVisible(false);
+        mostrarEstadisticasVbox.setVisible(false);
+        mostrarAyudaVBox.setVisible(false);
+        mostrarFinDelJuegoVbox.setVisible(false);
+        mostrarTiendaVbox.setVisible(false);
+        mostrarInventarioVbox.setVisible(false);
+        mostrarMensajeVbox.setVisible(false);
     }
 
     /**
@@ -924,10 +950,13 @@ public class JuegoController extends AbstractController{
         int puntos = usuario.getPuntos();
         if (puntos >= 0) {
             //usuario.setPuntos(puntos - 50);
+            textPuntosTienda.setText(String.valueOf(usuario.getPuntos()));
+            textPuntosInventario.setText(String.valueOf(usuario.getPuntos()));
             minasFantasmaDisponibles++;
             actualizarUI();
-            usarMinaFantasmaButton.setText("Usar Mina Fantasma (Disponibles: " + minasFantasmaDisponibles + ")");
+            return;
         }
+        mostrarMensaje("No tienes suficientes puntos para comprar una mina fantasma.");
     }
 
     /**
@@ -937,10 +966,13 @@ public class JuegoController extends AbstractController{
     @FXML
     private void onUsarMinaFantasmaClick() {
         if (minasFantasmaDisponibles > 0 && !primerClick) {
-            resaltarMinaAleatoria();
             minasFantasmaDisponibles--;
+            volverAlJuegoInventario();
+            resaltarMinaAleatoria();
             actualizarUI();
+            return;
         }
+        mostrarMensaje("No tienes minas fantasma disponibles o ya has usado una.");
     }
 
     /**
@@ -978,9 +1010,13 @@ public class JuegoController extends AbstractController{
         int puntos = usuario.getPuntos();
         if (puntos >= 0) {
             //usuario.setPuntos(usuario.getPuntos() - 100);
+            textPuntosTienda.setText(String.valueOf(usuario.getPuntos()));
+            textPuntosInventario.setText(String.valueOf(usuario.getPuntos()));
             escudosDisponibles++;
             actualizarUI();
+            return;
         }
+        mostrarMensaje("No tienes suficientes puntos para comprar un escudo.");
     }
 
     /**
@@ -992,10 +1028,32 @@ public class JuegoController extends AbstractController{
         if (escudosDisponibles > 0 && !escudoActivado) {
             escudoActivado = true;
             escudosDisponibles--;
-            fadeOut(mostrarInventarioVbox, miliSegundos);
-            fadeIn(stackPaneContenedorTablero, miliSegundos);
+            volverAlJuegoInventario();
             actualizarUI();
+            return;
         }
+        mostrarMensaje("No tienes escudos disponibles o ya está activado uno.");
+    }
+
+    /**
+     * Metodo que ee encarga de volver al juego y ocultar el inventario
+     */
+    private void volverAlJuegoInventario() {
+        fadeOut(mostrarInventarioVbox, miliSegundos);
+        fadeIn(stackPaneContenedorTablero, miliSegundos);
+    }
+
+    /**
+     * Metodo para mostrar un mensaje en la interfaz
+     * @param mensaje a mostrar
+     */
+    private void mostrarMensaje(String mensaje) {
+        textMensaje.setText(mensaje);
+        fadeIn(mostrarMensajeVbox, miliSegundos);
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), 
+            e -> fadeOut(mostrarMensajeVbox, miliSegundos))
+        );
+        timeline.play();
     }
 
     /**
@@ -1108,6 +1166,59 @@ public class JuegoController extends AbstractController{
             node.setOpacity(1);
         });
         fadeTransition.play();
+    }
+
+    /**
+     * Metodo que carga la imagen del objeto en la pantalla de informacion
+     * @param nombreImagen de la imagen, debe estar en la carpeta img y
+     * junto al nombre añadir el formato de la imagen (png, jpg, etc.)
+     */
+    private void cargarImagen(String nombreImagen) {
+        try {
+            String imagePath = "/es/ies/puerto/img/" + nombreImagen;
+            Image image = new Image(getClass().getResource(imagePath).toExternalForm());
+            imageViewObjeto.setImage(image);
+        } catch (NullPointerException e) {
+            System.err.println("Error: Image not found at the specified path.");
+            imageViewObjeto.setImage(null);
+        }
+    }
+
+    /**
+     * Metodo que carga la informacion del objeto en la pantalla de informacion
+     * @param nombreImagen nombre de la imagen, debe estar en la carpeta img y
+     * junto al nombre añadir el formato de la imagen (png, jpg, etc.)
+     * @param claveObjeto es la clave del objeto en el archivo de propiedades de idiomas
+     * @param claveInformacion es la clave de la informacion en el archivo de propiedades de idiomas
+     */
+    private void cargarInformacionObjeto(String nombreImagen, String claveObjeto, String claveInformacion) {
+        fadeIn(mostrarInformacionVbox, miliSegundos);
+        cargarImagen(nombreImagen);
+        textObjeto.setText(ConfigManager.ConfigProperties.getProperty(claveObjeto));
+        textInformacion.setText(ConfigManager.ConfigProperties.getProperty(claveInformacion));
+    }
+
+    /**
+     * Maneja el evento de clic en el boton de informacion del escudo
+     * Muestra la informacion del escudo en la interfaz
+     */
+    @FXML
+    protected void onEscudoInformacionClick() {
+        cargarInformacionObjeto("usuario.png", "escudo", "infoEscudo");
+    }
+
+    @FXML
+    protected void onFantasmaInformacionClick() {
+        cargarInformacionObjeto("usuario.png", "fantasma", "infoFantasma");
+    }
+
+    /**
+     * Metodo para salir de la pantalla de informacion del objeto
+     * Se encarga de ocultar la pantalla de informacion y volver a la tienda o inventario
+     */
+    @FXML
+    protected void onSalirInfomacionClick() {
+        fadeOut(mostrarInformacionVbox, miliSegundos);
     }
 
     /**

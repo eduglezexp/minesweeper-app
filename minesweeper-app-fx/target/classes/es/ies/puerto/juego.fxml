@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.ScrollPane?>
@@ -94,31 +95,6 @@
          </children>
       </HBox>
    </top>
-   <bottom>
-      <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="350.0" BorderPane.alignment="CENTER">
-         <children>
-            <Text fx:id="textMensaje" strokeType="OUTSIDE" strokeWidth="0.0">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </Text>
-            <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="350.0" translateY="-5.0">
-               <children>
-                  <Button fx:id="ayudaButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAyudaClick" prefHeight="25.0" prefWidth="100.0" text="Ayuda">
-                     <HBox.margin>
-                        <Insets right="10.0" />
-                     </HBox.margin></Button>
-                  <Button fx:id="inventarioButton" mnemonicParsing="false" onAction="#onInventarioClick" text="Inventario" />
-                  <Button fx:id="buttonVolverAtras" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onVolverAtrasClick" prefHeight="25.0" prefWidth="100.0" text="Volver Atrás">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-            </HBox>
-         </children>
-      </VBox>
-   </bottom>
    <center>
       <StackPane fx:id="stackPaneMostrarPantallas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="300.0" BorderPane.alignment="CENTER">
          <children>
@@ -314,31 +290,61 @@
                                        <children>
                                           <VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="115.0" prefWidth="100.0">
                                              <children>
-                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="Escudo" />
-                                                <Button fx:id="comprarEscudoButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onComprarEscudoClick" prefWidth="80.0" text="Comprar">
+                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onEscudoInformacionClick" prefHeight="80.0" prefWidth="80.0" text="Escudo" />
+                                                <Button fx:id="comprarEscudoButton" contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onComprarEscudoClick" prefHeight="25.0" prefWidth="80.0" text="Comprar">
                                                    <VBox.margin>
                                                       <Insets bottom="10.0" />
                                                    </VBox.margin>
+                                                   <graphic>
+                                                      <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@img/usuario.png" />
+                                                         </image>
+                                                         <cursor>
+                                                            <Cursor fx:constant="DEFAULT" />
+                                                         </cursor>
+                                                      </ImageView>
+                                                   </graphic>
                                                 </Button>
                                              </children>
                                           </VBox>
                                           <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
                                              <children>
-                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="Fantasma" />
-                                                <Button fx:id="comprarMinaFantasmaButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onComprarMinaFantasmaClick" prefWidth="80.0" text="Comprar">
+                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onFantasmaInformacionClick" prefHeight="80.0" prefWidth="80.0" text="Fantasma" />
+                                                <Button fx:id="comprarMinaFantasmaButton" contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onComprarMinaFantasmaClick" prefHeight="25.0" prefWidth="80.0" text="Comprar">
                                                    <VBox.margin>
                                                       <Insets bottom="10.0" />
                                                    </VBox.margin>
+                                                   <graphic>
+                                                      <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@img/usuario.png" />
+                                                         </image>
+                                                         <cursor>
+                                                            <Cursor fx:constant="DEFAULT" />
+                                                         </cursor>
+                                                      </ImageView>
+                                                   </graphic>
                                                 </Button>
                                              </children>
                                           </VBox>
                                           <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="100.0">
                                              <children>
                                                 <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="Zona Segura" />
-                                                <Button fx:id="comprarZonaSeguraButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onComprarZonaSeguraClick" prefWidth="80.0" text="Comprar">
+                                                <Button fx:id="comprarZonaSeguraButton" contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onComprarZonaSeguraClick" prefHeight="25.0" prefWidth="80.0" text="Comprar">
                                                    <VBox.margin>
                                                       <Insets bottom="10.0" />
                                                    </VBox.margin>
+                                                   <graphic>
+                                                      <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@img/usuario.png" />
+                                                         </image>
+                                                         <cursor>
+                                                            <Cursor fx:constant="DEFAULT" />
+                                                         </cursor>
+                                                      </ImageView>
+                                                   </graphic>
                                                 </Button>
                                              </children>
                                           </VBox>
@@ -364,30 +370,60 @@
                                           <VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="115.0" prefWidth="100.0">
                                              <children>
                                                 <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" />
-                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="80.0" text="Comprar">
+                                                <Button contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Comprar">
                                                    <VBox.margin>
                                                       <Insets bottom="10.0" />
                                                    </VBox.margin>
+                                                   <graphic>
+                                                      <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@img/usuario.png" />
+                                                         </image>
+                                                         <cursor>
+                                                            <Cursor fx:constant="DEFAULT" />
+                                                         </cursor>
+                                                      </ImageView>
+                                                   </graphic>
                                                 </Button>
                                              </children>
                                           </VBox>
                                           <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
                                              <children>
                                                 <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" />
-                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="80.0" text="Comprar">
+                                                <Button contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Comprar">
                                                    <VBox.margin>
                                                       <Insets bottom="10.0" />
                                                    </VBox.margin>
+                                                   <graphic>
+                                                      <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@img/usuario.png" />
+                                                         </image>
+                                                         <cursor>
+                                                            <Cursor fx:constant="DEFAULT" />
+                                                         </cursor>
+                                                      </ImageView>
+                                                   </graphic>
                                                 </Button>
                                              </children>
                                           </VBox>
                                           <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="100.0">
                                              <children>
                                                 <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" />
-                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="80.0" text="Comprar">
+                                                <Button contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Comprar">
                                                    <VBox.margin>
                                                       <Insets bottom="10.0" />
                                                    </VBox.margin>
+                                                   <graphic>
+                                                      <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@img/usuario.png" />
+                                                         </image>
+                                                         <cursor>
+                                                            <Cursor fx:constant="DEFAULT" />
+                                                         </cursor>
+                                                      </ImageView>
+                                                   </graphic>
                                                 </Button>
                                              </children>
                                           </VBox>
@@ -404,7 +440,7 @@
                   </ScrollPane>
                </children>
             </VBox>
-            <VBox fx:id="mostrarInventarioVbox" prefHeight="200.0" prefWidth="100.0">
+            <VBox fx:id="mostrarInventarioVbox" prefHeight="200.0" prefWidth="100.0" visible="false">
                <children>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
@@ -447,7 +483,7 @@
                                        <children>
                                           <VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="115.0" prefWidth="100.0">
                                              <children>
-                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="Escudo" />
+                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onEscudoInformacionClick" prefHeight="80.0" prefWidth="80.0" text="Escudo" />
                                                 <Button fx:id="usarEscudoButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onUsarEscudoClick" prefWidth="80.0" text="Usar">
                                                    <VBox.margin>
                                                       <Insets bottom="10.0" />
@@ -457,7 +493,7 @@
                                           </VBox>
                                           <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
                                              <children>
-                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="Fantasma" />
+                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onFantasmaInformacionClick" prefHeight="80.0" prefWidth="80.0" text="Fantasma" />
                                                 <Button fx:id="usarMinaFantasmaButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onUsarMinaFantasmaClick" prefWidth="80.0" text="Usar">
                                                    <VBox.margin>
                                                       <Insets bottom="10.0" />
@@ -491,13 +527,9 @@
                   </ScrollPane>
                </children>
             </VBox>
-            <VBox fx:id="mostrarInformacionVbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="300.0" visible="false">
+            <VBox fx:id="mostrarInformacionVbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="300.0" visible="false">
                <children>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@img/bomb.png" />
-                     </image>
-                  </ImageView>
+                  <ImageView fx:id="imageViewObjeto" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" />
                   <Text fx:id="textObjeto" strokeType="OUTSIDE" strokeWidth="0.0" text="Objeto">
                      <font>
                         <Font size="24.0" />
@@ -507,30 +539,62 @@
                      </VBox.margin>
                   </Text>
                   <Text fx:id="textInformacion" strokeType="OUTSIDE" strokeWidth="0.0" text="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" wrappingWidth="250.0" />
+                  <Button fx:id="salirInformacionButton" mnemonicParsing="false" onAction="#onSalirInfomacionClick" text="Volver">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
                </children>
             </VBox>
-            <StackPane fx:id="stackPaneContenedorTablero" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="300.0">
+            <VBox fx:id="mostrarFinDelJuegoVbox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" visible="false">
                <children>
-                  <VBox fx:id="mostrarFinDelJuegoVbox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <Text fx:id="textFinJuego" strokeType="OUTSIDE" strokeWidth="0.0" text="Fin de la partida" visible="false">
-                           <font>
-                              <Font size="36.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="20.0" />
-                           </VBox.margin>
-                        </Text>
-                        <Text fx:id="textResultado" strokeType="OUTSIDE" strokeWidth="0.0" text="resultado" visible="false">
-                           <VBox.margin>
-                              <Insets bottom="20.0" />
-                           </VBox.margin>
-                        </Text>
-                        <Button fx:id="reintentarButton" mnemonicParsing="false" onAction="#onReintentarClick" text="Reintentar" visible="false" />
-                     </children>
-                  </VBox>
-               </children></StackPane>
+                  <Text fx:id="textFinJuego" strokeType="OUTSIDE" strokeWidth="0.0" text="Fin de la partida" visible="false">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </Text>
+                  <Text fx:id="textResultado" strokeType="OUTSIDE" strokeWidth="0.0" text="resultado" visible="false">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </Text>
+                  <Button fx:id="reintentarButton" mnemonicParsing="false" onAction="#onReintentarClick" text="Reintentar" visible="false" />
+               </children>
+            </VBox>
+            <VBox fx:id="mostrarMensajeVbox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Text fx:id="textMensaje" strokeType="OUTSIDE" strokeWidth="0.0">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+               </children>
+            </VBox>
+            <StackPane fx:id="stackPaneContenedorTablero" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="300.0" />
          </children>
       </StackPane>
    </center>
+   <bottom>
+      <HBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="350.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="ayudaButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAyudaClick" prefHeight="25.0" prefWidth="100.0" text="Ayuda">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="inventarioButton" mnemonicParsing="false" onAction="#onInventarioClick" text="Inventario" />
+            <Button fx:id="buttonVolverAtras" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onVolverAtrasClick" prefHeight="25.0" prefWidth="100.0" text="Volver Atrás">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+   </bottom>
 </BorderPane>
