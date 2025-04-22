@@ -88,8 +88,11 @@ public class UsuarioService extends Conexion{
                 int victoriesStr = resultado.getInt("victories");
                 int defeatsStr = resultado.getInt("defeats");
                 int idNivel = resultado.getInt("id_nivel");
+                int rachaActualStr = resultado.getInt("racha_actual");
+                int mejorRachaStr = resultado.getInt("mejor_racha");
                 UsuarioEntity usuarioEntityModel = new UsuarioEntity(usuarioId, usuarioStr, 
-                emailStr, nombreStr, contraseniaStr, pointsStr, victoriesStr, defeatsStr, idNivel);
+                emailStr, nombreStr, contraseniaStr, pointsStr, victoriesStr, defeatsStr, 
+                idNivel, rachaActualStr, mejorRachaStr);
                 usuarios.add(usuarioEntityModel);
             }
         } catch (Exception e) {

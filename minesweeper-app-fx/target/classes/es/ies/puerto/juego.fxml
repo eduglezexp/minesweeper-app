@@ -404,7 +404,7 @@
                   </ScrollPane>
                </children>
             </VBox>
-            <VBox fx:id="mostrarInventarioVbox" prefHeight="200.0" prefWidth="100.0" visible="false">
+            <VBox fx:id="mostrarInventarioVbox" prefHeight="200.0" prefWidth="100.0">
                <children>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
@@ -436,56 +436,45 @@
                      <content>
                         <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="300.0">
                            <children>
-                              <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="300.0">
+                              <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="300.0">
                                  <children>
                                     <Text fx:id="textPotenciadoresInventario" strokeType="OUTSIDE" strokeWidth="0.0" text="Potenciadores">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
                                     </Text>
-                                    <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="280.0">
+                                    <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="126.0" prefWidth="280.0">
                                        <children>
-                                          <Button fx:id="usarEscudoButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onUsarEscudoClick" prefHeight="80.0" prefWidth="80.0" text="Escudo">
-                                             <HBox.margin>
-                                                <Insets right="20.0" />
-                                             </HBox.margin>
-                                          </Button>
-                                          <Button fx:id="usarMinaFantasmaButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onUsarMinaFantasmaClick" prefHeight="80.0" prefWidth="80.0" text="Fantasma" />
-                                          <Button fx:id="usarZonaSeguraButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onUsarZonaSeguraClick" prefHeight="80.0" prefWidth="80.0" text="Zona Segura">
-                                             <HBox.margin>
-                                                <Insets left="20.0" />
-                                             </HBox.margin>
-                                          </Button>
-                                       </children>
-                                       <opaqueInsets>
-                                          <Insets />
-                                       </opaqueInsets>
-                                       <VBox.margin>
-                                          <Insets />
-                                       </VBox.margin>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                              <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="300.0">
-                                 <children>
-                                    <Text fx:id="textTemasInventario" strokeType="OUTSIDE" strokeWidth="0.0" text="Temas">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Text>
-                                    <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="280.0">
-                                       <children>
-                                          <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0">
-                                             <HBox.margin>
-                                                <Insets right="20.0" />
-                                             </HBox.margin>
-                                          </Button>
-                                          <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" />
-                                          <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0">
-                                             <HBox.margin>
-                                                <Insets left="20.0" />
-                                             </HBox.margin>
-                                          </Button>
+                                          <VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="115.0" prefWidth="100.0">
+                                             <children>
+                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="Escudo" />
+                                                <Button fx:id="usarEscudoButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onUsarEscudoClick" prefWidth="80.0" text="Usar">
+                                                   <VBox.margin>
+                                                      <Insets bottom="10.0" />
+                                                   </VBox.margin>
+                                                </Button>
+                                             </children>
+                                          </VBox>
+                                          <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
+                                             <children>
+                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="Fantasma" />
+                                                <Button fx:id="usarMinaFantasmaButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onUsarMinaFantasmaClick" prefWidth="80.0" text="Usar">
+                                                   <VBox.margin>
+                                                      <Insets bottom="10.0" />
+                                                   </VBox.margin>
+                                                </Button>
+                                             </children>
+                                          </VBox>
+                                          <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="100.0">
+                                             <children>
+                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="Zona Segura" />
+                                                <Button fx:id="usarZonaSeguraButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onUsarZonaSeguraClick" prefWidth="80.0" text="Usar">
+                                                   <VBox.margin>
+                                                      <Insets bottom="10.0" />
+                                                   </VBox.margin>
+                                                </Button>
+                                             </children>
+                                          </VBox>
                                        </children>
                                        <opaqueInsets>
                                           <Insets />
@@ -500,7 +489,6 @@
                         </VBox>
                      </content>
                   </ScrollPane>
-                  <VBox prefHeight="200.0" prefWidth="100.0" />
                </children>
             </VBox>
             <VBox fx:id="mostrarInformacionVbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="300.0" visible="false">

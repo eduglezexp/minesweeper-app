@@ -52,29 +52,6 @@ public class UsuarioEntity {
     }
 
     /**
-     * Constructor con casi todas las propiedades menos el id
-     * @param usuario nick del usuario
-     * @param email del usuario
-     * @param nombre del usuario
-     * @param password del usuario
-     * @param puntos del usuario
-     * @param victorias del usuario
-     * @param derrotas del usuario
-     * @param idNivel del usuario
-     */
-    public UsuarioEntity(String usuario, String email, String nombre, String password, int puntos,
-        int victorias, int derrotas, int idNivel) {
-        this.user = usuario;
-        this.email = email;
-        this.name = nombre;
-        this.password = password;
-        this.puntos = puntos;
-        this.victorias = victorias;
-        this.derrotas = derrotas;
-        this.idNivel = idNivel;
-    }
-
-    /**
      * Constructor con todas las propiedades
      * @param id identificador del usuario
      * @param usuario nick del usuario
@@ -85,9 +62,11 @@ public class UsuarioEntity {
      * @param victorias del usuario
      * @param derrotas del usuario
      * @param idNivel del usuario
+     * @param rachaActual del usuario
+     * @param mejorRacha del usuario
      */
     public UsuarioEntity(int id, String user, String email, String name, String password, int puntos,
-        int victorias, int derrotas, int idNivel) {
+        int victorias, int derrotas, int idNivel, int rachaActual, int mejorRacha) {
         this.id = id;
         this.user = user;
         this.email = email;
@@ -97,6 +76,8 @@ public class UsuarioEntity {
         this.victorias = victorias;
         this.derrotas = derrotas;
         this.idNivel = idNivel;
+        this.rachaActual = rachaActual;
+        this.mejorRacha = mejorRacha;
     }
     
     /**
@@ -192,9 +173,9 @@ public class UsuarioEntity {
 
     @Override
     public String toString() {
-        return "UsuarioEntitySqlite [id=" + id + ", user=" + user + ", name=" + name + ", email=" + email
-                + ", password=" + password + ", puntos=" + puntos + ", victorias=" + victorias + ", derrotas="
-                + derrotas + ", idNivel=" + idNivel + "]";
+        return "UsuarioEntity [id=" + id + ", user=" + user + ", name=" + name + ", email=" + email + ", password="
+                + password + ", puntos=" + puntos + ", victorias=" + victorias + ", derrotas=" + derrotas
+                + ", rachaActual=" + rachaActual + ", mejorRacha=" + mejorRacha + ", idNivel=" + idNivel + "]";
     }
 
     @Override

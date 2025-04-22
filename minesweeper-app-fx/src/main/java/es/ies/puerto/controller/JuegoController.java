@@ -10,11 +10,13 @@ import es.ies.puerto.config.ConfigManager;
 import es.ies.puerto.controller.abstractas.AbstractController;
 import es.ies.puerto.controller.enums.VistaActual;
 import es.ies.puerto.model.entities.UsuarioEntity;
+import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -177,6 +179,15 @@ public class JuegoController extends AbstractController{
     private Button usarZonaSeguraButton;
 
     @FXML
+    private VBox mostrarInformacionVbox;
+
+    @FXML
+    private Text textObjeto;       
+
+    @FXML
+    private Text textInformacion;
+
+    @FXML
     private StackPane stackPaneContenedorTablero;
     
     @FXML
@@ -219,8 +230,7 @@ public class JuegoController extends AbstractController{
     private int escudosDisponibles = 0;
     private boolean escudoActivado = false;
     private int zonasSegurasDisponibles = 0;
-    private int primeraFila = -1;
-    private int primeraColumna = -1;
+    private int miliSegundos = 300;
     private UsuarioEntity usuario;
 
     /**
@@ -251,11 +261,10 @@ public class JuegoController extends AbstractController{
             textFieldPuntos.setText(String.valueOf(usuario.getPuntos()));
             textFieldVictorias.setText(String.valueOf(usuario.getVictorias()));
             textFieldDerrotas.setText(String.valueOf(usuario.getDerrotas()));
-            //textFieldRacha.setText(String.valueOf(usuario.getRachaActual()));
-            //textFieldMejorRacha.setText(String.valueOf(usuario.getMejorRacha()));
+            textFieldRacha.setText(String.valueOf(usuario.getRachaActual()));
+            textFieldMejorRacha.setText(String.valueOf(usuario.getMejorRacha()));
         }      
     }
-    
 
     /**
      * Metodo para iniciar el tablero
@@ -505,8 +514,6 @@ public class JuegoController extends AbstractController{
     
         if (primerClick) {
             primerClick = false;
-            primeraFila = fila;
-            primeraColumna = columna;
             colocarMinasEvitarPrimeraCasilla(fila, columna);
             EmpezarTiempo();
         }
@@ -701,8 +708,8 @@ public class JuegoController extends AbstractController{
      */
     @FXML
     protected void onRegresarClick() {
-        mostrarPersonalizarVbox.setVisible(false);
-        stackPaneContenedorTablero.setVisible(true);
+        fadeOut(mostrarPersonalizarVbox, miliSegundos);
+        fadeIn(stackPaneContenedorTablero, miliSegundos);
         regresarButton.setVisible(false);
         personalizarButton.setVisible(true);
         textMensajePersonalizar.setText("");
@@ -714,12 +721,12 @@ public class JuegoController extends AbstractController{
      */
     @FXML
     protected void onPersonalizarClick() {
-        stackPaneContenedorTablero.setVisible(false);
-        mostrarEstadisticasVbox.setVisible(false);
-        mostrarAyudaVBox.setVisible(false);
-        mostrarTiendaVbox.setVisible(false);
-        mostrarInventarioVbox.setVisible(false);
-        mostrarPersonalizarVbox.setVisible(true);
+        fadeOut(stackPaneContenedorTablero, miliSegundos);
+        fadeOut(mostrarEstadisticasVbox, miliSegundos);
+        fadeOut(mostrarAyudaVBox, miliSegundos);
+        fadeOut(mostrarTiendaVbox, miliSegundos);
+        fadeOut(mostrarInventarioVbox, miliSegundos);
+        fadeIn(mostrarPersonalizarVbox, miliSegundos);
         personalizarButton.setVisible(false);
         regresarButton.setVisible(true);
         textMensajePersonalizar.setText("");
@@ -742,22 +749,22 @@ public class JuegoController extends AbstractController{
     protected void onEstadisticasClick() {
         boolean estadisticasVisible = mostrarEstadisticasVbox.isVisible();
         if (estadisticasVisible) {
-            mostrarEstadisticasVbox.setVisible(false);
+            fadeOut(mostrarEstadisticasVbox, miliSegundos);
             switch (vistaAnterior) {
-                case PERSONALIZACION:
-                    mostrarPersonalizarVbox.setVisible(true);
+                case PERSONALIZACION: 
+                    fadeIn(mostrarPersonalizarVbox, miliSegundos); 
                     break;
-                case AYUDA:
-                    mostrarAyudaVBox.setVisible(true);
+                case AYUDA:          
+                    fadeIn(mostrarAyudaVBox, miliSegundos);      
                     break;
-                case TIENDA:
-                    mostrarTiendaVbox.setVisible(true);
+                case TIENDA:         
+                    fadeIn(mostrarTiendaVbox, miliSegundos);     
                     break;
-                case INVENTARIO:
-                    mostrarInventarioVbox.setVisible(true);
+                case INVENTARIO:     
+                    fadeIn(mostrarInventarioVbox, miliSegundos); 
                     break;
-                default:
-                    stackPaneContenedorTablero.setVisible(true); 
+                default:             
+                    fadeIn(stackPaneContenedorTablero, miliSegundos); 
                     if (primerClick) {
                         pausarTemporizador(false); 
                     } else {
@@ -768,21 +775,20 @@ public class JuegoController extends AbstractController{
         } else {
             if (mostrarPersonalizarVbox.isVisible()) {
                 vistaAnterior = VistaActual.PERSONALIZACION;
-            } else if (mostrarAyudaVBox.isVisible()) {
-                vistaAnterior = VistaActual.AYUDA;
-            } else if (mostrarTiendaVbox.isVisible()) {
-                vistaAnterior = VistaActual.TIENDA;
+            } else if (mostrarInventarioVbox.isVisible()) {
+                vistaAnterior = VistaActual.INVENTARIO;
+            } else if (mostrarEstadisticasVbox.isVisible()) {
+                vistaAnterior = VistaActual.ESTADISTICAS;
             } else {
                 vistaAnterior = VistaActual.TABLERO;
-                
             }
-            mostrarPersonalizarVbox.setVisible(false);
-            stackPaneContenedorTablero.setVisible(false);
-            mostrarAyudaVBox.setVisible(false);
-            mostrarTiendaVbox.setVisible(false);
-            mostrarInventarioVbox.setVisible(false);
-            mostrarEstadisticasVbox.setVisible(true);
-            pausarTemporizador(false); 
+            fadeOut(mostrarPersonalizarVbox, miliSegundos);
+            fadeOut(mostrarAyudaVBox, miliSegundos);
+            fadeOut(mostrarTiendaVbox, miliSegundos);
+            fadeOut(mostrarInventarioVbox, miliSegundos);
+            fadeOut(stackPaneContenedorTablero, miliSegundos);
+            fadeIn(mostrarEstadisticasVbox, miliSegundos);
+            pausarTemporizador(false);
         }
     }
 
@@ -793,22 +799,22 @@ public class JuegoController extends AbstractController{
     protected void onAyudaClick() {
         boolean ayudaVisible = mostrarAyudaVBox.isVisible();
         if (ayudaVisible) {
-            mostrarAyudaVBox.setVisible(false);
+            fadeOut(mostrarAyudaVBox, miliSegundos);
             switch (vistaAnterior) {
-                case PERSONALIZACION:
-                    mostrarPersonalizarVbox.setVisible(true);
+                case PERSONALIZACION: 
+                    fadeIn(mostrarPersonalizarVbox, miliSegundos); 
                     break;
-                case ESTADISTICAS:
-                    mostrarEstadisticasVbox.setVisible(true);
+                case ESTADISTICAS:   
+                    fadeIn(mostrarEstadisticasVbox, miliSegundos); 
                     break;
-                case TIENDA:
-                    mostrarTiendaVbox.setVisible(true);
+                case TIENDA:         
+                    fadeIn(mostrarTiendaVbox, miliSegundos);      
                     break;
-                case INVENTARIO:
-                    mostrarInventarioVbox.setVisible(true);
+                case INVENTARIO:     
+                    fadeIn(mostrarInventarioVbox, miliSegundos);  
                     break;
-                default:
-                    stackPaneContenedorTablero.setVisible(true);
+                default:             
+                    fadeIn(stackPaneContenedorTablero, miliSegundos); 
                     if (primerClick) {
                         pausarTemporizador(false); 
                     } else {
@@ -826,12 +832,12 @@ public class JuegoController extends AbstractController{
             } else {
                 vistaAnterior = VistaActual.TABLERO;
             }
-            mostrarPersonalizarVbox.setVisible(false);
-            mostrarEstadisticasVbox.setVisible(false);
-            mostrarTiendaVbox.setVisible(false);
-            mostrarInventarioVbox.setVisible(false);
-            stackPaneContenedorTablero.setVisible(false);
-            mostrarAyudaVBox.setVisible(true);
+            fadeOut(mostrarPersonalizarVbox, miliSegundos);
+            fadeOut(mostrarEstadisticasVbox, miliSegundos);
+            fadeOut(mostrarTiendaVbox, miliSegundos);
+            fadeOut(mostrarInventarioVbox, miliSegundos);
+            fadeOut(stackPaneContenedorTablero, miliSegundos);
+            fadeIn(mostrarAyudaVBox, miliSegundos);
             pausarTemporizador(false);
         }
     }
@@ -842,10 +848,10 @@ public class JuegoController extends AbstractController{
      */
     @FXML
     protected void onReintentarClick() {
-        mostrarFinDelJuegoVbox.setVisible(false);
-        textFinJuego.setVisible(false);
-        textResultado.setVisible(false);
-        reintentarButton.setVisible(false);
+        fadeOut(mostrarFinDelJuegoVbox, miliSegundos);
+        fadeOut(textFinJuego, miliSegundos);
+        fadeOut(textResultado, miliSegundos);
+        fadeOut(reintentarButton, miliSegundos);
         iniciarTablero(configActual);
     }
 
@@ -856,22 +862,22 @@ public class JuegoController extends AbstractController{
     private void onTiendaClick() {
         boolean tiendaVisible = mostrarTiendaVbox.isVisible();
         if (tiendaVisible) {
-            mostrarTiendaVbox.setVisible(false);
+            fadeOut(mostrarTiendaVbox, miliSegundos);
             switch (vistaAnterior) {
                 case PERSONALIZACION:
-                    mostrarPersonalizarVbox.setVisible(true);
+                    fadeIn(mostrarPersonalizarVbox, miliSegundos);
                     break;
                 case ESTADISTICAS:
-                    mostrarEstadisticasVbox.setVisible(true);
+                    fadeIn(mostrarEstadisticasVbox, miliSegundos);
                     break;
                 case AYUDA:
-                    mostrarAyudaVBox.setVisible(true);
+                    fadeIn(mostrarAyudaVBox, miliSegundos);
                     break;
                 case INVENTARIO:
-                    mostrarInventarioVbox.setVisible(true);
+                    fadeIn(mostrarInventarioVbox, miliSegundos);
                     break;
                 default:
-                    stackPaneContenedorTablero.setVisible(true);
+                    fadeIn(stackPaneContenedorTablero, miliSegundos);
                     if (primerClick) {
                         pausarTemporizador(false); 
                     } else {
@@ -889,12 +895,12 @@ public class JuegoController extends AbstractController{
             } else {
                 vistaAnterior = VistaActual.TABLERO;
             }
-            mostrarPersonalizarVbox.setVisible(false);
-            mostrarEstadisticasVbox.setVisible(false);
-            mostrarAyudaVBox.setVisible(false);
-            mostrarInventarioVbox.setVisible(false);
-            stackPaneContenedorTablero.setVisible(false);
-            mostrarTiendaVbox.setVisible(true);
+            fadeOut(mostrarPersonalizarVbox, miliSegundos);
+            fadeOut(mostrarAyudaVBox, miliSegundos);
+            fadeOut(mostrarEstadisticasVbox, miliSegundos);
+            fadeOut(mostrarInventarioVbox, miliSegundos);
+            fadeOut(stackPaneContenedorTablero, miliSegundos);
+            fadeIn(mostrarTiendaVbox, miliSegundos);
             pausarTemporizador(false);
         }
     }
@@ -905,8 +911,8 @@ public class JuegoController extends AbstractController{
      */
     @FXML
     private void onVolverTiendaClick() {
-        mostrarTiendaVbox.setVisible(false);
-        stackPaneContenedorTablero.setVisible(true);
+        fadeOut(mostrarTiendaVbox, miliSegundos);
+        fadeIn(stackPaneContenedorTablero, miliSegundos);
     }
 
     /**
@@ -986,6 +992,8 @@ public class JuegoController extends AbstractController{
         if (escudosDisponibles > 0 && !escudoActivado) {
             escudoActivado = true;
             escudosDisponibles--;
+            fadeOut(mostrarInventarioVbox, miliSegundos);
+            fadeIn(stackPaneContenedorTablero, miliSegundos);
             actualizarUI();
         }
     }
@@ -1021,22 +1029,22 @@ public class JuegoController extends AbstractController{
     private void onInventarioClick() {
         boolean inventarioVisible = mostrarInventarioVbox.isVisible();
         if (inventarioVisible) {
-            mostrarInventarioVbox.setVisible(false);
+            fadeOut(mostrarInventarioVbox, miliSegundos);
             switch (vistaAnterior) {
-                case PERSONALIZACION:
-                    mostrarPersonalizarVbox.setVisible(true);
+                case PERSONALIZACION: 
+                    fadeIn(mostrarPersonalizarVbox, miliSegundos); 
                     break;
-                case ESTADISTICAS:
-                    mostrarEstadisticasVbox.setVisible(true);
+                case ESTADISTICAS:   
+                    fadeIn(mostrarEstadisticasVbox, miliSegundos); 
                     break;
-                case AYUDA:
-                    mostrarAyudaVBox.setVisible(true);
+                case AYUDA:          
+                    fadeIn(mostrarAyudaVBox, miliSegundos);      
                     break;
-                case TIENDA:
-                    mostrarTiendaVbox.setVisible(true);
+                case TIENDA:         
+                    fadeIn(mostrarTiendaVbox, miliSegundos);     
                     break;
-                default:
-                    stackPaneContenedorTablero.setVisible(true);
+                default:             
+                    fadeIn(stackPaneContenedorTablero, miliSegundos); 
                     if (primerClick) {
                         pausarTemporizador(false); 
                     } else {
@@ -1051,15 +1059,17 @@ public class JuegoController extends AbstractController{
                 vistaAnterior = VistaActual.ESTADISTICAS;
             } else if (mostrarAyudaVBox.isVisible()) {
                 vistaAnterior = VistaActual.AYUDA;
+            } else if (mostrarTiendaVbox.isVisible()) {
+                vistaAnterior = VistaActual.TIENDA;
             } else {
                 vistaAnterior = VistaActual.TABLERO;
-            }
-            mostrarPersonalizarVbox.setVisible(false);
-            mostrarEstadisticasVbox.setVisible(false);
-            mostrarAyudaVBox.setVisible(false);
-            mostrarTiendaVbox.setVisible(false);
-            stackPaneContenedorTablero.setVisible(false);
-            mostrarInventarioVbox.setVisible(true);
+            } 
+            fadeOut(mostrarPersonalizarVbox, miliSegundos);
+            fadeOut(mostrarEstadisticasVbox, miliSegundos);
+            fadeOut(mostrarAyudaVBox, miliSegundos);
+            fadeOut(mostrarTiendaVbox, miliSegundos);
+            fadeOut(stackPaneContenedorTablero, miliSegundos);
+            fadeIn(mostrarInventarioVbox, miliSegundos);
             pausarTemporizador(false);
         }
     }
@@ -1071,6 +1081,33 @@ public class JuegoController extends AbstractController{
         usarMinaFantasmaButton.setText("Usar Mina Fantasma (Disponibles: " + minasFantasmaDisponibles + ")");
         usarEscudoButton.setText("Escudo Activado: " + (escudoActivado ? "Sí" : "No") + " | Disponibles: " + escudosDisponibles);
         usarZonaSeguraButton.setText("Usar Zona Segura (Disponibles: " + zonasSegurasDisponibles + ")");
+    }
+
+     /** 
+      * Hace un fade-in (opacidad 0→1) y deja el nodo visible 
+      */
+    private void fadeIn(Node node, double millis) {
+        node.setOpacity(0);
+        node.setVisible(true);
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(millis), node);
+        fadeTransition.setFromValue(0);
+        fadeTransition.setToValue(1);
+        fadeTransition.play();
+    }
+
+    /** 
+     * Hace un fade-out (1→0) y al terminar oculta el nodo
+     * 
+     */
+    private void fadeOut(Node node, double millis) {
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(millis), node);
+        fadeTransition.setFromValue(1);
+        fadeTransition.setToValue(0);
+        fadeTransition.setOnFinished(e -> {
+            node.setVisible(false);
+            node.setOpacity(1);
+        });
+        fadeTransition.play();
     }
 
     /**
