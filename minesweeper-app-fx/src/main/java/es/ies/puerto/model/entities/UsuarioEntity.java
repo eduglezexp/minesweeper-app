@@ -18,6 +18,8 @@ public class UsuarioEntity {
     private int victorias;
     private int derrotas;
     private int idNivel;
+    private int rachaActual;   
+    private int mejorRacha;
 
     /**
      * Constructor por defecto
@@ -171,6 +173,22 @@ public class UsuarioEntity {
     public void setIdNivel(int idNivel) {
         this.idNivel = idNivel;
     }  
+
+    public int getRachaActual() {
+        return rachaActual;
+    }
+
+    public void setRachaActual(int rachaActual) {
+        this.rachaActual = rachaActual;
+    }
+
+    public int getMejorRacha() {
+        return mejorRacha;
+    }
+
+    public void setMejorRacha(int mejorRacha) {
+        this.mejorRacha = mejorRacha;
+    }
 
     @Override
     public String toString() {

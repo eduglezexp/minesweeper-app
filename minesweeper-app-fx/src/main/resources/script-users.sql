@@ -6,6 +6,12 @@ DROP TABLE IF EXISTS objetos;
 DROP TABLE IF EXISTS usuarios;
 DROP TABLE IF EXISTS nivel_traducciones;
 DROP TABLE IF EXISTS niveles;
+DROP TABLE IF EXISTS powerup_traducciones;
+DROP TABLE IF EXISTS usuario_powerups;
+DROP TABLE IF EXISTS powerups;
+DROP TABLE IF EXISTS tema_traducciones;
+DROP TABLE IF EXISTS usuario_temas;
+DROP TABLE IF EXISTS temas; 
 
 PRAGMA foreign_keys = ON;
 
@@ -57,6 +63,8 @@ CREATE TABLE usuarios (
     victories  INTEGER DEFAULT 0,
     defeats    INTEGER DEFAULT 0,
     id_nivel   INTEGER NOT NULL,
+    racha_actual INTEGER DEFAULT 0,
+    mejor_racha INTEGER DEFAULT 0,
     FOREIGN KEY (id_nivel) REFERENCES niveles(id)
 );
 
@@ -112,3 +120,94 @@ INSERT INTO objeto_traducciones (id_objeto, idioma, objeto, ejemplo) VALUES
     (3, 'en', 'cascade','Reveal multiple cells at once'),
     (3, 'es', 'cascada','Revelar varias casillas a la vez'),
     (3, 'fr', 'cascade','Révéler plusieurs cases à la fois');
+
+CREATE TABLE temas (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    clave TEXT UNIQUE NOT NULL, 
+    costo INTEGER NOT NULL DEFAULT 150,
+    css TEXT NOT NULL 
+);
+
+-- Inserción de temas
+INSERT INTO temas (clave, costo, css) VALUES
+    ('oscuro', 150, '/css/oscuro.css'),
+    ('naturaleza', 150, '/css/naturaleza.css'),
+    ('retro', 150, '/css/retro.css');
+
+CREATE TABLE usuario_temas (
+    usuario_id INTEGER NOT NULL,
+    tema_id INTEGER NOT NULL,
+    activo BOOLEAN DEFAULT 0, 
+    PRIMARY KEY (usuario_id, tema_id),
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
+    FOREIGN KEY (tema_id) REFERENCES temas(id)
+);
+
+CREATE TABLE powerups (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    clave TEXT UNIQUE NOT NULL, 
+    costo INTEGER NOT NULL
+);
+
+INSERT INTO powerups (clave, costo) VALUES
+    ('mina_fantasma', 50),
+    ('escudo', 100);
+
+CREATE TABLE usuario_powerups (
+    usuario_id INTEGER NOT NULL,
+    powerup_id INTEGER NOT NULL,
+    cantidad INTEGER DEFAULT 0,
+    PRIMARY KEY (usuario_id, powerup_id),
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
+    FOREIGN KEY (powerup_id) REFERENCES powerups(id)
+);
+
+-- Temas
+CREATE TABLE tema_traducciones (
+    tema_id INTEGER NOT NULL,
+    idioma TEXT NOT NULL,
+    nombre TEXT NOT NULL,
+    descripcion TEXT NOT NULL,
+    PRIMARY KEY (tema_id, idioma),
+    FOREIGN KEY (tema_id) REFERENCES temas(id)
+);
+
+-- Power-Ups
+CREATE TABLE powerup_traducciones (
+    powerup_id INTEGER NOT NULL,
+    idioma TEXT NOT NULL,
+    nombre TEXT NOT NULL,
+    descripcion TEXT NOT NULL,
+    PRIMARY KEY (powerup_id, idioma),
+    FOREIGN KEY (powerup_id) REFERENCES powerups(id)
+);
+
+-- Tema Oscuro (ID 1)
+INSERT INTO tema_traducciones (tema_id, idioma, nombre, descripcion) VALUES
+    (1, 'es', 'Tema Oscuro', 'Fondos negros y grises'),
+    (1, 'en', 'Dark Theme', 'Black and gray backgrounds'),
+    (1, 'fr', 'Thème Sombre', 'Fonds noirs et gris');
+
+-- Tema Naturaleza (ID 2)
+INSERT INTO tema_traducciones (tema_id, idioma, nombre, descripcion) VALUES
+    (2, 'es', 'Tema Naturaleza', 'Minas representadas como flores'),
+    (2, 'en', 'Nature Theme', 'Mines depicted as flowers'),
+    (2, 'fr', 'Thème Nature', 'Mines représentées par des fleurs');
+
+-- Tema Retro (ID 3)
+INSERT INTO tema_traducciones (tema_id, idioma, nombre, descripcion) VALUES
+    (3, 'es', 'Tema Retro', 'Estilo pixel art 8-bits'),
+    (3, 'en', 'Retro Theme', '8-bit pixel art style'),
+    (3, 'fr', 'Thème Rétro', 'Style pixel art 8-bits');
+
+-- Mina Fantasma (ID 1)
+INSERT INTO powerup_traducciones (powerup_id, idioma, nombre, descripcion) VALUES
+    (1, 'es', 'Mina Fantasma', 'Revela una mina por 5 segundos'),
+    (1, 'en', 'Ghost Mine', 'Reveals a mine for 5 seconds'),
+    (1, 'fr', 'Mine Fantôme', 'Révèle une mine pendant 5 secondes');
+
+-- Escudo Anti-Minas (ID 2)
+INSERT INTO powerup_traducciones (powerup_id, idioma, nombre, descripcion) VALUES
+    (2, 'es', 'Escudo Anti-Minas', 'Te protege de una mina una vez'),
+    (2, 'en', 'Anti-Mine Shield', 'Protects you from one mine'),
+    (2, 'fr', 'Bouclier Anti-Mines', 'Vous protège d''une mine');
