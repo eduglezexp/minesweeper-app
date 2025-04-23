@@ -3,6 +3,7 @@ es\ies\puerto\model\services\ObjetoService.class
 es\ies\puerto\controller\UsuariosController$1.class
 es\ies\puerto\model\services\NivelService.class
 es\ies\puerto\controller\abstractas\AbstractController.class
+es\ies\puerto\model\services\UsuarioTemasService.class
 es\ies\puerto\controller\enums\VistaActual.class
 es\ies\puerto\config\ConfigManager.class
 es\ies\puerto\controller\LoginController.class
@@ -15,6 +16,7 @@ es\ies\puerto\model\abstractas\Conexion.class
 es\ies\puerto\controller\JuegoController$1.class
 es\ies\puerto\controller\JuegoController.class
 es\ies\puerto\config\ConfigManager$ConfigProperties.class
+es\ies\puerto\model\services\UsuarioPowerupsService.class
 es\ies\puerto\model\entities\UsuarioEntity.class
 es\ies\puerto\controller\PasswordController.class
 es\ies\puerto\controller\UsuariosController.class

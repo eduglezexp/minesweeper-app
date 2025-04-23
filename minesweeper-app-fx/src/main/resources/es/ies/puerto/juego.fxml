@@ -4,14 +4,17 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
@@ -440,7 +443,7 @@
                   </ScrollPane>
                </children>
             </VBox>
-            <VBox fx:id="mostrarInventarioVbox" prefHeight="200.0" prefWidth="100.0" visible="false">
+            <VBox fx:id="mostrarInventarioVbox" prefHeight="200.0" prefWidth="100.0">
                <children>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
@@ -479,38 +482,42 @@
                                           <Font size="18.0" />
                                        </font>
                                     </Text>
-                                    <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="126.0" prefWidth="280.0">
+                                    <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="115.0" prefWidth="280.0">
                                        <children>
-                                          <VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="115.0" prefWidth="100.0">
+                                          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="80.0">
                                              <children>
-                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onEscudoInformacionClick" prefHeight="80.0" prefWidth="80.0" text="Escudo" />
-                                                <Button fx:id="usarEscudoButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onUsarEscudoClick" prefWidth="80.0" text="Usar">
-                                                   <VBox.margin>
-                                                      <Insets bottom="10.0" />
-                                                   </VBox.margin>
-                                                </Button>
+                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onEscudoInformacionClick" prefHeight="80.0" prefWidth="80.0" text="Escudo">
+                                                   <graphic>
+                                                      <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" translateX="-8.0">
+                                                         <image>
+                                                            <Image url="@img/usuario.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic></Button>
+                                                <Button fx:id="usarEscudoButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onUsarEscudoClick" prefWidth="80.0" text="Usar" translateY="80.0" />
+                                                <Circle fill="DODGERBLUE" radius="12.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                                                <Label fx:id="badgeLabelEscudo" text="0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="8.0" />
                                              </children>
-                                          </VBox>
-                                          <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
+                                          </AnchorPane>
+                                          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="80.0">
                                              <children>
                                                 <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onFantasmaInformacionClick" prefHeight="80.0" prefWidth="80.0" text="Fantasma" />
-                                                <Button fx:id="usarMinaFantasmaButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onUsarMinaFantasmaClick" prefWidth="80.0" text="Usar">
-                                                   <VBox.margin>
-                                                      <Insets bottom="10.0" />
-                                                   </VBox.margin>
-                                                </Button>
+                                                <Button fx:id="usarMinaFantasmaButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onUsarMinaFantasmaClick" prefWidth="80.0" text="Usar" translateY="80.0" />
+                                                <Circle fill="DODGERBLUE" radius="12.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                                                <Label fx:id="badgeLabelFantasma" text="0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="8.0" />
                                              </children>
-                                          </VBox>
-                                          <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="100.0">
+                                             <HBox.margin>
+                                                <Insets left="20.0" right="20.0" />
+                                             </HBox.margin>
+                                          </AnchorPane>
+                                          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="80.0">
                                              <children>
                                                 <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="Zona Segura" />
-                                                <Button fx:id="usarZonaSeguraButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onUsarZonaSeguraClick" prefWidth="80.0" text="Usar">
-                                                   <VBox.margin>
-                                                      <Insets bottom="10.0" />
-                                                   </VBox.margin>
-                                                </Button>
+                                                <Button fx:id="usarZonaSeguraButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onUsarZonaSeguraClick" prefWidth="80.0" text="Usar" translateY="80.0" />
+                                                <Circle fill="DODGERBLUE" radius="12.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                                                <Label fx:id="badgeLabelZonaSegura" text="0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="8.0" />
                                              </children>
-                                          </VBox>
+                                          </AnchorPane>
                                        </children>
                                        <opaqueInsets>
                                           <Insets />

@@ -14,7 +14,6 @@ import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -187,6 +186,15 @@ public class JuegoController extends AbstractController{
     @FXML 
     private Button usarZonaSeguraButton;
 
+    @FXML 
+    private Label badgeLabelEscudo;
+
+    @FXML 
+    private Label badgeLabelFantasma;
+
+    @FXML 
+    private Label badgeLabelZonaSegura;
+
     @FXML
     private VBox mostrarInformacionVbox;
 
@@ -231,7 +239,7 @@ public class JuegoController extends AbstractController{
 
     @FXML
     private Button buttonVolverAtras;
-
+    
     public record BoardConfig(int filas, int columnas, int minas) {}
     private boolean[][] minas;
     private int[][] minasAdyacentes;
@@ -250,6 +258,10 @@ public class JuegoController extends AbstractController{
     private int zonasSegurasDisponibles = 0;
     private int miliSegundos = 300;
     private UsuarioEntity usuario;
+    private double dificultadMultiplier = 1.0;
+    private int minasFantasmaUsadas = 0;
+    private int escudosUsados = 0;
+    private int zonasSegurasUsadas = 0;
 
     /**
      * Metodo que se ejecuta al iniciar el controlador
@@ -290,7 +302,7 @@ public class JuegoController extends AbstractController{
     private void iniciarTablero(BoardConfig boardConfig) {
         deshabilitarVboxes();
         stackPaneContenedorTablero.getChildren().removeIf(node -> node instanceof GridPane);
-        stackPaneContenedorTablero.setVisible(true);
+        fadeIn(stackPaneContenedorTablero, miliSegundos);
         GridPane tablero = crearTablero(boardConfig.filas(), boardConfig.columnas(), boardConfig.minas());
         tablero.setMinSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
         tablero.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
@@ -302,13 +314,13 @@ public class JuegoController extends AbstractController{
      * Metodo para desactivar los vboxes
      */
     private void deshabilitarVboxes() {
-        mostrarPersonalizarVbox.setVisible(false);
-        mostrarEstadisticasVbox.setVisible(false);
-        mostrarAyudaVBox.setVisible(false);
-        mostrarFinDelJuegoVbox.setVisible(false);
-        mostrarTiendaVbox.setVisible(false);
-        mostrarInventarioVbox.setVisible(false);
-        mostrarMensajeVbox.setVisible(false);
+        fadeOut(mostrarPersonalizarVbox, miliSegundos);
+        fadeOut(mostrarEstadisticasVbox, miliSegundos);
+        fadeOut(mostrarAyudaVBox, miliSegundos);
+        fadeOut(mostrarFinDelJuegoVbox, miliSegundos);
+        fadeOut(mostrarTiendaVbox, miliSegundos);
+        fadeOut(mostrarInventarioVbox, miliSegundos);
+        fadeOut(mostrarMensajeVbox, miliSegundos);
     }
 
     /**
@@ -318,20 +330,28 @@ public class JuegoController extends AbstractController{
         ocultarBotones();
         BoardConfig config;
         switch (indice) {
-            case 4: // Personalizado
-                accederPersonalizarTablero();
-                return;
-            case 3: // Aleatorio
-                config = generarTableroAleatorio();
+            case 0: // Principiante
+                config = new BoardConfig(10, 8, 10);
+                dificultadMultiplier = 1.0;
+                break;
+            case 1: // Intermedio
+                config = new BoardConfig(14, 10, 28);
+                dificultadMultiplier = 1.5;
                 break;
             case 2: // Experto
                 config = new BoardConfig(18, 12, 43);
+                dificultadMultiplier = 2.0;
                 break;
-            case 1: // Intermedio
-                config = new BoardConfig(14, 10, 28); 
+            case 3: // Aleatorio
+                config = generarTableroAleatorio();
+                dificultadMultiplier = 1.2;
                 break;
-            default: // Principiante
-                config = new BoardConfig(10, 8, 10); 
+            case 4: // Personalizado
+                accederPersonalizarTablero();
+                return;
+            default:
+                config = new BoardConfig(10, 8, 10);
+                dificultadMultiplier = 1.0;
                 break;
         }
         iniciarTablero(config);
@@ -341,7 +361,7 @@ public class JuegoController extends AbstractController{
      * Metodo para ocultar los botones de personalizacion
      */
     private void ocultarBotones() {
-        personalizarButton.setVisible(false);
+        fadeOut(personalizarButton, miliSegundos);
         aleatorioButton.setVisible(false);
     }
 
@@ -349,12 +369,12 @@ public class JuegoController extends AbstractController{
      * Metodo para acceder a la pantalla de personalizacion del tablero
      */
     private void accederPersonalizarTablero() {
-        stackPaneContenedorTablero.setVisible(false);
-        mostrarEstadisticasVbox.setVisible(false);
-        mostrarTiendaVbox.setVisible(false);
-        mostrarInventarioVbox.setVisible(false);
-        mostrarAyudaVBox.setVisible(false);
-        mostrarPersonalizarVbox.setVisible(true);
+        fadeOut(stackPaneContenedorTablero, miliSegundos);
+        fadeOut(mostrarEstadisticasVbox, miliSegundos);
+        fadeOut(mostrarAyudaVBox, miliSegundos);
+        fadeOut(mostrarTiendaVbox, miliSegundos);
+        fadeOut(mostrarInventarioVbox, miliSegundos);
+        fadeIn(mostrarPersonalizarVbox, miliSegundos);
     }
 
     /**
@@ -395,7 +415,6 @@ public class JuegoController extends AbstractController{
             int filas   = Integer.parseInt(textFieldFilas.getText());
             int columnas= Integer.parseInt(textFieldColumnas.getText());
             int minas   = Integer.parseInt(textFieldMinas.getText());
-
             if (filas <= 0 || columnas <= 0 || minas <= 0) {
                 textMensajePersonalizar.setText("Los valores deben ser mayores que cero");
                 return;
@@ -409,6 +428,8 @@ public class JuegoController extends AbstractController{
                 textMensajePersonalizar.setText("Dimensiones demasiado grandes para la ventana");
                 return;
             }
+            double mineDensity = (double) minas / (filas * columnas);
+            dificultadMultiplier = 1.0 + (mineDensity * 4);
             mostrarPersonalizarVbox.setVisible(false);
             personalizarButton.setVisible(true);
             iniciarTablero(new BoardConfig(filas, columnas, minas));
@@ -563,9 +584,33 @@ public class JuegoController extends AbstractController{
     }
 
     /**
-     * Metodo para mostrar el mensaje de derrota
+     * Método para mostrar el mensaje de derrota
      */
     private void mostrarDerrota() {
+        int baseLoss = 100;
+        int timePenalty = segundosTranscurridos * 2;
+        int penalties = (minasFantasmaUsadas * 50) + (escudosUsados * 30) + (zonasSegurasUsadas * 20);
+        double totalLoss = (baseLoss * dificultadMultiplier) + timePenalty + penalties;
+        int puntosPerdidos = (int) Math.round(totalLoss);
+        int nuevosPuntos = Math.max(0, usuario.getPuntos() - puntosPerdidos);
+        usuario.setPuntos(nuevosPuntos);
+        int derrotasTotales = usuario.getDerrotas() + 1;
+        usuario.setDerrotas(derrotasTotales);
+        usuario.setRachaActual(0);
+        if (usuario.getRachaActual() > usuario.getMejorRacha()) {
+            usuario.setMejorRacha(usuario.getRachaActual());
+        }
+        textFieldPuntos.setText(String.valueOf(usuario.getPuntos()));
+        textFieldDerrotas.setText(String.valueOf(derrotasTotales));
+        textFieldRacha.setText("0");
+        textFieldMejorRacha.setText(String.valueOf(usuario.getMejorRacha()));
+        try {
+            getUsuarioService().actualizarPuntosDerrotas(nuevosPuntos, 
+            derrotasTotales, usuario.getMejorRacha(), usuario.getEmail()
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+        } 
         textFinJuego.setText("Fin del juego");
         textResultado.setText("Derrota");
         textFinJuego.setVisible(true);
@@ -665,6 +710,31 @@ public class JuegoController extends AbstractController{
      * Metodo para mostrar el mensaje de victoria
      */
     private void mostrarVictoria() {
+        int basePoints = 100;
+        int timeBonus = Math.max(0, 200 - segundosTranscurridos);
+        int penalties = (minasFantasmaUsadas * 50) + (escudosUsados * 30) + (zonasSegurasUsadas * 20);
+        double totalBeforeStreak = (basePoints * dificultadMultiplier) + timeBonus - penalties;
+        double streakMultiplier = Math.pow(1.1, usuario.getRachaActual());
+        int puntosGanados = (int) Math.round(totalBeforeStreak * streakMultiplier);
+        int puntosTotales = usuario.getPuntos() + puntosGanados;
+        usuario.setPuntos(puntosTotales);
+        int victoriasTotales = usuario.getVictorias() + 1;
+        usuario.setVictorias(victoriasTotales);
+        int rachaActual = usuario.getRachaActual() + 1;
+        usuario.setRachaActual(rachaActual);
+        if (usuario.getRachaActual() > usuario.getMejorRacha()) {
+            usuario.setMejorRacha(usuario.getRachaActual());
+        }
+        textFieldPuntos.setText(String.valueOf(usuario.getPuntos()));
+        textFieldVictorias.setText(String.valueOf(usuario.getVictorias()));
+        textFieldRacha.setText(String.valueOf(usuario.getRachaActual()));
+        textFieldMejorRacha.setText(String.valueOf(usuario.getMejorRacha()));
+        try {
+            getUsuarioService().actualizarPuntosVictorias(puntosTotales, victoriasTotales, 
+            rachaActual, usuario.getMejorRacha(), usuario.getEmail());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         textFinJuego.setText("¡Has Ganado!");
         textResultado.setText("Ganador");
         textFinJuego.setVisible(true);
@@ -948,15 +1018,18 @@ public class JuegoController extends AbstractController{
     @FXML
     private void onComprarMinaFantasmaClick() {
         int puntos = usuario.getPuntos();
-        if (puntos >= 0) {
-            //usuario.setPuntos(puntos - 50);
-            textPuntosTienda.setText(String.valueOf(usuario.getPuntos()));
-            textPuntosInventario.setText(String.valueOf(usuario.getPuntos()));
-            minasFantasmaDisponibles++;
-            actualizarUI();
+        if (puntos < 0) {
+            mostrarMensaje("No tienes suficientes puntos para comprar una mina fantasma.");
+            return;
+        } else if (minasFantasmaDisponibles >= 9) {
+            mostrarMensaje("No puedes tener más de 9 minas fantasma.");
             return;
         }
-        mostrarMensaje("No tienes suficientes puntos para comprar una mina fantasma.");
+        //usuario.setPuntos(puntos - 50);
+        textPuntosTienda.setText(String.valueOf(usuario.getPuntos()));
+        textPuntosInventario.setText(String.valueOf(usuario.getPuntos()));
+        minasFantasmaDisponibles++;
+        badgeLabelFantasma.setText(String.valueOf(minasFantasmaDisponibles));
     }
 
     /**
@@ -966,10 +1039,11 @@ public class JuegoController extends AbstractController{
     @FXML
     private void onUsarMinaFantasmaClick() {
         if (minasFantasmaDisponibles > 0 && !primerClick) {
+            minasFantasmaUsadas++;
             minasFantasmaDisponibles--;
+            badgeLabelFantasma.setText(String.valueOf(minasFantasmaDisponibles));
             volverAlJuegoInventario();
             resaltarMinaAleatoria();
-            actualizarUI();
             return;
         }
         mostrarMensaje("No tienes minas fantasma disponibles o ya has usado una.");
@@ -1008,15 +1082,23 @@ public class JuegoController extends AbstractController{
     @FXML
     private void onComprarEscudoClick() {
         int puntos = usuario.getPuntos();
-        if (puntos >= 0) {
-            //usuario.setPuntos(usuario.getPuntos() - 100);
-            textPuntosTienda.setText(String.valueOf(usuario.getPuntos()));
-            textPuntosInventario.setText(String.valueOf(usuario.getPuntos()));
-            escudosDisponibles++;
-            actualizarUI();
+        if (puntos < 0) {
+            mostrarMensaje("No tienes suficientes puntos para comprar un escudo.");
+            return;
+        } else if (escudosDisponibles >= 9) {
+            mostrarMensaje("No puedes tener más de 9 escudos.");
             return;
         }
-        mostrarMensaje("No tienes suficientes puntos para comprar un escudo.");
+        try {
+            getUsuarioPowerupsService().comprarPowerUp(usuario, 2);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //usuario.setPuntos(usuario.getPuntos() - 100);
+        textPuntosTienda.setText(String.valueOf(usuario.getPuntos()));
+        textPuntosInventario.setText(String.valueOf(usuario.getPuntos()));
+        escudosDisponibles++;
+        badgeLabelEscudo.setText(String.valueOf(escudosDisponibles));
     }
 
     /**
@@ -1027,9 +1109,15 @@ public class JuegoController extends AbstractController{
     private void onUsarEscudoClick() {
         if (escudosDisponibles > 0 && !escudoActivado) {
             escudoActivado = true;
+            escudosUsados++;
             escudosDisponibles--;
+            try {
+                getUsuarioPowerupsService().actualizarUsuarioPoderes(escudosDisponibles, usuario.getId(), 2);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            badgeLabelEscudo.setText(String.valueOf(escudosDisponibles));
             volverAlJuegoInventario();
-            actualizarUI();
             return;
         }
         mostrarMensaje("No tienes escudos disponibles o ya está activado uno.");
@@ -1066,7 +1154,6 @@ public class JuegoController extends AbstractController{
         if (puntos >= 0) {
             //usuario.setPuntos(usuario.getPuntos() - 80);
             zonasSegurasDisponibles++;
-            actualizarUI();
         }
     }
 
@@ -1130,15 +1217,6 @@ public class JuegoController extends AbstractController{
             fadeIn(mostrarInventarioVbox, miliSegundos);
             pausarTemporizador(false);
         }
-    }
-
-    /**
-     * Metodo para actualizar la interfaz
-     */
-    private void actualizarUI() {
-        usarMinaFantasmaButton.setText("Usar Mina Fantasma (Disponibles: " + minasFantasmaDisponibles + ")");
-        usarEscudoButton.setText("Escudo Activado: " + (escudoActivado ? "Sí" : "No") + " | Disponibles: " + escudosDisponibles);
-        usarZonaSeguraButton.setText("Usar Zona Segura (Disponibles: " + zonasSegurasDisponibles + ")");
     }
 
      /** 

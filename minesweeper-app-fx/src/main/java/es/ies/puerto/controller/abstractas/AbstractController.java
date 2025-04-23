@@ -4,11 +4,12 @@ import java.lang.reflect.Method;
 
 import es.ies.puerto.MinesweeperApp;
 import es.ies.puerto.config.ConfigManager;
-import es.ies.puerto.controller.enums.VistaActual;
 import es.ies.puerto.model.entities.UsuarioEntity;
 import es.ies.puerto.model.services.NivelService;
 import es.ies.puerto.model.services.ObjetoService;
+import es.ies.puerto.model.services.UsuarioPowerupsService;
 import es.ies.puerto.model.services.UsuarioService;
+import es.ies.puerto.model.services.UsuarioTemasService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -18,7 +19,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -33,6 +33,8 @@ public abstract class AbstractController {
 
     static final String PATH_DB = "src/main/resources/usuarios.db";
     private UsuarioService usuarioService;
+    private UsuarioPowerupsService usuarioPowerupsService;
+    private UsuarioTemasService usuarioTemasService;
     private NivelService nivelService;
     private ObjetoService objetoService;
     private Scene previousScene;
@@ -44,6 +46,8 @@ public abstract class AbstractController {
     public AbstractController() {
         try {
             usuarioService = new UsuarioService(PATH_DB);
+            usuarioPowerupsService = new UsuarioPowerupsService(PATH_DB);
+            usuarioTemasService = new UsuarioTemasService(PATH_DB);
             nivelService = new NivelService(PATH_DB);
             objetoService = new ObjetoService(PATH_DB);
         } catch (Exception e) {
@@ -56,6 +60,14 @@ public abstract class AbstractController {
      */
     public UsuarioService getUsuarioService() {
         return usuarioService;
+    }
+
+    public UsuarioPowerupsService getUsuarioPowerupsService() {
+        return usuarioPowerupsService;
+    }
+
+    public UsuarioTemasService getUsuarioTemasService() {
+        return usuarioTemasService;
     }
 
     public NivelService getNivelService() {

@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.ies.puerto.model.abstractas.Conexion;
-import es.ies.puerto.model.entities.NivelEntity;
 import es.ies.puerto.model.entities.ObjetoEntity;
 
 /**

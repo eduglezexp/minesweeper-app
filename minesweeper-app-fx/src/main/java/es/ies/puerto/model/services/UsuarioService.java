@@ -108,9 +108,18 @@ public class UsuarioService extends Conexion{
      * @return lista de usuarios
      * @throws SQLException error controlado
      */
-    public List<UsuarioEntity> eliminarUsuario(String email) throws SQLException{
+    public boolean eliminarUsuario(String email) throws SQLException{
         String sql = "DELETE FROM usuarios WHERE email = ?";
-        return obtenerUsuario(sql, email);
+        try (PreparedStatement sentencia = getConnection().prepareStatement(sql)) {
+            sentencia.setString(1, email);
+            sentencia.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            cerrar();
+        }
+        return false;
     }
 
     /**
@@ -161,12 +170,14 @@ public class UsuarioService extends Conexion{
      * Metodo para actualizar los puntos y victorias de un usuario
      * @throws SQLException error controlado
      */
-    public boolean actualizarPuntosVictorias(int puntos, int victorias, String email) throws SQLException {
-        String sql = "UPDATE usuarios SET puntos = ?, victorias = ? WHERE email = ?";
+    public boolean actualizarPuntosVictorias(int puntos, int victorias, int rachaActual, int mejorRacha, String email) throws SQLException {
+        String sql = "UPDATE usuarios SET points = ?, victories = ?, racha_actual = ?, mejor_racha = ? WHERE email = ?";
         try (PreparedStatement sentencia = getConnection().prepareStatement(sql)) {
             sentencia.setInt(1, puntos);
             sentencia.setInt(2, victorias);
-            sentencia.setString(3, email);
+            sentencia.setInt(3, rachaActual);
+            sentencia.setInt(4, mejorRacha);
+            sentencia.setString(5, email);
             sentencia.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -181,12 +192,13 @@ public class UsuarioService extends Conexion{
      * Metodo para actualizar los puntos y derrotas de un usuario
      * @throws SQLException error controlado
      */
-    public boolean actualizarPuntosDerrotas(int puntos, int derrotas, String email) throws SQLException {
-        String sql = "UPDATE usuarios SET puntos = ?, derrotas = ? WHERE email = ?";
+    public boolean actualizarPuntosDerrotas(int puntos, int derrotas, int rachaActual, String email) throws SQLException {
+        String sql = "UPDATE usuarios SET points = ?, defeats = ?, racha_actual = ? WHERE email = ?";
         try (PreparedStatement sentencia = getConnection().prepareStatement(sql)) {
             sentencia.setInt(1, puntos);
             sentencia.setInt(2, derrotas);
-            sentencia.setString(3, email);
+            sentencia.setInt(3, rachaActual);
+            sentencia.setString(4, email);
             sentencia.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -202,7 +214,7 @@ public class UsuarioService extends Conexion{
      * @throws SQLException error controlado
      */
     public boolean actualizarPuntos(int puntos, String email) throws SQLException {
-        String sql = "UPDATE usuarios SET puntos = ? WHERE email = ?";
+        String sql = "UPDATE usuarios SET points = ? WHERE email = ?";
         try (PreparedStatement sentencia = getConnection().prepareStatement(sql)) {
             sentencia.setInt(1, puntos);
             sentencia.setString(2, email);
