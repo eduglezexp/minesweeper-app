@@ -8,18 +8,15 @@ import es.ies.puerto.controller.abstractas.AbstractController;
 import es.ies.puerto.model.entities.UsuarioEntity;
 import es.ies.puerto.model.services.UsuarioService;
 import es.ies.puerto.config.Sesion;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 
 /**
  * @author eduglezexp
@@ -144,7 +141,7 @@ public class UsuariosController extends AbstractController{
             Sesion.setCssTemaActivo(cssTema);
         } catch (SQLException e) {
             e.printStackTrace();
-            textMensaje.setText("Error al obtener el tema del usuario.");
+            textMensaje.setText(ConfigManager.ConfigProperties.getProperty("errorObtenerTema"));
         }
         Sesion.setUsuario(usuarioSeleccionado);
         String tituloPantalla = ConfigManager.ConfigProperties.getProperty("profileTitle");

@@ -17,9 +17,11 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -195,14 +197,9 @@ public abstract class AbstractController {
     /**
      * JuegoController
      */
-    @FXML
-    private StackPane mostrarBotonesVbox;
 
     @FXML
     private Button tiendaButton;
-
-    @FXML
-    private ComboBox<String> comboDificultad;
 
     @FXML
     private Button personalizarButton;
@@ -211,16 +208,7 @@ public abstract class AbstractController {
     private Button aleatorioButton;
 
     @FXML
-    private Text textBanderas;
-
-    @FXML
-    private Text textTemporizador;
-
-    @FXML
     private Button estadisticasButton;
-
-    @FXML
-    private VBox personalizarTableroVbox;
 
     @FXML
     private Text textPersonalizarPartida;
@@ -244,43 +232,22 @@ public abstract class AbstractController {
     private TextField textFieldMinas;
 
     @FXML
-    private Text textMensajePersonalizar;
-
-    @FXML
     private Button regresarButton;
-
-    @FXML
-    private VBox mostrarEstadisticasVbox;
 
     @FXML
     private Text textPuntos;
 
-    @FXML 
-    private TextField textFieldPuntos;
-
     @FXML
     private Text textVictorias;
-
-    @FXML 
-    private TextField textFieldVictorias;
 
     @FXML
     private Text textDerrotas;
 
-    @FXML 
-    private TextField textFieldDerrotas;
-
     @FXML
     private Text textRacha;
 
-    @FXML 
-    private TextField textFieldRacha;
-
     @FXML
     private Text textMejorRacha;
-
-    @FXML
-    private VBox mostrarAyudaVBox;
 
     @FXML
     private Text textTituloAyuda;
@@ -288,14 +255,56 @@ public abstract class AbstractController {
     @FXML
     private Text textAyuda;
 
-    @FXML 
-    private TextField textFieldMejorRacha;
+    @FXML
+    private Text textTienda;
 
     @FXML
-    private StackPane contenedorTablero;
+    private Text textPotenciadoresTienda;
+
+    @FXML
+    private Text textTemasTienda;
+
+    @FXML 
+    private Button volverTiendaButton;
+
+    @FXML 
+    private Button usarMinaFantasmaButton;
+
+    @FXML 
+    private Button usarEscudoButton;
+
+    @FXML 
+    private Button usarAlquimiaButton;
+
+    @FXML 
+    private Button usarTemaOscuroButton;
+
+    @FXML 
+    private Button usarTemaNaturalezaButton;
+
+    @FXML 
+    private Button usarTemaRetroButton;
+
+    @FXML 
+    private Button salirInformacionButton;
+
+    @FXML
+    private Button reintentarButton;
 
     @FXML
     private Button ayudaButton;
+
+    @FXML
+    private Text textPotenciadoresInventario;
+
+    @FXML
+    private Text textInventario;
+
+    @FXML
+    private Text textTemasInventario;
+
+    @FXML
+    private Button inventarioButton;
 
     /**
      * Metodo para cambiar el idioma
@@ -386,6 +395,114 @@ public abstract class AbstractController {
         if (openJugarButton != null) {
             openJugarButton.setText(ConfigManager.ConfigProperties.getProperty("openJugarButton"));
         }
+        /**
+         * JuegoController
+         */
+        if (tiendaButton != null) {
+            tiendaButton.setText(ConfigManager.ConfigProperties.getProperty("tiendaButton"));
+        }
+        if (personalizarButton != null) {
+            personalizarButton.setText(ConfigManager.ConfigProperties.getProperty("personalizarButton"));
+        }
+        if (aleatorioButton != null) {
+            aleatorioButton.setText(ConfigManager.ConfigProperties.getProperty("aleatorioButton"));
+        }
+        if (estadisticasButton != null) {
+            estadisticasButton.setText(ConfigManager.ConfigProperties.getProperty("estadisticasButton"));
+        }
+        if (textPersonalizarPartida != null) {
+            textPersonalizarPartida.setText(ConfigManager.ConfigProperties.getProperty("textPersonalizarPartida"));
+        }
+        if (textFilas != null) {
+            textFilas.setText(ConfigManager.ConfigProperties.getProperty("textFilas"));
+        }
+        if (textFieldFilas != null) {
+            textFieldFilas.setPromptText(ConfigManager.ConfigProperties.getProperty("textFieldFilas"));
+        }
+        if (textColumnas != null) {
+            textColumnas.setText(ConfigManager.ConfigProperties.getProperty("textColumnas"));
+        }
+        if (textFieldColumnas != null) {
+            textFieldColumnas.setPromptText(ConfigManager.ConfigProperties.getProperty("textFieldColumnas"));
+        }
+        if (textMinas != null) {
+            textMinas.setText(ConfigManager.ConfigProperties.getProperty("textMinas"));
+        }
+        if (textFieldMinas != null) {
+            textFieldMinas.setPromptText(ConfigManager.ConfigProperties.getProperty("textFieldMinas"));
+        }
+        if (regresarButton != null) {
+            regresarButton.setText(ConfigManager.ConfigProperties.getProperty("regresarButton"));
+        }
+        if (textPuntos != null) {
+            textPuntos.setText(ConfigManager.ConfigProperties.getProperty("textPuntos"));
+        }
+        if (textVictorias != null) {
+            textVictorias.setText(ConfigManager.ConfigProperties.getProperty("textVictorias"));
+        }
+        if (textDerrotas != null) {
+            textDerrotas.setText(ConfigManager.ConfigProperties.getProperty("textDerrotas"));
+        }
+        if (textRacha != null) {
+            textRacha.setText(ConfigManager.ConfigProperties.getProperty("textRacha"));
+        }
+        if (textMejorRacha != null) {
+            textMejorRacha.setText(ConfigManager.ConfigProperties.getProperty("textMejorRacha"));
+        }
+        if (textTituloAyuda != null) {
+            textTituloAyuda.setText(ConfigManager.ConfigProperties.getProperty("textTituloAyuda"));
+        }
+        if (textAyuda != null) {
+            textAyuda.setText(ConfigManager.ConfigProperties.getProperty("textAyuda"));
+        }
+        if (textTienda != null) {
+            textTienda.setText(ConfigManager.ConfigProperties.getProperty("textTienda"));
+        }
+        if (textPotenciadoresTienda != null) {
+            textPotenciadoresTienda.setText(ConfigManager.ConfigProperties.getProperty("textPotenciadoresTienda"));
+        }
+        if (textTemasTienda != null) {
+            textTemasTienda.setText(ConfigManager.ConfigProperties.getProperty("textTemasTienda"));
+        }
+        if (usarMinaFantasmaButton != null) {
+            usarMinaFantasmaButton.setText(ConfigManager.ConfigProperties.getProperty("usarMinaFantasmaButton"));
+        }
+        if (usarEscudoButton != null) {
+            usarEscudoButton.setText(ConfigManager.ConfigProperties.getProperty("usarEscudoButton"));
+        }
+        if (usarAlquimiaButton != null) {
+            usarAlquimiaButton.setText(ConfigManager.ConfigProperties.getProperty("usarAlquimiaButton"));
+        }
+        if (usarTemaOscuroButton != null) {
+            usarTemaOscuroButton.setText(ConfigManager.ConfigProperties.getProperty("usarTemaOscuroButton"));
+        }
+        if (usarTemaNaturalezaButton != null) {
+            usarTemaNaturalezaButton.setText(ConfigManager.ConfigProperties.getProperty("usarTemaNaturalezaButton"));
+        }
+        if (usarTemaRetroButton != null) {
+            usarTemaRetroButton.setText(ConfigManager.ConfigProperties.getProperty("usarTemaRetroButton"));
+        }
+        if (salirInformacionButton != null) {
+            salirInformacionButton.setText(ConfigManager.ConfigProperties.getProperty("salirInformacionButton"));
+        }
+        if (reintentarButton != null) {
+            reintentarButton.setText(ConfigManager.ConfigProperties.getProperty("reintentarButton"));
+        }
+        if (ayudaButton != null) {
+            ayudaButton.setText(ConfigManager.ConfigProperties.getProperty("ayudaButton"));
+        }
+        if (textPotenciadoresInventario != null) {
+            textPotenciadoresInventario.setText(ConfigManager.ConfigProperties.getProperty("textPotenciadoresInventario"));
+        }
+        if (textInventario != null) {
+            textInventario.setText(ConfigManager.ConfigProperties.getProperty("textInventario"));
+        }
+        if (textTemasInventario != null) {
+            textTemasInventario.setText(ConfigManager.ConfigProperties.getProperty("textTemasInventario"));
+        }
+        if (inventarioButton != null) {
+            inventarioButton.setText(ConfigManager.ConfigProperties.getProperty("inventarioButton"));
+        }
     }
 
     /**
@@ -411,7 +528,7 @@ public abstract class AbstractController {
             newController.setPreviousScene(stage.getScene());
             newController.setPreviousTitle(stage.getTitle());
             textMensaje.setText(" ");
-            Image icon = new Image(getClass().getResource("/es/ies/puerto/img/bomb.png").toExternalForm());
+            Image icon = new Image(getClass().getResource("/es/ies/puerto/img/logo.png").toExternalForm());
             stage.getIcons().add(icon);
             stage.setTitle(titulo);
             stage.setResizable(false);
@@ -449,7 +566,7 @@ public abstract class AbstractController {
             textMensaje.setText(" ");
             Method method = controller.getClass().getMethod("cargarDatosUsuario", UsuarioEntity.class);
             method.invoke(controller, usuario); 
-            Image icon = new Image(getClass().getResource("/es/ies/puerto/img/bomb.png").toExternalForm());
+            Image icon = new Image(getClass().getResource("/es/ies/puerto/img/logo.png").toExternalForm());
             stage.getIcons().add(icon);
             stage.setTitle(titulo);
             stage.setResizable(false);

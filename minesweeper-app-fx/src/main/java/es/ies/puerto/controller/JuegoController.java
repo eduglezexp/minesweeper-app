@@ -1,6 +1,7 @@
 package es.ies.puerto.controller;
 
 import java.sql.SQLException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -180,9 +181,6 @@ public class JuegoController extends AbstractController{
     @FXML 
     private Text textMensajeTienda;
 
-    @FXML 
-    private Button volverTiendaButton;
-
     @FXML
     private VBox mostrarInventarioVbox;
 
@@ -196,7 +194,7 @@ public class JuegoController extends AbstractController{
     private Button usarEscudoButton;
 
     @FXML 
-    private Button usarZonaSeguraButton;
+    private Button usarAlquimiaButton;
 
     @FXML 
     private Label badgeLabelEscudo;
@@ -284,6 +282,8 @@ public class JuegoController extends AbstractController{
     private static final int TEMA_OSCURO_ID = 1;
     private static final int TEMA_NATURALEZA_ID = 2;
     private static final int TEMA_RETRO_ID = 3;
+    private static final int FLAG_CODE = 0x1F6A9;
+    private static final String FLAG_EMOJI = new String(Character.toChars(FLAG_CODE));
 
     /**
      * Metodo que se ejecuta al iniciar el controlador
@@ -664,7 +664,14 @@ public class JuegoController extends AbstractController{
             e.printStackTrace();
         } 
         textFinJuego.setText(ConfigManager.ConfigProperties.getProperty("mensajeDerrota"));
-        textResultado.setText(ConfigManager.ConfigProperties.getProperty("estadisticasDerrota"));
+        String estadisticasFormat = ConfigManager.ConfigProperties.getProperty("estadisticasDerrota");
+        String estadisticasTexto = MessageFormat.format(estadisticasFormat, 
+            baseLoss, 
+            timePenalty, 
+            penalties, 
+            totalLoss,
+            nuevosPuntos);
+        textResultado.setText(estadisticasTexto);
         textFinJuego.setVisible(true);
         textResultado.setVisible(true);
         reintentarButton.setVisible(true);
@@ -709,12 +716,12 @@ public class JuegoController extends AbstractController{
     private void colocarBandera(int filas, int columna, Button celda) {
         if (gameOver || celda.isDisabled()) return;
     
-        if (celda.getText().equals("F")) {
+        if (FLAG_EMOJI.equals(celda.getText())) {
             celda.setText("");
             banderasColocadas--;
         } else {
             if (banderasColocadas >= minasTotales) return;
-            celda.setText("F");
+            celda.setText(FLAG_EMOJI);
             banderasColocadas++;
         }
         textBanderas.setText(String.valueOf(minasTotales - banderasColocadas));
@@ -790,12 +797,15 @@ public class JuegoController extends AbstractController{
         textPuntosTienda.setText(String.valueOf(usuario.getPuntos()));
         textPuntosInventario.setText(String.valueOf(usuario.getPuntos()));
         textFinJuego.setText(ConfigManager.ConfigProperties.getProperty("mensajeVictoria"));
-        textResultado.setText("Puntos base: " +basePoints+ "\n" +
-                              "Dificultad: " +dificultadMultiplier+ "\n" +
-                              "Bonus por tiempo: " +timeBonus+ "\n" +
-                              "Penalizaciones: -" +penalties+ "\n" +
-                              "Multiplicador por racha: " +String.format("%.1f", streakMultiplier)+ "\n" +
-                              "Total: " + puntosGanados);
+        String estadisticasFormat = ConfigManager.ConfigProperties.getProperty("estadisticasVictoria");
+        String estadisticasTexto = MessageFormat.format(estadisticasFormat, 
+            basePoints, 
+            dificultadMultiplier, 
+            timeBonus, 
+            penalties, 
+            String.format("%.1f", streakMultiplier), 
+            puntosGanados);
+        textResultado.setText(estadisticasTexto);
         textFinJuego.setVisible(true);
         textResultado.setVisible(true);
         reintentarButton.setText(ConfigManager.ConfigProperties.getProperty("jugarDeNuevo"));
@@ -1648,13 +1658,13 @@ public class JuegoController extends AbstractController{
                         }
                     }
                 });
-                mostrarMensaje("Tema aplicado correctamente.");
+                mostrarMensaje(ConfigManager.ConfigProperties.getProperty("temaAplicado"));
                 return;
             } 
-            mostrarMensaje("Error al aplicar el tema.");
+            mostrarMensaje(ConfigManager.ConfigProperties.getProperty("errorAplicarTema"));
         } catch (SQLException ex) {
             ex.printStackTrace();
-            mostrarMensaje("Error de base de datos.");
+            mostrarMensaje(ConfigManager.ConfigProperties.getProperty("errorBbdd"));
         }
     }
 

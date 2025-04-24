@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Point3D?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
@@ -19,7 +20,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="770.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.ies.puerto.controller.JuegoController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="770.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.ies.puerto.controller.JuegoController">
    <top>
       <HBox alignment="CENTER" prefHeight="130.0" prefWidth="350.0" BorderPane.alignment="CENTER">
          <children>
@@ -254,7 +255,7 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tienda">
+                        <Text fx:id="textTienda" strokeType="OUTSIDE" strokeWidth="0.0" text="Tienda">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -271,7 +272,7 @@
                               </Text>
                               <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@img/usuario.png" />
+                                    <Image url="@img/coin.png" />
                                  </image>
                               </ImageView>
                            </children>
@@ -293,7 +294,14 @@
                                        <children>
                                           <VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="115.0" prefWidth="100.0">
                                              <children>
-                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onEscudoInformacionClick" prefHeight="80.0" prefWidth="80.0" styleClass="objetoButton" text="Escudo" />
+                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onEscudoInformacionClick" prefHeight="80.0" prefWidth="80.0" styleClass="objetoButton">
+                                                   <graphic>
+                                                      <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@img/escudo.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic></Button>
                                                 <Button fx:id="comprarEscudoButton" contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onComprarEscudoClick" prefHeight="25.0" prefWidth="80.0" styleClass="comprarButton" text="100">
                                                    <VBox.margin>
                                                       <Insets bottom="10.0" />
@@ -301,7 +309,7 @@
                                                    <graphic>
                                                       <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
-                                                            <Image url="@img/usuario.png" />
+                                                            <Image url="@img/coin.png" />
                                                          </image>
                                                          <cursor>
                                                             <Cursor fx:constant="DEFAULT" />
@@ -313,7 +321,14 @@
                                           </VBox>
                                           <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
                                              <children>
-                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onFantasmaInformacionClick" prefHeight="80.0" prefWidth="80.0" styleClass="objetoButton" text="Fantasma" />
+                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onFantasmaInformacionClick" prefHeight="80.0" prefWidth="80.0" styleClass="objetoButton">
+                                                   <graphic>
+                                                      <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@img/fantasma.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic></Button>
                                                 <Button fx:id="comprarMinaFantasmaButton" contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onComprarMinaFantasmaClick" prefHeight="25.0" prefWidth="80.0" styleClass="comprarButton" text="50">
                                                    <VBox.margin>
                                                       <Insets bottom="10.0" />
@@ -321,7 +336,7 @@
                                                    <graphic>
                                                       <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
-                                                            <Image url="@img/usuario.png" />
+                                                            <Image url="@img/coin.png" />
                                                          </image>
                                                          <cursor>
                                                             <Cursor fx:constant="DEFAULT" />
@@ -333,7 +348,14 @@
                                           </VBox>
                                           <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="100.0">
                                              <children>
-                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAlquimiaInformacionClick" prefHeight="80.0" prefWidth="80.0" styleClass="objetoButton" text="Alquimia" />
+                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAlquimiaInformacionClick" prefHeight="80.0" prefWidth="80.0" styleClass="objetoButton">
+                                                   <graphic>
+                                                      <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@img/alquimia.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic></Button>
                                                 <Button contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onComprarAlquimiaClick" prefHeight="25.0" prefWidth="80.0" styleClass="comprarButton" text="200">
                                                    <VBox.margin>
                                                       <Insets bottom="10.0" />
@@ -341,7 +363,7 @@
                                                    <graphic>
                                                       <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
-                                                            <Image url="@img/usuario.png" />
+                                                            <Image url="@img/coin.png" />
                                                          </image>
                                                          <cursor>
                                                             <Cursor fx:constant="DEFAULT" />
@@ -372,7 +394,14 @@
                                        <children>
                                           <VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="115.0" prefWidth="100.0">
                                              <children>
-                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" styleClass="temaButton" />
+                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" styleClass="temaButton">
+                                                   <graphic>
+                                                      <ImageView fitHeight="75.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@img/temas/oscuro.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic></Button>
                                                 <Button contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onComprarTemaOscuroClick" prefHeight="25.0" prefWidth="80.0" styleClass="comprarButton" text="150">
                                                    <VBox.margin>
                                                       <Insets bottom="10.0" />
@@ -380,7 +409,7 @@
                                                    <graphic>
                                                       <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
-                                                            <Image url="@img/usuario.png" />
+                                                            <Image url="@img/coin.png" />
                                                          </image>
                                                          <cursor>
                                                             <Cursor fx:constant="DEFAULT" />
@@ -392,7 +421,14 @@
                                           </VBox>
                                           <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
                                              <children>
-                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" styleClass="temaButton" />
+                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" styleClass="temaButton">
+                                                   <graphic>
+                                                      <ImageView fitHeight="75.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@img/temas/naturaleza.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic></Button>
                                                 <Button contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onComprarTemaNaturalezaClick" prefHeight="25.0" prefWidth="80.0" styleClass="comprarButton" text="150">
                                                    <VBox.margin>
                                                       <Insets bottom="10.0" />
@@ -400,7 +436,7 @@
                                                    <graphic>
                                                       <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
-                                                            <Image url="@img/usuario.png" />
+                                                            <Image url="@img/coin.png" />
                                                          </image>
                                                          <cursor>
                                                             <Cursor fx:constant="DEFAULT" />
@@ -412,7 +448,14 @@
                                           </VBox>
                                           <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="100.0">
                                              <children>
-                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" styleClass="temaButton" />
+                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" styleClass="temaButton">
+                                                   <graphic>
+                                                      <ImageView fitHeight="75.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@img/temas/retro.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic></Button>
                                                 <Button contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onComprarTemaRetroClick" prefHeight="25.0" prefWidth="80.0" styleClass="comprarButton" text="150">
                                                    <VBox.margin>
                                                       <Insets bottom="10.0" />
@@ -420,7 +463,7 @@
                                                    <graphic>
                                                       <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
-                                                            <Image url="@img/usuario.png" />
+                                                            <Image url="@img/coin.png" />
                                                          </image>
                                                          <cursor>
                                                             <Cursor fx:constant="DEFAULT" />
@@ -443,7 +486,7 @@
                   </ScrollPane>
                </children>
             </VBox>
-            <VBox fx:id="mostrarInventarioVbox" prefHeight="200.0" prefWidth="100.0">
+            <VBox fx:id="mostrarInventarioVbox" prefHeight="200.0" prefWidth="100.0" visible="false">
                <children>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
@@ -464,7 +507,7 @@
                               </Text>
                               <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@img/usuario.png" />
+                                    <Image url="@img/coin.png" />
                                  </image>
                               </ImageView>
                            </children>
@@ -486,12 +529,15 @@
                                        <children>
                                           <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="80.0">
                                              <children>
-                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onEscudoInformacionClick" prefHeight="80.0" prefWidth="80.0" styleClass="objetoButton" text="Escudo">
+                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onEscudoInformacionClick" prefHeight="80.0" prefWidth="80.0" styleClass="objetoButton">
                                                    <graphic>
-                                                      <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" translateX="-8.0">
+                                                      <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
-                                                            <Image url="@img/usuario.png" />
+                                                            <Image url="@img/escudo.png" />
                                                          </image>
+                                                         <rotationAxis>
+                                                            <Point3D />
+                                                         </rotationAxis>
                                                       </ImageView>
                                                    </graphic></Button>
                                                 <Button fx:id="usarEscudoButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onUsarEscudoClick" prefWidth="80.0" styleClass="usarButton" text="Usar" translateY="80.0" />
@@ -501,7 +547,14 @@
                                           </AnchorPane>
                                           <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="80.0">
                                              <children>
-                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onFantasmaInformacionClick" prefHeight="80.0" prefWidth="80.0" styleClass="objetoButton" text="Fantasma" />
+                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onFantasmaInformacionClick" prefHeight="80.0" prefWidth="80.0" styleClass="objetoButton">
+                                                   <graphic>
+                                                      <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@img/fantasma.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic></Button>
                                                 <Button fx:id="usarMinaFantasmaButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onUsarMinaFantasmaClick" prefWidth="80.0" styleClass="usarButton" text="Usar" translateY="80.0" />
                                                 <Circle fill="DODGERBLUE" radius="12.0" stroke="BLACK" strokeType="INSIDE" styleClass="circuloContador" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
                                                 <Label fx:id="badgeLabelFantasma" text="0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="8.0" />
@@ -512,8 +565,15 @@
                                           </AnchorPane>
                                           <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="80.0">
                                              <children>
-                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAlquimiaInformacionClick" prefHeight="80.0" prefWidth="80.0" styleClass="objetoButton" text="Alquimia" />
-                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onUsarAlquimiaClick" prefWidth="80.0" styleClass="usarButton" text="Usar" translateY="80.0" />
+                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAlquimiaInformacionClick" prefHeight="80.0" prefWidth="80.0" styleClass="objetoButton">
+                                                   <graphic>
+                                                      <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@img/alquimia.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic></Button>
+                                                <Button fx:id="usarAlquimiaButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onUsarAlquimiaClick" prefWidth="80.0" styleClass="usarButton" text="Usar" translateY="80.0" />
                                                 <Circle fill="DODGERBLUE" radius="12.0" stroke="BLACK" strokeType="INSIDE" styleClass="circuloContador" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
                                                 <Label fx:id="badgeLabelAlquimia" text="0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="8.0" />
                                              </children>
@@ -539,22 +599,29 @@
                                        <children>
                                           <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="80.0">
                                              <children>
-                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onEscudoInformacionClick" prefHeight="80.0" prefWidth="80.0" styleClass="temaButton" text="Escudo">
+                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" styleClass="temaButton">
                                                    <graphic>
-                                                      <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" translateX="-8.0">
+                                                      <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
-                                                            <Image url="@img/usuario.png" />
+                                                            <Image url="@img/temas/oscuro.png" />
                                                          </image>
                                                       </ImageView>
                                                    </graphic>
                                                 </Button>
-                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onUsarTemaOscuroClick" prefWidth="80.0" text="Usar" translateY="80.0" />
+                                                <Button fx:id="usarTemaOscuroButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onUsarTemaOscuroClick" prefWidth="80.0" text="Usar" translateY="80.0" />
                                              </children>
                                           </AnchorPane>
                                           <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="80.0">
                                              <children>
-                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onFantasmaInformacionClick" prefHeight="80.0" prefWidth="80.0" styleClass="temaButton" text="Fantasma" />
-                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onUsarTemaNaturalezaClick" prefWidth="80.0" text="Usar" translateY="80.0" />
+                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" styleClass="temaButton">
+                                                   <graphic>
+                                                      <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@img/temas/naturaleza.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic></Button>
+                                                <Button fx:id="usarTemaNaturalezaButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onUsarTemaNaturalezaClick" prefWidth="80.0" text="Usar" translateY="80.0" />
                                              </children>
                                              <HBox.margin>
                                                 <Insets left="20.0" right="20.0" />
@@ -562,8 +629,15 @@
                                           </AnchorPane>
                                           <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="80.0">
                                              <children>
-                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" styleClass="temaButton" text="Zona Segura" />
-                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onUsarTemaRetroClick" prefWidth="80.0" text="Usar" translateY="80.0" />
+                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" styleClass="temaButton">
+                                                   <graphic>
+                                                      <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@img/temas/retro.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic></Button>
+                                                <Button fx:id="usarTemaRetroButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onUsarTemaRetroClick" prefWidth="80.0" text="Usar" translateY="80.0" />
                                              </children>
                                           </AnchorPane>
                                        </children>
