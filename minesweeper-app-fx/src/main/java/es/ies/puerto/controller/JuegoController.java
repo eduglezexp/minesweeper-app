@@ -275,7 +275,7 @@ public class JuegoController extends AbstractController{
     private EventHandler<MouseEvent> alquimiaHandler;
     private static final int COSTO_ESCUDO = 100;
     private static final int COSTO_MINA_FANTASMA = 50;
-    private static final int COSTO_ALQUIMIA= 200;
+    private static final int COSTO_ALQUIMIA= 0;
     private static final int COSTO_TEMAS = 150;
     private static final int MAX_POWERUPS = 9;
     private static final int MINA_FANTASMA_ID = 1;
@@ -730,8 +730,8 @@ public class JuegoController extends AbstractController{
                 if (minas[i][j]) {
                     Button celda = celdas[i][j];
                     celda.setText("X");
+                    animarSuperMina(celda);
                     celda.setDisable(true);
-                    celda.setStyle("-fx-background-color: red; -fx-opacity: 1;");
                 }
             }
         }

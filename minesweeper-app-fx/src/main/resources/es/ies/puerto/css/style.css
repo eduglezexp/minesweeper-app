@@ -1,0 +1,77 @@
+.root {
+    -fx-background-color: #e0e5ec;
+  }
+  
+  /* Contenedor central */
+  .login-container {
+    -fx-alignment: center;
+    -fx-spacing: 16;          /* separa nodos */
+    -fx-padding: 24;          /* espacio interno */
+  }
+  
+  /* Reutilizable para fondo neumórfico */
+  .neu {
+    -fx-background-color: #e0e5ec;
+    -fx-background-radius: 16;
+    -fx-background-insets: 0;
+    /* sombra externa + sombra interna */
+    -fx-effect: 
+      dropshadow(gaussian, rgba(0,0,0,0.1), 16, 0, 8, 8),
+      innershadow(gaussian, rgba(255,255,255,0.7), 16, 0, -8, -8);
+  }
+  
+  /* Campos de texto y password */
+  .text-field, .password-field, .combo-box {
+    -fx-background-insets: 0;
+    -fx-background-radius: 8;
+    -fx-padding: 8 12;
+    -fx-effect: 
+      dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 4, 4),
+      innershadow(gaussian, rgba(255,255,255,0.7), 8, 0, -4, -4);
+  }
+  
+  /* Selector de idioma (ComboBox) extra */
+  .combo-box .arrow-button {
+    -fx-background-color: transparent;
+  }
+  
+  /* Etiquetas */
+  .label {
+    -fx-text-fill: #555;
+    -fx-font-size: 0.9em;
+  }
+  
+  /* Botones genéricos */
+  .button {
+    -fx-font-size: 1em;
+    -fx-text-fill: #333;
+    -fx-padding: 8 16;
+    -fx-background-insets: 0;
+    -fx-background-radius: 12;
+    -fx-effect: 
+      dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 4, 4),
+      innershadow(gaussian, rgba(255,255,255,0.7), 8, 0, -4, -4);
+    -fx-cursor: hand;
+    -fx-transition: all 0.2s ease;
+  }
+  
+  /* Botón primario */
+  .button.primary {
+    -fx-text-fill: white;
+    -fx-background-color: linear-gradient(from 145deg, #4e8cff, #0066ff);
+    -fx-effect: 
+      dropshadow(gaussian, rgba(0,0,0,0.2), 8, 0, 4, 4),
+      innershadow(gaussian, rgba(255,255,255,0.4), 8, 0, -4, -4);
+  }
+  
+  /* Hover y pressed para cualquier .button */
+  .button:hover {
+    -fx-translate-y: -2;
+  }
+  .button:pressed {
+    -fx-translate-y: 2;
+    -fx-effect:
+      innershadow(gaussian, rgba(0,0,0,0.2), 8, 0, 4, 4),
+      dropshadow(gaussian, rgba(255,255,255,0.4), 8, 0, -4, -4);
+  }
+  
