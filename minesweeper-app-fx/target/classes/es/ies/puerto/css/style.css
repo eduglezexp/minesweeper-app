@@ -1,41 +1,130 @@
-.root {
-    -fx-background-color: #e0e5ec;
-}
-  
-.button:hover {
+/* estilo.css */
 
+.root {
+  -fx-background-color: #e0e5ec;
+  -fx-font-family: 'Arial';
+}
+
+.button {
+  -fx-background-color: #ffffff;
+  -fx-background-radius: 8;
+  -fx-border-radius: 8;
+  -fx-border-width: 1;
+  -fx-border-color: #d1d9e6;
+  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 4, 4);
+  -fx-text-fill: #4a4a4a;
+  -fx-cursor: hand;
+}
+
+.button:hover {
+  -fx-background-color: #f5f5f5;
+  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 6, 6);
 }
 
 .button:pressed {
-  -fx-effect:
-    innershadow(gaussian, rgba(0,0,0,0.2), 8, 0, 4, 4),
-    dropshadow(gaussian, rgba(255,255,255,0.4), 8, 0, -4, -4);
+  -fx-effect: innershadow(gaussian, rgba(0,0,0,0.2), 8, 0, 4, 4),
+              dropshadow(gaussian, rgba(255,255,255,0.4), 8, 0, -4, -4);
 }
-  
-.objetoButton {
 
+.objetoButton {
+  -fx-background-color: transparent;
+  -fx-border-color: #d1d9e6;
+  -fx-border-radius: 15;
+  -fx-padding: 5;
 }
 
 .temaButton {
-
+  -fx-background-color: transparent;
+  -fx-background-radius: 10;
+  -fx-border-color: #d1d9e6;
+  -fx-border-radius: 10;
+  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 4, 4);
 }
 
 .comprarButton {
-
+  -fx-background-color: #4CAF50;
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-background-radius: 5;
 }
 
 .usarButton {
-
+  -fx-background-color: #2196F3;
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-background-radius: 5;
 }
 
 .circuloContador {
-
+  -fx-fill: #2196F3;
+  -fx-stroke: #ffffff;
+  -fx-stroke-width: 2;
 }
 
 .mensaje {
-  
+  -fx-fill: #ff4444;
+  -fx-font-weight: bold;
+  -fx-font-size: 14px;
 }
 
 .scrollPane {
-  
+  -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport {
+  -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical {
+  -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .track {
+  -fx-background-color: #d1d9e6;
+  -fx-background-radius: 2;
+}
+
+.scroll-bar:vertical .thumb {
+  -fx-background-color: #a0a0a0;
+  -fx-background-radius: 2;
+}
+
+.text-field {
+  -fx-background-color: #ffffff;
+  -fx-background-radius: 5;
+  -fx-border-color: #d1d9e6;
+  -fx-border-radius: 5;
+  -fx-padding: 5;
+}
+
+.combo-box {
+  -fx-background-color: #ffffff;
+  -fx-background-radius: 5;
+  -fx-border-color: #d1d9e6;
+  -fx-border-radius: 5;
+}
+
+.image-view {
+  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);
+}
+
+#textFinJuego {
+  -fx-fill: #4CAF50;
+  -fx-font-weight: bold;
+  -fx-font-size: 24px;
+}
+
+#textResultado {
+  -fx-font-size: 14px;
+  -fx-line-spacing: 5px;
+}
+
+#textTemporizador, #textBanderas {
+  -fx-font-size: 18px;
+  -fx-font-weight: bold;
+  -fx-fill: #4a4a4a;
+}
+
+#imageViewFotoPerfil {
+  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 2);
 }
