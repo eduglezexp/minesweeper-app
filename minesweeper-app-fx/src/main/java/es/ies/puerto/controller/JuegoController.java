@@ -1,5 +1,6 @@
 package es.ies.puerto.controller;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -7,29 +8,40 @@ import java.util.Random;
 import java.util.Set;
 
 import es.ies.puerto.config.ConfigManager;
+import es.ies.puerto.config.Sesion;
 import es.ies.puerto.controller.abstractas.AbstractController;
 import es.ies.puerto.controller.enums.VistaActual;
 import es.ies.puerto.model.entities.UsuarioEntity;
+import es.ies.puerto.model.entities.UsuarioPowerupsEntity;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.ParallelTransition;
+import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.util.Duration;
 
 /**
@@ -193,7 +205,7 @@ public class JuegoController extends AbstractController{
     private Label badgeLabelFantasma;
 
     @FXML 
-    private Label badgeLabelZonaSegura;
+    private Label badgeLabelAlquimia;
 
     @FXML
     private VBox mostrarInformacionVbox;
@@ -252,16 +264,26 @@ public class JuegoController extends AbstractController{
     private int segundosTranscurridos = 0;
     private Button[][] celdas;
     private VistaActual vistaAnterior = VistaActual.TABLERO;
-    private int minasFantasmaDisponibles = 0;
-    private int escudosDisponibles = 0;
     private boolean escudoActivado = false;
-    private int zonasSegurasDisponibles = 0;
     private int miliSegundos = 300;
     private UsuarioEntity usuario;
     private double dificultadMultiplier = 1.0;
     private int minasFantasmaUsadas = 0;
     private int escudosUsados = 0;
-    private int zonasSegurasUsadas = 0;
+    private int alquimiaUsadas = 0;
+    private boolean modoAlquimiaActivo = false;
+    private EventHandler<MouseEvent> alquimiaHandler;
+    private static final int COSTO_ESCUDO = 100;
+    private static final int COSTO_MINA_FANTASMA = 50;
+    private static final int COSTO_ALQUIMIA= 200;
+    private static final int COSTO_TEMAS = 150;
+    private static final int MAX_POWERUPS = 9;
+    private static final int MINA_FANTASMA_ID = 1;
+    private static final int ESCUDO_ID = 2;
+    private static final int ALQUIMIA_ID = 3;
+    private static final int TEMA_OSCURO_ID = 1;
+    private static final int TEMA_NATURALEZA_ID = 2;
+    private static final int TEMA_RETRO_ID = 3;
 
     /**
      * Metodo que se ejecuta al iniciar el controlador
@@ -286,14 +308,44 @@ public class JuegoController extends AbstractController{
      */
     public void cargarDatosUsuario(UsuarioEntity usuario) {
         this.usuario = usuario;
-        if (usuario != null) {
-            textFieldUsuario.setText(usuario.getUser());
-            textFieldPuntos.setText(String.valueOf(usuario.getPuntos()));
-            textFieldVictorias.setText(String.valueOf(usuario.getVictorias()));
-            textFieldDerrotas.setText(String.valueOf(usuario.getDerrotas()));
-            textFieldRacha.setText(String.valueOf(usuario.getRachaActual()));
-            textFieldMejorRacha.setText(String.valueOf(usuario.getMejorRacha()));
-        }      
+        if (usuario == null) return;
+        textFieldUsuario.setText(usuario.getUser());
+        textFieldVictorias.setText(String.valueOf(usuario.getVictorias()));
+        textFieldDerrotas.setText(String.valueOf(usuario.getDerrotas()));
+        textFieldRacha.setText(String.valueOf(usuario.getRachaActual()));
+        textFieldMejorRacha.setText(String.valueOf(usuario.getMejorRacha()));
+        actualizarPuntosEnVista(usuario.getPuntos());
+        cargarBadgesPowerups();
+    }
+
+    /**
+     * Metodo para cargar los powerups del usuario
+     */
+    private void cargarBadgesPowerups() {
+        try {
+            List<UsuarioPowerupsEntity> lista = getUsuarioPowerupsService()
+                .obtenerUsuariosPowerupsPorId(usuario.getId());
+            int escudos   = lista.stream()
+                                  .filter(p -> p.getPowerupId() == ESCUDO_ID)
+                                  .findFirst()
+                                  .map(UsuarioPowerupsEntity::getCantidad)
+                                  .orElse(0);
+            int fantasmas = lista.stream()
+                                  .filter(p -> p.getPowerupId() == MINA_FANTASMA_ID)
+                                  .findFirst()
+                                  .map(UsuarioPowerupsEntity::getCantidad)
+                                  .orElse(0);
+            int alquimia  = lista.stream()
+                                  .filter(p -> p.getPowerupId() == ALQUIMIA_ID)
+                                  .findFirst()
+                                  .map(UsuarioPowerupsEntity::getCantidad)
+                                  .orElse(0);
+            badgeLabelEscudo.setText(String.valueOf(escudos));
+            badgeLabelFantasma.setText(String.valueOf(fantasmas));
+            badgeLabelAlquimia.setText(String.valueOf(alquimia));
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -564,7 +616,6 @@ public class JuegoController extends AbstractController{
             colocarMinasEvitarPrimeraCasilla(fila, columna);
             EmpezarTiempo();
         }
-    
         if (minas[fila][columna]) {
             if (escudoActivado) {
                 minas[fila][columna] = false;
@@ -589,16 +640,17 @@ public class JuegoController extends AbstractController{
     private void mostrarDerrota() {
         int baseLoss = 100;
         int timePenalty = segundosTranscurridos * 2;
-        int penalties = (minasFantasmaUsadas * 50) + (escudosUsados * 30) + (zonasSegurasUsadas * 20);
+        int penalties = (minasFantasmaUsadas * 50) + (escudosUsados * 30) + (alquimiaUsadas * 20);
         double totalLoss = (baseLoss * dificultadMultiplier) + timePenalty + penalties;
         int puntosPerdidos = (int) Math.round(totalLoss);
         int nuevosPuntos = Math.max(0, usuario.getPuntos() - puntosPerdidos);
         usuario.setPuntos(nuevosPuntos);
         int derrotasTotales = usuario.getDerrotas() + 1;
         usuario.setDerrotas(derrotasTotales);
+        int currentRacha = usuario.getRachaActual();
         usuario.setRachaActual(0);
-        if (usuario.getRachaActual() > usuario.getMejorRacha()) {
-            usuario.setMejorRacha(usuario.getRachaActual());
+        if (currentRacha > usuario.getMejorRacha()) {
+            usuario.setMejorRacha(currentRacha);
         }
         textFieldPuntos.setText(String.valueOf(usuario.getPuntos()));
         textFieldDerrotas.setText(String.valueOf(derrotasTotales));
@@ -712,7 +764,7 @@ public class JuegoController extends AbstractController{
     private void mostrarVictoria() {
         int basePoints = 100;
         int timeBonus = Math.max(0, 200 - segundosTranscurridos);
-        int penalties = (minasFantasmaUsadas * 50) + (escudosUsados * 30) + (zonasSegurasUsadas * 20);
+        int penalties = (minasFantasmaUsadas * 50) + (escudosUsados * 30) + (alquimiaUsadas * 20);
         double totalBeforeStreak = (basePoints * dificultadMultiplier) + timeBonus - penalties;
         double streakMultiplier = Math.pow(1.1, usuario.getRachaActual());
         int puntosGanados = (int) Math.round(totalBeforeStreak * streakMultiplier);
@@ -735,12 +787,20 @@ public class JuegoController extends AbstractController{
         } catch (Exception e) {
             e.printStackTrace();
         }
+        textPuntosTienda.setText(String.valueOf(usuario.getPuntos()));
+        textPuntosInventario.setText(String.valueOf(usuario.getPuntos()));
         textFinJuego.setText("¡Has Ganado!");
-        textResultado.setText("Ganador");
+        textResultado.setText("Puntos base: " +basePoints+ "\n" +
+                              "Dificultad: " +dificultadMultiplier+ "\n" +
+                              "Bonus por tiempo: " +timeBonus+ "\n" +
+                              "Penalizaciones: -" +penalties+ "\n" +
+                              "Multiplicador por racha: " +String.format("%.1f", streakMultiplier)+ "\n" +
+                              "Total: " + puntosGanados);
         textFinJuego.setVisible(true);
         textResultado.setVisible(true);
+        reintentarButton.setText("Jugar de nuevo");
         reintentarButton.setVisible(true);
-        mostrarFinDelJuegoVbox.setVisible(true);
+        fadeIn(mostrarFinDelJuegoVbox, miliSegundos);
         mostrarFinDelJuegoVbox.toFront();
     }
     
@@ -1012,24 +1072,48 @@ public class JuegoController extends AbstractController{
     }
 
     /**
+     * Metodo  para comprar un powerup
+     * Se encarga de comprar un powerup y actualizar la interfaz
+     */
+    private void comprarPowerUp(int powerupId, int costo, Label badgeLabel) {
+        int puntos = usuario.getPuntos();
+        int actuales = Integer.parseInt(badgeLabel.getText());
+
+        if (puntos < costo) {
+            mostrarMensaje("No tienes suficientes puntos.");
+            return;
+        }
+        if (actuales >= MAX_POWERUPS) {
+            mostrarMensaje("Has alcanzado el máximo de este ítem.");
+            return;
+        }
+        try {
+            getUsuarioPowerupsService().comprarPowerUp(usuario, powerupId);
+            usuario.setPuntos(puntos - costo);
+            actualizarPuntosEnVista(usuario.getPuntos());
+            getUsuarioService().actualizarPuntos(usuario.getPuntos(), usuario.getEmail());
+            badgeLabel.setText(String.valueOf(actuales + 1));
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    /**
+     * Actualiza todos los campos de puntos en la vista.
+     */
+    private void actualizarPuntosEnVista(int puntos) {
+        textFieldPuntos.setText(String.valueOf(puntos));
+        textPuntosTienda.setText(String.valueOf(puntos));
+        textPuntosInventario.setText(String.valueOf(puntos));
+    }
+
+    /**
      * Metodo que maneja el evento de clic en el boton de comprar mina fantasma
      * Se encarga de comprar una mina fantasma y actualizar la interfaz
      */
     @FXML
     private void onComprarMinaFantasmaClick() {
-        int puntos = usuario.getPuntos();
-        if (puntos < 0) {
-            mostrarMensaje("No tienes suficientes puntos para comprar una mina fantasma.");
-            return;
-        } else if (minasFantasmaDisponibles >= 9) {
-            mostrarMensaje("No puedes tener más de 9 minas fantasma.");
-            return;
-        }
-        //usuario.setPuntos(puntos - 50);
-        textPuntosTienda.setText(String.valueOf(usuario.getPuntos()));
-        textPuntosInventario.setText(String.valueOf(usuario.getPuntos()));
-        minasFantasmaDisponibles++;
-        badgeLabelFantasma.setText(String.valueOf(minasFantasmaDisponibles));
+        comprarPowerUp(MINA_FANTASMA_ID, COSTO_MINA_FANTASMA, badgeLabelFantasma);
     }
 
     /**
@@ -1038,10 +1122,16 @@ public class JuegoController extends AbstractController{
      */
     @FXML
     private void onUsarMinaFantasmaClick() {
-        if (minasFantasmaDisponibles > 0 && !primerClick) {
-            minasFantasmaUsadas++;
-            minasFantasmaDisponibles--;
-            badgeLabelFantasma.setText(String.valueOf(minasFantasmaDisponibles));
+        int minasFantasma = Integer.parseInt(badgeLabelFantasma.getText());
+        if (minasFantasma > 0 && !primerClick) {
+            minasFantasma--;
+            try {
+                getUsuarioPowerupsService().actualizarUsuarioPoderes(
+                minasFantasma, usuario.getId(), MINA_FANTASMA_ID);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            badgeLabelFantasma.setText(String.valueOf(minasFantasma));
             volverAlJuegoInventario();
             resaltarMinaAleatoria();
             return;
@@ -1081,24 +1171,7 @@ public class JuegoController extends AbstractController{
      */
     @FXML
     private void onComprarEscudoClick() {
-        int puntos = usuario.getPuntos();
-        if (puntos < 0) {
-            mostrarMensaje("No tienes suficientes puntos para comprar un escudo.");
-            return;
-        } else if (escudosDisponibles >= 9) {
-            mostrarMensaje("No puedes tener más de 9 escudos.");
-            return;
-        }
-        try {
-            getUsuarioPowerupsService().comprarPowerUp(usuario, 2);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        //usuario.setPuntos(usuario.getPuntos() - 100);
-        textPuntosTienda.setText(String.valueOf(usuario.getPuntos()));
-        textPuntosInventario.setText(String.valueOf(usuario.getPuntos()));
-        escudosDisponibles++;
-        badgeLabelEscudo.setText(String.valueOf(escudosDisponibles));
+        comprarPowerUp(ESCUDO_ID, COSTO_ESCUDO, badgeLabelEscudo);
     }
 
     /**
@@ -1107,16 +1180,17 @@ public class JuegoController extends AbstractController{
      */
     @FXML
     private void onUsarEscudoClick() {
-        if (escudosDisponibles > 0 && !escudoActivado) {
+        int escudos = Integer.parseInt(badgeLabelEscudo.getText());
+        if (escudos > 0 && !escudoActivado) {
             escudoActivado = true;
-            escudosUsados++;
-            escudosDisponibles--;
+            escudos--;
             try {
-                getUsuarioPowerupsService().actualizarUsuarioPoderes(escudosDisponibles, usuario.getId(), 2);
+                getUsuarioPowerupsService().actualizarUsuarioPoderes(
+                escudos, usuario.getId(), ESCUDO_ID);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            badgeLabelEscudo.setText(String.valueOf(escudosDisponibles));
+            badgeLabelEscudo.setText(String.valueOf(escudos));
             volverAlJuegoInventario();
             return;
         }
@@ -1149,12 +1223,8 @@ public class JuegoController extends AbstractController{
      * Se encarga de comprar una zona segura y actualizar la interfaz
      */
     @FXML
-    private void onComprarZonaSeguraClick() {
-        int puntos = usuario.getPuntos();
-        if (puntos >= 0) {
-            //usuario.setPuntos(usuario.getPuntos() - 80);
-            zonasSegurasDisponibles++;
-        }
+    private void onComprarAlquimiaClick() {
+        comprarPowerUp(ALQUIMIA_ID, COSTO_ALQUIMIA, badgeLabelAlquimia);
     }
 
     /**
@@ -1162,8 +1232,209 @@ public class JuegoController extends AbstractController{
      * Se encarga de revelar las celdas adyacentes a la celda seleccionada
      */
     @FXML
-    private void onUsarZonaSeguraClick() {
+    private void onUsarAlquimiaClick() {
+        int alquimia = Integer.parseInt(badgeLabelAlquimia.getText());
+        if (alquimia > 0 && !primerClick) {
+            modoAlquimiaActivo = true;
+            alquimia--;
+            try {
+                getUsuarioPowerupsService().actualizarUsuarioPoderes(
+                alquimia, usuario.getId(), ALQUIMIA_ID);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            badgeLabelAlquimia.setText(String.valueOf(alquimia));
+            volverAlJuegoInventario();
+            activarModoSeleccionAlquimia();
+            return;
+        }
+        mostrarMensaje("No tienes alquimia de minas disponibles o ya has usado una.");
+    }
+
+    /**
+     * Metodo que activa el modo de seleccion de alquimia
+     * Se encarga de activar el modo de seleccion de alquimia y manejar el evento de clic en las celdas
+     */
+    private void activarModoSeleccionAlquimia() {
+        Scene scene = stackPaneContenedorTablero.getScene();
+        scene.setCursor(Cursor.CROSSHAIR);
+        alquimiaHandler = event -> {
+            if (event.getTarget() instanceof Button celda) {
+                Integer fila = GridPane.getRowIndex(celda);
+                Integer columna = GridPane.getColumnIndex(celda);
+                if (fila != null && columna != null) {
+                    manejarConversionAlquimia(fila, columna, celda);
+                }
+                desactivarModoSeleccionAlquimia();
+            }
+        };
+        stackPaneContenedorTablero.addEventFilter(MouseEvent.MOUSE_CLICKED, alquimiaHandler);
+    }
+
+    /**
+     * Metodo que maneja la conversion de la celda seleccionada
+     * Se encarga de convertir la celda seleccionada en una celda segura o en una super mina
+     * @param fila de la celda
+     * @param columna de la celda
+     * @param celda del seleccionada
+     */
+    private void manejarConversionAlquimia(int fila, int columna, Button celda) {
+        if (!minas[fila][columna]) {
+            mostrarMensaje("¡Solo puedes usar alquimia en minas!");
+            desactivarModoSeleccionAlquimia(); 
+            return;
+        }
+        double probabilidad = Math.random();
+        try {
+            if (probabilidad <= 0.5) {
+                convertirEnUtil(fila, columna, celda);
+            } else if (probabilidad <= 0.75) {
+                convertirEnSuperMina(fila, columna, celda);
+            } else {
+                convertirEnCeldaSegura(fila, columna, celda);
+            }
+        } finally {
+            desactivarModoSeleccionAlquimia();
+        }
+    }
+
+    /**
+     * Metodo para convertir una celda en una celda util
+     * Se encarga de convertir la celda seleccionada en una celda segura y actualizar el contador de minas
+     * @param fila de la celda
+     * @param columna de la celda
+     * @param celda del seleccionada
+     */
+    private void convertirEnUtil(int fila, int columna, Button celda) {
+        int current = Integer.parseInt(badgeLabelAlquimia.getText());
+        current++;
+        badgeLabelAlquimia.setText(String.valueOf(current));
+        try {
+            getUsuarioPowerupsService()
+                .actualizarUsuarioPoderes(current, usuario.getId(), ALQUIMIA_ID);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        minas[fila][columna] = false;
+        minasTotales--;
+        textBanderas.setText(String.valueOf(minasTotales - banderasColocadas));
+        minasAdyacentes[fila][columna] = contarMinasAdyacentes(fila, columna);
+        revelarCelda(fila, columna);
+        animarConversionExitosa(celda);
+    }
+    
+    /**
+     * Metodo para convertir una celda en una super mina
+     * Se encarga de convertir la celda seleccionada en una super mina y actualizar el contador de minas
+     * @param fila de la celda
+     * @param columna de la celda
+     * @param celda del seleccionada
+     */
+    private void convertirEnSuperMina(int fila, int columna, Button celda) {
+        minas[fila][columna] = true;
+        minasAdyacentes[fila][columna] = -2; 
+        animarSuperMina(celda);
+    }
+    
+    /**
+     * Metodo para convertir una celda en una celda segura
+     * Se encarga de convertir la celda seleccionada en una celda segura y actualizar el contador de minas
+     * @param fila de la celda
+     * @param columna de la celda
+     * @param celda del seleccionada
+     */
+    private void convertirEnCeldaSegura(int fila, int columna, Button celda) {
+        minas[fila][columna] = false;
+        minasTotales--; 
+        textBanderas.setText(String.valueOf(minasTotales - banderasColocadas)); 
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                if (i == 0 && j == 0) continue;
+                int nuevaFila = fila + i;
+                int nuevaColumna = columna + j;
+                if (nuevaFila >= 0 && nuevaFila < configActual.filas() && 
+                    nuevaColumna >= 0 && nuevaColumna < configActual.columnas()) {
+                    if (!minas[nuevaFila][nuevaColumna]) {
+                        minasAdyacentes[nuevaFila][nuevaColumna] = contarMinasAdyacentes(nuevaFila, nuevaColumna);
+                        if (celdas[nuevaFila][nuevaColumna].isDisabled()) {
+                            int count = minasAdyacentes[nuevaFila][nuevaColumna];
+                            celdas[nuevaFila][nuevaColumna].setText(count > 0 ? String.valueOf(count) : "");
+                        }
+                    }
+                }
+            }
+        }
+        minasAdyacentes[fila][columna] = contarMinasAdyacentes(fila, columna);
+        revelarCelda(fila, columna);
+        animarCeldaSegura(celda);
+    }
+
+    /**
+     * Metodo para desactivar el modo seleccion de alquimia 
+     * @param fila de la celda
+     * @param columna de la celda
+     */
+    private void desactivarModoSeleccionAlquimia() {
+        modoAlquimiaActivo = false;
+        Scene scene = stackPaneContenedorTablero.getScene();
+        scene.setCursor(Cursor.DEFAULT);
+        stackPaneContenedorTablero.removeEventFilter(MouseEvent.MOUSE_CLICKED, alquimiaHandler);
+    }
+
+    /**
+     * Metodo que anima la conversion exitosa
+     * Se encarga de animar la celda al ser convertida en una celda segura
+     * @param celda es el boton de la celda
+     */
+    private void animarConversionExitosa(Button celda) {
+        FadeTransition fade = new FadeTransition(Duration.seconds(0.5), celda);
+        fade.setFromValue(1.0);
+        fade.setToValue(0.3);
+        fade.setCycleCount(2);
+        fade.setAutoReverse(true);
         
+        Timeline colorChange = new Timeline(
+            new KeyFrame(Duration.ZERO, new KeyValue(celda.styleProperty(), "-fx-background-color: gold;")),
+            new KeyFrame(Duration.seconds(1), new KeyValue(celda.styleProperty(), "-fx-background-color: #cccccc;"))
+        );
+        
+        ParallelTransition transition = new ParallelTransition(fade, colorChange);
+        transition.play();
+    }
+
+    /**
+     * Metodo que anima la super mina
+     * Se encarga de animar la super mina al ser seleccionada
+     * @param celda es el boton de la celda
+     */
+    private void animarSuperMina(Button celda) {
+        Glow glow = new Glow(0.8);
+        celda.setEffect(glow);
+        
+        Timeline timeline = new Timeline(
+            new KeyFrame(Duration.seconds(0.1), e -> celda.setStyle("-fx-background-color: #ff0000")),
+            new KeyFrame(Duration.seconds(0.2), e -> celda.setStyle("-fx-background-color: #880000"))
+        );
+        timeline.setCycleCount(4);
+        timeline.play();
+    }
+
+    /**
+     * Metodo que anima la celda segura
+     * Se encarga de animar la celda segura al ser seleccionada
+     * @param celda es el boton de la celda
+     */
+    private void animarCeldaSegura(Button celda) {
+        ScaleTransition scale = new ScaleTransition(Duration.seconds(0.3), celda);
+        scale.setFromX(1.0);
+        scale.setFromY(1.0);
+        scale.setToX(1.2);
+        scale.setToY(1.2);
+        scale.setAutoReverse(true);
+        scale.setCycleCount(2);
+        
+        celda.setStyle("-fx-background-color: #aaffaa;");
+        scale.play();
     }
 
     /**
@@ -1290,6 +1561,11 @@ public class JuegoController extends AbstractController{
         cargarInformacionObjeto("usuario.png", "fantasma", "infoFantasma");
     }
 
+    @FXML
+    protected void onAlquimiaInformacionClick() {
+        cargarInformacionObjeto("usuario.png", "alquimia", "infoAlquimia");
+    }
+
     /**
      * Metodo para salir de la pantalla de informacion del objeto
      * Se encarga de ocultar la pantalla de informacion y volver a la tienda o inventario
@@ -1297,6 +1573,112 @@ public class JuegoController extends AbstractController{
     @FXML
     protected void onSalirInfomacionClick() {
         fadeOut(mostrarInformacionVbox, miliSegundos);
+    }
+
+    /**
+     * Maneja el evento de clic en el boton de comprar tema
+     * Se encarga de comprar un tema y actualizar la interfaz
+     */
+    private void comprarTema(int temaId, int costo) {
+        int puntos = usuario.getPuntos();
+        if (puntos < costo) {
+            mostrarMensaje("No tienes suficientes puntos.");
+            return;
+        }
+        try {
+            getUsuarioTemasService().comprarTema(usuario, temaId);
+            usuario.setPuntos(puntos - costo);
+            actualizarPuntosEnVista(usuario.getPuntos());
+            getUsuarioService().actualizarPuntos(usuario.getPuntos(), usuario.getEmail());
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    /**
+     * Maneja el evento de clic en el boton de comprar tema oscuro
+     * Se encarga de comprar el tema oscuro y actualizar la interfaz
+     */
+    @FXML
+    protected void onComprarTemaOscuroClick() {
+        comprarTema(TEMA_OSCURO_ID, COSTO_TEMAS);
+    }
+
+    /**
+     * Maneja el evento de clic en el boton de comprar tema naturaleza
+     * Se encarga de comprar el tema naturaleza y actualizar la interfaz
+     */
+    @FXML
+    protected void onComprarTemaNaturalezaClick() {
+        comprarTema(TEMA_NATURALEZA_ID, COSTO_TEMAS);
+    }
+
+    /**
+     * Maneja el evento de clic en el boton de comprar tema retro
+     * Se encarga de comprar el tema retro y actualizar la interfaz
+     */
+    @FXML
+    protected void onComprarTemaRetroClick() {
+        comprarTema(TEMA_RETRO_ID, COSTO_TEMAS);
+    }
+
+    /**
+     * Metodo para aplicar un tema 
+     * @param temaId ID del tema a aplicar
+     */
+    private void aplicarTema(int temaId) {
+        try {
+            if (!getUsuarioTemasService().tieneUsuarioTema(usuario.getId(), temaId)) {
+                mostrarMensaje("Debes comprar este tema primero.");
+                return;
+            }
+            boolean exito = getUsuarioTemasService().actualizarUsuarioTemas(true, usuario.getId(), temaId);
+            if (exito) {
+                String cssPath = getUsuarioTemasService().obtenerCssPorTemaId(temaId);
+                Sesion.setCssTemaActivo(cssPath);
+                Platform.runLater(() -> {
+                    for (Window window : Window.getWindows()) {
+                        if (window instanceof Stage) {
+                            Scene scene = ((Stage) window).getScene();
+                            actualizarEstilosEnEscena(scene, cssPath);
+                        }
+                    }
+                });
+                mostrarMensaje("Tema aplicado correctamente.");
+                return;
+            } 
+            mostrarMensaje("Error al aplicar el tema.");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            mostrarMensaje("Error de base de datos.");
+        }
+    }
+
+    /**
+     * Maneja el evento de clic en el boton de usar tema oscuro
+     * Se encarga de aplicar el tema oscuro al tablero
+     */
+    @FXML
+    protected void onUsarTemaOscuroClick() {
+        aplicarTema(TEMA_OSCURO_ID);
+    }
+
+    /**
+     * Maneja el evento de clic en el boton de usar tema naturaleza
+     * Se encarga de aplicar el tema naturaleza al tablero
+     */
+    @FXML
+    protected void onUsarTemaNaturalezaClick() {
+        aplicarTema(TEMA_NATURALEZA_ID);
+    }
+
+    /**
+     * Maneja el evento de clic en el boton de usar tema retro
+     * Se encarga de aplicar el tema retro al tablero
+     */
+    @FXML
+    protected void onUsarTemaRetroClick() {
+        aplicarTema(TEMA_RETRO_ID);
     }
 
     /**

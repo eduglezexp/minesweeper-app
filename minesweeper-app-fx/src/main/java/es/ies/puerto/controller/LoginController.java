@@ -6,6 +6,7 @@ import java.util.List;
 import org.mindrot.jbcrypt.BCrypt;
 
 import es.ies.puerto.config.ConfigManager;
+import es.ies.puerto.config.Sesion;
 import es.ies.puerto.controller.abstractas.AbstractController;
 import es.ies.puerto.model.entities.UsuarioEntity;
 import javafx.fxml.FXML;
@@ -129,6 +130,13 @@ public class LoginController extends AbstractController{
                 textMensaje.setText(ConfigManager.ConfigProperties.getProperty("errorContraseniaIncorrecta"));
                 return;
             }
+            if (Sesion.getCssTemaActivo() == null || Sesion.getCssTemaActivo().isBlank()) {
+                String cssTema = getUsuarioTemasService().obtenerCssTemaActivo(usuarios.get(0).getId());
+                Sesion.setCssTemaActivo(cssTema); 
+            } 
+            Sesion.setUsuario(usuarios.get(0));
+            textFieldUsuarioEmail.clear();
+            textFieldPassword.clear();
             String tituloPantalla = ConfigManager.ConfigProperties.getProperty("profileTitle");
             mostrarPantalla(openAceptarButton, "profile.fxml", tituloPantalla, usuarios.get(0));
         } catch (SQLException e) {

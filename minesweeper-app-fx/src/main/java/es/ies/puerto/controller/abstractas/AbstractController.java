@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 
 import es.ies.puerto.MinesweeperApp;
 import es.ies.puerto.config.ConfigManager;
+import es.ies.puerto.config.Sesion;
 import es.ies.puerto.model.entities.UsuarioEntity;
 import es.ies.puerto.model.services.NivelService;
 import es.ies.puerto.model.services.ObjetoService;
@@ -39,6 +40,8 @@ public abstract class AbstractController {
     private ObjetoService objetoService;
     private Scene previousScene;
     private String previousTitle;
+    private String previousStyle;
+    
     
     /**
      * Constructor por defecto
@@ -92,6 +95,14 @@ public abstract class AbstractController {
 
     public void setPreviousTitle(String titulo) {
         this.previousTitle = titulo;
+    }
+
+    public String getPreviousStyle() {
+        return previousStyle;
+    }
+
+    public void setPreviousStyle(String previousStyle) {
+        this.previousStyle = previousStyle;
     }
 
     /**
@@ -391,11 +402,15 @@ public abstract class AbstractController {
             Stage stage = (Stage) button.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(MinesweeperApp.class.getResource(fxml));
             Scene scene = new Scene(fxmlLoader.load());
+            String cssBase = "/es/ies/puerto/css/style.css";
+            scene.getStylesheets().add(getClass().getResource(cssBase).toExternalForm());
+            if (Sesion.getCssTemaActivo() != null) {
+                scene.getStylesheets().add(getClass().getResource(Sesion.getCssTemaActivo()).toExternalForm());
+            }
             AbstractController newController = fxmlLoader.getController();
             newController.setPreviousScene(stage.getScene());
             newController.setPreviousTitle(stage.getTitle());
             textMensaje.setText(" ");
-            scene.getStylesheets().add(getClass().getResource("/es/ies/puerto/css/style.css").toExternalForm());
             Image icon = new Image(getClass().getResource("/es/ies/puerto/img/bomb.png").toExternalForm());
             stage.getIcons().add(icon);
             stage.setTitle(titulo);
@@ -423,7 +438,11 @@ public abstract class AbstractController {
             Stage stage = (Stage) node.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(MinesweeperApp.class.getResource(fxml));
             Scene scene = new Scene(fxmlLoader.load());
-            scene.getStylesheets().add(getClass().getResource("/es/ies/puerto/css/style.css").toExternalForm());
+            String cssBase = "/es/ies/puerto/css/style.css";
+            scene.getStylesheets().add(getClass().getResource(cssBase).toExternalForm());
+            if (Sesion.getCssTemaActivo() != null) {
+                scene.getStylesheets().add(getClass().getResource(Sesion.getCssTemaActivo()).toExternalForm());
+            }
             AbstractController controller = fxmlLoader.getController();
             controller.setPreviousScene(stage.getScene());
             controller.setPreviousTitle(stage.getTitle());
@@ -438,6 +457,19 @@ public abstract class AbstractController {
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * Metodo para actualizar los estilos de la escena
+     * @param scene escena a la que se le aplicaran los estilos
+     * @param cssPath ruta del archivo css a aplicar
+     */
+    public void actualizarEstilosEnEscena(Scene scene, String cssPath) {
+        if (scene != null) {
+            scene.getStylesheets().removeIf(s -> s.contains("temas")); 
+            String temaCss = getClass().getResource(cssPath).toExternalForm();
+            scene.getStylesheets().add(temaCss);
         }
     }
 }

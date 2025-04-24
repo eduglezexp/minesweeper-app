@@ -130,9 +130,9 @@ CREATE TABLE temas (
 
 -- Inserción de temas
 INSERT INTO temas (clave, costo, css) VALUES
-    ('oscuro', 150, '/css/oscuro.css'),
-    ('naturaleza', 150, '/css/naturaleza.css'),
-    ('retro', 150, '/css/retro.css');
+    ('oscuro', 150, '/es/ies/puerto/css/temas/oscuro.css'),
+    ('naturaleza', 150, '/es/ies/puerto/css/temas/naturaleza.css'),
+    ('retro', 150, '/es/ies/puerto/css/temas/retro.css');
 
 CREATE TABLE usuario_temas (
     usuario_id INTEGER NOT NULL,

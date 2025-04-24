@@ -45,15 +45,8 @@ public abstract class Conexion {
         return rutaArchivoBD;
     }
 
-    public Connection getConnection() {
-        try {
-            if (connection == null) {
-                connection = DriverManager.getConnection("jdbc:sqlite:" + rutaArchivoBD);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return connection;
+    public Connection getConnection() throws SQLException {
+        return DriverManager.getConnection("jdbc:sqlite:" + rutaArchivoBD);
     }
 
     /**

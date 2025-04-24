@@ -1,6 +1,8 @@
 es\ies\puerto\controller\RegistroController.class
+es\ies\puerto\config\Sesion.class
 es\ies\puerto\model\services\ObjetoService.class
 es\ies\puerto\controller\UsuariosController$1.class
+es\ies\puerto\model\entities\UsuarioTemasEntity.class
 es\ies\puerto\model\services\NivelService.class
 es\ies\puerto\controller\abstractas\AbstractController.class
 es\ies\puerto\model\services\UsuarioTemasService.class
@@ -21,4 +23,5 @@ es\ies\puerto\model\entities\UsuarioEntity.class
 es\ies\puerto\controller\PasswordController.class
 es\ies\puerto\controller\UsuariosController.class
 es\ies\puerto\model\entities\ObjetoEntity.class
+es\ies\puerto\model\entities\UsuarioPowerupsEntity.class
 es\ies\puerto\controller\JuegoController$BoardConfig.class

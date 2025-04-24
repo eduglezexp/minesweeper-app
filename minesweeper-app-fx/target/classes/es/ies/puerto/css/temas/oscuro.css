@@ -1,0 +1,10 @@
+.root {
+    -fx-font-family: "Arial";
+    -fx-background-image: url('file:src/main/resources/es/ies/puerto/img/bomb.png');
+    -fx-background-size: cover;
+}
+
+.button {
+    -fx-background-color: black;  
+    -fx-text-fill: white;
+}

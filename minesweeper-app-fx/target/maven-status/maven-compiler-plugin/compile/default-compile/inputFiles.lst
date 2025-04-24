@@ -8,8 +8,10 @@ C:\Users\eduex\OneDrive\Escritorio\1DAM\PRO\Repository\minesweeper-app\minesweep
 C:\Users\eduex\OneDrive\Escritorio\1DAM\PRO\Repository\minesweeper-app\minesweeper-app-fx\src\main\java\es\ies\puerto\config\ConfigManager.java
 C:\Users\eduex\OneDrive\Escritorio\1DAM\PRO\Repository\minesweeper-app\minesweeper-app-fx\src\main\java\es\ies\puerto\model\entities\ObjetoEntity.java
 C:\Users\eduex\OneDrive\Escritorio\1DAM\PRO\Repository\minesweeper-app\minesweeper-app-fx\src\main\java\es\ies\puerto\model\services\ObjetoService.java
+C:\Users\eduex\OneDrive\Escritorio\1DAM\PRO\Repository\minesweeper-app\minesweeper-app-fx\src\main\java\es\ies\puerto\model\entities\UsuarioPowerupsEntity.java
 C:\Users\eduex\OneDrive\Escritorio\1DAM\PRO\Repository\minesweeper-app\minesweeper-app-fx\src\main\java\es\ies\puerto\model\services\NivelService.java
 C:\Users\eduex\OneDrive\Escritorio\1DAM\PRO\Repository\minesweeper-app\minesweeper-app-fx\src\main\java\es\ies\puerto\controller\UsuariosController.java
+C:\Users\eduex\OneDrive\Escritorio\1DAM\PRO\Repository\minesweeper-app\minesweeper-app-fx\src\main\java\es\ies\puerto\config\Sesion.java
 C:\Users\eduex\OneDrive\Escritorio\1DAM\PRO\Repository\minesweeper-app\minesweeper-app-fx\src\main\java\es\ies\puerto\model\entities\NivelEntity.java
 C:\Users\eduex\OneDrive\Escritorio\1DAM\PRO\Repository\minesweeper-app\minesweeper-app-fx\src\main\java\es\ies\puerto\controller\ProfileController.java
 C:\Users\eduex\OneDrive\Escritorio\1DAM\PRO\Repository\minesweeper-app\minesweeper-app-fx\src\main\java\es\ies\puerto\model\abstractas\Conexion.java
@@ -17,4 +19,5 @@ C:\Users\eduex\OneDrive\Escritorio\1DAM\PRO\Repository\minesweeper-app\minesweep
 C:\Users\eduex\OneDrive\Escritorio\1DAM\PRO\Repository\minesweeper-app\minesweeper-app-fx\src\main\java\es\ies\puerto\model\services\UsuarioService.java
 C:\Users\eduex\OneDrive\Escritorio\1DAM\PRO\Repository\minesweeper-app\minesweeper-app-fx\src\main\java\module-info.java
 C:\Users\eduex\OneDrive\Escritorio\1DAM\PRO\Repository\minesweeper-app\minesweeper-app-fx\src\main\java\es\ies\puerto\model\entities\UsuarioEntity.java
+C:\Users\eduex\OneDrive\Escritorio\1DAM\PRO\Repository\minesweeper-app\minesweeper-app-fx\src\main\java\es\ies\puerto\model\entities\UsuarioTemasEntity.java
 C:\Users\eduex\OneDrive\Escritorio\1DAM\PRO\Repository\minesweeper-app\minesweeper-app-fx\src\main\java\es\ies\puerto\controller\PasswordController.java
