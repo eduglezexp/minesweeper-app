@@ -31,8 +31,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.Glow;
-import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -468,16 +468,16 @@ public class JuegoController extends AbstractController{
             int columnas= Integer.parseInt(textFieldColumnas.getText());
             int minas   = Integer.parseInt(textFieldMinas.getText());
             if (filas <= 0 || columnas <= 0 || minas <= 0) {
-                textMensajePersonalizar.setText("Los valores deben ser mayores que cero");
+                textMensajePersonalizar.setText(ConfigManager.ConfigProperties.getProperty("errorValores"));
                 return;
             }
             int maxMinas = filas * columnas - 9;
             if (minas > maxMinas) {
-                textMensajePersonalizar.setText("Demasiadas minas. Máximo permitido: " + maxMinas);
+                textMensajePersonalizar.setText(ConfigManager.ConfigProperties.getProperty("errorMinas") + maxMinas);
                 return;
             }
             if (!validarDimensiones(filas, columnas)) {
-                textMensajePersonalizar.setText("Dimensiones demasiado grandes para la ventana");
+                textMensajePersonalizar.setText(ConfigManager.ConfigProperties.getProperty("errorDimensiones"));
                 return;
             }
             double mineDensity = (double) minas / (filas * columnas);
@@ -486,7 +486,7 @@ public class JuegoController extends AbstractController{
             personalizarButton.setVisible(true);
             iniciarTablero(new BoardConfig(filas, columnas, minas));
         } catch (NumberFormatException e) {
-            textMensajePersonalizar.setText("Debes introducir números válidos");
+            textMensajePersonalizar.setText(ConfigManager.ConfigProperties.getProperty("errorNumerosValidos"));
         }
     }
 
@@ -663,8 +663,8 @@ public class JuegoController extends AbstractController{
         } catch (Exception e) {
             e.printStackTrace();
         } 
-        textFinJuego.setText("Fin del juego");
-        textResultado.setText("Derrota");
+        textFinJuego.setText(ConfigManager.ConfigProperties.getProperty("mensajeDerrota"));
+        textResultado.setText(ConfigManager.ConfigProperties.getProperty("estadisticasDerrota"));
         textFinJuego.setVisible(true);
         textResultado.setVisible(true);
         reintentarButton.setVisible(true);
@@ -789,7 +789,7 @@ public class JuegoController extends AbstractController{
         }
         textPuntosTienda.setText(String.valueOf(usuario.getPuntos()));
         textPuntosInventario.setText(String.valueOf(usuario.getPuntos()));
-        textFinJuego.setText("¡Has Ganado!");
+        textFinJuego.setText(ConfigManager.ConfigProperties.getProperty("mensajeVictoria"));
         textResultado.setText("Puntos base: " +basePoints+ "\n" +
                               "Dificultad: " +dificultadMultiplier+ "\n" +
                               "Bonus por tiempo: " +timeBonus+ "\n" +
@@ -798,7 +798,7 @@ public class JuegoController extends AbstractController{
                               "Total: " + puntosGanados);
         textFinJuego.setVisible(true);
         textResultado.setVisible(true);
-        reintentarButton.setText("Jugar de nuevo");
+        reintentarButton.setText(ConfigManager.ConfigProperties.getProperty("jugarDeNuevo"));
         reintentarButton.setVisible(true);
         fadeIn(mostrarFinDelJuegoVbox, miliSegundos);
         mostrarFinDelJuegoVbox.toFront();
@@ -1080,11 +1080,11 @@ public class JuegoController extends AbstractController{
         int actuales = Integer.parseInt(badgeLabel.getText());
 
         if (puntos < costo) {
-            mostrarMensaje("No tienes suficientes puntos.");
+            mostrarMensaje(ConfigManager.ConfigProperties.getProperty("noSuficientesPuntos"));
             return;
         }
         if (actuales >= MAX_POWERUPS) {
-            mostrarMensaje("Has alcanzado el máximo de este ítem.");
+            mostrarMensaje(ConfigManager.ConfigProperties.getProperty("maximoItem"));
             return;
         }
         try {
@@ -1136,7 +1136,7 @@ public class JuegoController extends AbstractController{
             resaltarMinaAleatoria();
             return;
         }
-        mostrarMensaje("No tienes minas fantasma disponibles o ya has usado una.");
+        mostrarMensaje(ConfigManager.ConfigProperties.getProperty("noMinasFantasmas"));
     }
 
     /**
@@ -1194,7 +1194,7 @@ public class JuegoController extends AbstractController{
             volverAlJuegoInventario();
             return;
         }
-        mostrarMensaje("No tienes escudos disponibles o ya está activado uno.");
+        mostrarMensaje(ConfigManager.ConfigProperties.getProperty("noEscudo"));
     }
 
     /**
@@ -1248,7 +1248,7 @@ public class JuegoController extends AbstractController{
             activarModoSeleccionAlquimia();
             return;
         }
-        mostrarMensaje("No tienes alquimia de minas disponibles o ya has usado una.");
+        mostrarMensaje(ConfigManager.ConfigProperties.getProperty("noAlquimia"));
     }
 
     /**
@@ -1280,7 +1280,7 @@ public class JuegoController extends AbstractController{
      */
     private void manejarConversionAlquimia(int fila, int columna, Button celda) {
         if (!minas[fila][columna]) {
-            mostrarMensaje("¡Solo puedes usar alquimia en minas!");
+            mostrarMensaje(ConfigManager.ConfigProperties.getProperty("errorAlquimia"));
             desactivarModoSeleccionAlquimia(); 
             return;
         }
@@ -1581,11 +1581,15 @@ public class JuegoController extends AbstractController{
      */
     private void comprarTema(int temaId, int costo) {
         int puntos = usuario.getPuntos();
-        if (puntos < costo) {
-            mostrarMensaje("No tienes suficientes puntos.");
-            return;
-        }
         try {
+            if (getUsuarioTemasService().tieneUsuarioTema(usuario.getId(), temaId)) {
+                mostrarMensaje(ConfigManager.ConfigProperties.getProperty("temaYaComprado"));
+                return;
+            }
+            if (puntos < costo) {
+                mostrarMensaje(ConfigManager.ConfigProperties.getProperty("noSuficientesPuntos"));
+                return;
+            }
             getUsuarioTemasService().comprarTema(usuario, temaId);
             usuario.setPuntos(puntos - costo);
             actualizarPuntosEnVista(usuario.getPuntos());
@@ -1629,7 +1633,7 @@ public class JuegoController extends AbstractController{
     private void aplicarTema(int temaId) {
         try {
             if (!getUsuarioTemasService().tieneUsuarioTema(usuario.getId(), temaId)) {
-                mostrarMensaje("Debes comprar este tema primero.");
+                mostrarMensaje(ConfigManager.ConfigProperties.getProperty("errorUsar"));
                 return;
             }
             boolean exito = getUsuarioTemasService().actualizarUsuarioTemas(true, usuario.getId(), temaId);
