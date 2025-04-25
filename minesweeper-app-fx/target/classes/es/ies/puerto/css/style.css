@@ -108,23 +108,41 @@
   -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);
 }
 
-#textFinJuego {
+.finJuegoTitulo {
   -fx-fill: #4CAF50;
   -fx-font-weight: bold;
   -fx-font-size: 24px;
 }
 
-#textResultado {
+.resultado {
   -fx-font-size: 14px;
   -fx-line-spacing: 5px;
 }
 
-#textTemporizador, #textBanderas {
+.temporizador, .banderas {
   -fx-font-size: 18px;
   -fx-font-weight: bold;
   -fx-fill: #4a4a4a;
 }
 
-#imageViewFotoPerfil {
+.fotoPerfil {
   -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 2);
+}
+
+.panelInfo {     
+  -fx-background-color: #f5f7fa;
+  -fx-text-fill: #444444;
+  -fx-background-radius: 16;
+  -fx-border-radius: 16;
+  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 12, 0, 0, 2);
+  -fx-background-insets: 0;
+  -fx-background-radius: 16;
+  -fx-border-insets: 0;
+  -fx-border-radius: 16;
+  -fx-font-size: 14px;
+  -fx-font-weight: normal;
+}
+
+.panelInfo:hover {
+  -fx-background-color: derive(#f5f7fa, +4%);
 }

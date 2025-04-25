@@ -1530,11 +1530,12 @@ public class JuegoController extends AbstractController{
     /**
      * Metodo que carga la imagen del objeto en la pantalla de informacion
      * @param nombreImagen de la imagen, debe estar en la carpeta img y
+     * @param nombreCarpetaImg nombre de la carpeta donde esta la imagen dentro de la carpeta img
      * junto al nombre añadir el formato de la imagen (png, jpg, etc.)
      */
-    private void cargarImagen(String nombreImagen) {
+    private void cargarImagen(String nombreCarpetaImg, String nombreImagen) {
         try {
-            String imagePath = "/es/ies/puerto/img/" + nombreImagen;
+            String imagePath = "/es/ies/puerto/img/" + nombreCarpetaImg +"/"+ nombreImagen;
             Image image = new Image(getClass().getResource(imagePath).toExternalForm());
             imageViewObjeto.setImage(image);
         } catch (NullPointerException e) {
@@ -1550,9 +1551,9 @@ public class JuegoController extends AbstractController{
      * @param claveObjeto es la clave del objeto en el archivo de propiedades de idiomas
      * @param claveInformacion es la clave de la informacion en el archivo de propiedades de idiomas
      */
-    private void cargarInformacionObjeto(String nombreImagen, String claveObjeto, String claveInformacion) {
+    private void cargarInformacionObjeto(String nombreCarpetaImg, String nombreImagen, String claveObjeto, String claveInformacion) {
         fadeIn(mostrarInformacionVbox, miliSegundos);
-        cargarImagen(nombreImagen);
+        cargarImagen(nombreCarpetaImg, nombreImagen);
         textObjeto.setText(ConfigManager.ConfigProperties.getProperty(claveObjeto));
         textInformacion.setText(ConfigManager.ConfigProperties.getProperty(claveInformacion));
     }
@@ -1563,17 +1564,32 @@ public class JuegoController extends AbstractController{
      */
     @FXML
     protected void onEscudoInformacionClick() {
-        cargarInformacionObjeto("usuario.png", "escudo", "infoEscudo");
+        cargarInformacionObjeto("objetos", "escudo.png", "escudo", "infoEscudo");
     }
 
     @FXML
     protected void onFantasmaInformacionClick() {
-        cargarInformacionObjeto("usuario.png", "fantasma", "infoFantasma");
+        cargarInformacionObjeto("objetos","fantasma.png", "fantasma", "infoFantasma");
     }
 
     @FXML
     protected void onAlquimiaInformacionClick() {
-        cargarInformacionObjeto("usuario.png", "alquimia", "infoAlquimia");
+        cargarInformacionObjeto("objetos","alquimia.png", "alquimia", "infoAlquimia");
+    }
+
+    @FXML
+    protected void onTemaOscuroInformacionClick() {
+        cargarInformacionObjeto("temas","oscuro.png", "oscuro", "infoTemaOscuro");
+    }
+
+    @FXML
+    protected void onTemaNaturalezaInformacionClick() {
+        cargarInformacionObjeto("temas","naturaleza.png", "naturaleza", "infoTemaNaturaleza");
+    }
+
+    @FXML
+    protected void onTemaRetroInformacionClick() {
+        cargarInformacionObjeto("temas","retro.png", "retro", "infoTemaRetro");
     }
 
     /**

@@ -59,14 +59,14 @@
                               <Image url="@img/flag.png" />
                            </image>
                         </ImageView>
-                        <Text fx:id="textBanderas" strokeType="OUTSIDE" strokeWidth="0.0" text="10">
+                        <Text fx:id="textBanderas" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="banderas" text="10">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Text>
                      </children>
                   </HBox>
-                  <Text fx:id="textTemporizador" strokeType="OUTSIDE" strokeWidth="0.0" text="00:00">
+                  <Text fx:id="textTemporizador" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="temporizador" text="00:00">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -78,7 +78,7 @@
             </VBox>
             <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="80.0">
                <children>
-                  <ImageView fx:id="imageViewFotoPerfil" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imageViewFotoPerfil" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" styleClass="fotoPerfil">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
@@ -246,7 +246,7 @@
                   </Text>
                   <TextFlow maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="250.0" styleClass="text-flow-ayuda">
                      <children>
-                        <Text fx:id="textAyuda" styleClass="texto-ayuda" strokeType="OUTSIDE" strokeWidth="0.0" text="dwaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" />
+                        <Text fx:id="textAyuda" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="texto-ayuda" text="dwaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" />
                      </children>
                   </TextFlow>
                </children>
@@ -255,12 +255,12 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Text fx:id="textTienda" strokeType="OUTSIDE" strokeWidth="0.0" text="Tienda">
+                        <Text fx:id="textTienda" strokeType="OUTSIDE" strokeWidth="0.0" text="Tienda" wrappingWidth="140.0">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Text>
-                        <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="218.0">
+                        <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="149.0">
                            <children>
                               <Text fx:id="textPuntosTienda" strokeType="OUTSIDE" strokeWidth="0.0" text="50">
                                  <font>
@@ -276,12 +276,15 @@
                                  </image>
                               </ImageView>
                            </children>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
                         </HBox>
                      </children>
                   </HBox>
                   <ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="300.0" styleClass="scrollPane">
                      <content>
-                        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="300.0">
+                        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="300.0">
                            <children>
                               <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="300.0">
                                  <children>
@@ -298,7 +301,7 @@
                                                    <graphic>
                                                       <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
-                                                            <Image url="@img/escudo.png" />
+                                                            <Image url="@img/objetos/escudo.png" />
                                                          </image>
                                                       </ImageView>
                                                    </graphic></Button>
@@ -325,7 +328,7 @@
                                                    <graphic>
                                                       <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
-                                                            <Image url="@img/fantasma.png" />
+                                                            <Image url="@img/objetos/fantasma.png" />
                                                          </image>
                                                       </ImageView>
                                                    </graphic></Button>
@@ -352,7 +355,7 @@
                                                    <graphic>
                                                       <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
-                                                            <Image url="@img/alquimia.png" />
+                                                            <Image url="@img/objetos/alquimia.png" />
                                                          </image>
                                                       </ImageView>
                                                    </graphic></Button>
@@ -394,7 +397,7 @@
                                        <children>
                                           <VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="115.0" prefWidth="100.0">
                                              <children>
-                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" styleClass="temaButton">
+                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onTemaOscuroInformacionClick" prefHeight="80.0" prefWidth="80.0" styleClass="temaButton">
                                                    <graphic>
                                                       <ImageView fitHeight="75.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
@@ -421,7 +424,7 @@
                                           </VBox>
                                           <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
                                              <children>
-                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" styleClass="temaButton">
+                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onTemaNaturalezaInformacionClick" prefHeight="80.0" prefWidth="80.0" styleClass="temaButton">
                                                    <graphic>
                                                       <ImageView fitHeight="75.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
@@ -448,7 +451,7 @@
                                           </VBox>
                                           <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="100.0">
                                              <children>
-                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" styleClass="temaButton">
+                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onTemaRetroInformacionClick" prefHeight="80.0" prefWidth="80.0" styleClass="temaButton">
                                                    <graphic>
                                                       <ImageView fitHeight="75.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
@@ -490,12 +493,12 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Text fx:id="textInventario" strokeType="OUTSIDE" strokeWidth="0.0" text="Inventario">
+                        <Text fx:id="textInventario" strokeType="OUTSIDE" strokeWidth="0.0" text="Inventario" wrappingWidth="122.0">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Text>
-                        <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="177.0">
+                        <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="146.0">
                            <children>
                               <Text fx:id="textPuntosInventario" strokeType="OUTSIDE" strokeWidth="0.0" text="50">
                                  <font>
@@ -511,12 +514,15 @@
                                  </image>
                               </ImageView>
                            </children>
+                           <HBox.margin>
+                              <Insets left="30.0" />
+                           </HBox.margin>
                         </HBox>
                      </children>
                   </HBox>
                   <ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="300.0" styleClass="scrollPane">
                      <content>
-                        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="300.0">
+                        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="300.0">
                            <children>
                               <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="300.0">
                                  <children>
@@ -533,7 +539,7 @@
                                                    <graphic>
                                                       <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
-                                                            <Image url="@img/escudo.png" />
+                                                            <Image url="@img/objetos/escudo.png" />
                                                          </image>
                                                          <rotationAxis>
                                                             <Point3D />
@@ -551,7 +557,7 @@
                                                    <graphic>
                                                       <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
-                                                            <Image url="@img/fantasma.png" />
+                                                            <Image url="@img/objetos/fantasma.png" />
                                                          </image>
                                                       </ImageView>
                                                    </graphic></Button>
@@ -569,7 +575,7 @@
                                                    <graphic>
                                                       <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
-                                                            <Image url="@img/alquimia.png" />
+                                                            <Image url="@img/objetos/alquimia.png" />
                                                          </image>
                                                       </ImageView>
                                                    </graphic></Button>
@@ -599,7 +605,7 @@
                                        <children>
                                           <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="80.0">
                                              <children>
-                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" styleClass="temaButton">
+                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onTemaOscuroInformacionClick" prefHeight="80.0" prefWidth="80.0" styleClass="temaButton">
                                                    <graphic>
                                                       <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
@@ -608,12 +614,12 @@
                                                       </ImageView>
                                                    </graphic>
                                                 </Button>
-                                                <Button fx:id="usarTemaOscuroButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onUsarTemaOscuroClick" prefWidth="80.0" text="Usar" translateY="80.0" />
+                                                <Button fx:id="usarTemaOscuroButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onUsarTemaOscuroClick" prefWidth="80.0" styleClass="usarButton" text="Usar" translateY="80.0" />
                                              </children>
                                           </AnchorPane>
                                           <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="80.0">
                                              <children>
-                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" styleClass="temaButton">
+                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onTemaNaturalezaInformacionClick" prefHeight="80.0" prefWidth="80.0" styleClass="temaButton">
                                                    <graphic>
                                                       <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
@@ -621,7 +627,7 @@
                                                          </image>
                                                       </ImageView>
                                                    </graphic></Button>
-                                                <Button fx:id="usarTemaNaturalezaButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onUsarTemaNaturalezaClick" prefWidth="80.0" text="Usar" translateY="80.0" />
+                                                <Button fx:id="usarTemaNaturalezaButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onUsarTemaNaturalezaClick" prefWidth="80.0" styleClass="usarButton" text="Usar" translateY="80.0" />
                                              </children>
                                              <HBox.margin>
                                                 <Insets left="20.0" right="20.0" />
@@ -629,7 +635,7 @@
                                           </AnchorPane>
                                           <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="80.0">
                                              <children>
-                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" styleClass="temaButton">
+                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onTemaRetroInformacionClick" prefHeight="80.0" prefWidth="80.0" styleClass="temaButton">
                                                    <graphic>
                                                       <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
@@ -637,7 +643,7 @@
                                                          </image>
                                                       </ImageView>
                                                    </graphic></Button>
-                                                <Button fx:id="usarTemaRetroButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onUsarTemaRetroClick" prefWidth="80.0" text="Usar" translateY="80.0" />
+                                                <Button fx:id="usarTemaRetroButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onUsarTemaRetroClick" prefWidth="80.0" styleClass="usarButton" text="Usar" translateY="80.0" />
                                              </children>
                                           </AnchorPane>
                                        </children>
@@ -656,28 +662,36 @@
                   </ScrollPane>
                </children>
             </VBox>
-            <VBox fx:id="mostrarInformacionVbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="300.0" visible="false">
+            <VBox fx:id="mostrarInformacionVbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="290.0" prefWidth="280.0" visible="false">
                <children>
-                  <ImageView fx:id="imageViewObjeto" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" />
-                  <Text fx:id="textObjeto" strokeType="OUTSIDE" strokeWidth="0.0" text="Objeto">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="10.0" top="10.0" />
-                     </VBox.margin>
-                  </Text>
-                  <Text fx:id="textInformacion" strokeType="OUTSIDE" strokeWidth="0.0" text="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" wrappingWidth="250.0" />
-                  <Button fx:id="salirInformacionButton" mnemonicParsing="false" onAction="#onSalirInfomacionClick" text="Volver">
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                  </Button>
+                  <ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="290.0" prefWidth="280.0" styleClass="panelInfo">
+                     <content>
+                        <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="280.0" prefWidth="280.0">
+                           <children>
+                              <ImageView fx:id="imageViewObjeto" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" />
+                              <Text fx:id="textObjeto" strokeType="OUTSIDE" strokeWidth="0.0" text="Objeto">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </Text>
+                              <Text fx:id="textInformacion" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="230.0" />
+                              <Button fx:id="salirInformacionButton" mnemonicParsing="false" onAction="#onSalirInfomacionClick" text="Volver">
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
                </children>
             </VBox>
             <VBox fx:id="mostrarFinDelJuegoVbox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" visible="false">
                <children>
-                  <Text fx:id="textFinJuego" strokeType="OUTSIDE" strokeWidth="0.0" text="Fin de la partida" visible="false">
+                  <Text fx:id="textFinJuego" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="finJuegoTitulo" text="Fin de la partida" visible="false">
                      <font>
                         <Font size="36.0" />
                      </font>
@@ -685,7 +699,7 @@
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </Text>
-                  <Text fx:id="textResultado" strokeType="OUTSIDE" strokeWidth="0.0" text="resultado" visible="false">
+                  <Text fx:id="textResultado" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="resultado" text="resultado" visible="false">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
