@@ -15,11 +15,15 @@ import es.ies.puerto.controller.enums.VistaActual;
 import es.ies.puerto.model.entities.UsuarioEntity;
 import es.ies.puerto.model.entities.UsuarioPowerupsEntity;
 import javafx.animation.FadeTransition;
+import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.ParallelTransition;
+import javafx.animation.PauseTransition;
 import javafx.animation.ScaleTransition;
+import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
+import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -350,6 +354,7 @@ public class JuegoController extends AbstractController{
 
     /**
      * Metodo para iniciar el tablero
+     * @param boardConfig configuracion del tablero
      */
     private void iniciarTablero(BoardConfig boardConfig) {
         deshabilitarVboxes();
@@ -491,16 +496,12 @@ public class JuegoController extends AbstractController{
     }
 
     /**
-     * Metodo para crear un tablero
+     * Metodo para inicializar las variables
      * @param filas del tablero
      * @param columnas del tablero
-     * @return tablero
+     * @param numeroMinas del tablero
      */
-    private GridPane crearTablero(int filas, int columnas, int numeroMinas) {
-        GridPane grid = new GridPane();
-        double cellWidth = stackPaneContenedorTablero.getWidth() / columnas;
-        double cellHeight = stackPaneContenedorTablero.getHeight() / filas;
-        double cellSize = Math.min(cellWidth, cellHeight);
+    private void inicializarVariables(int filas, int columnas, int numeroMinas) {
         minas = new boolean[filas][columnas];
         minasAdyacentes = new int[filas][columnas];
         celdas = new Button[filas][columnas];
@@ -510,13 +511,32 @@ public class JuegoController extends AbstractController{
         minasTotales = numeroMinas;
         textBanderas.setText(String.valueOf(minasTotales));
         segundosTranscurridos = 0;
+    }
+
+    /**
+     * Metodo para crear un tablero
+     * @param filas del tablero
+     * @param columnas del tablero
+     * @param numeroMinas del tablero
+     * @return tablero
+     */
+    private GridPane crearTablero(int filas, int columnas, int numeroMinas) {
+        GridPane grid = new GridPane();
+        double cellWidth = stackPaneContenedorTablero.getWidth() / columnas;
+        double cellHeight = stackPaneContenedorTablero.getHeight() / filas;
+        double cellSize = Math.min(cellWidth, cellHeight);
+        inicializarVariables(filas, columnas, numeroMinas);
         actualizarTemporizador();
         pararTemporizador();
         for (int fila = 0; fila < filas; fila++) {
             for (int columna = 0; columna < columnas; columna++) {
                 Button celda = new Button();
                 celda.setPrefSize(cellSize, cellSize);
+                celda.setMinSize(cellSize, cellSize);
+                celda.setMaxSize(cellSize, cellSize);
                 celda.setStyle("-fx-font-size: 14;");
+                celda.setTranslateY(-cellSize * 2);  
+                celda.setOpacity(0);
                 celdas[fila][columna] = celda;
                 final int filaActual = fila;
                 final int columnaActual = columna;
@@ -531,10 +551,35 @@ public class JuegoController extends AbstractController{
                     }
                 });
                 grid.add(celda, columna, fila);
+                animarIniciarTablero(celda, fila, columna, columnas, cellSize);
             }
         }
         configActual = new BoardConfig(filas, columnas, numeroMinas);
         return grid;
+    }
+
+    /**
+     * Metodo para animar las celdas del tablero al iniciar el juego
+     * @param celda del tablero
+     * @param fila del tablero
+     * @param columna del tablero
+     * @param columnas del tablero
+     * @param cellSize del tablero
+     */
+    private void animarIniciarTablero(Button celda, int fila, int columna, int columnas, double cellSize) {
+        TranslateTransition caida = new TranslateTransition(Duration.millis(100), celda);
+        caida.setToY(0);
+        caida.setDelay(Duration.millis((fila * columnas + columna) * 2.5));
+        caida.setInterpolator(Interpolator.EASE_OUT);
+    
+        FadeTransition aparicion = new FadeTransition(Duration.millis(50), celda);
+        aparicion.setToValue(1);
+    
+        SequentialTransition secuencia = new SequentialTransition(
+            new PauseTransition(caida.getDelay()),
+            new ParallelTransition(caida, aparicion)
+        );
+        secuencia.play();
     }
 
     /**
@@ -1420,7 +1465,6 @@ public class JuegoController extends AbstractController{
     private void animarSuperMina(Button celda) {
         Glow glow = new Glow(0.8);
         celda.setEffect(glow);
-        
         Timeline timeline = new Timeline(
             new KeyFrame(Duration.seconds(0.1), e -> celda.setStyle("-fx-background-color: #ff0000")),
             new KeyFrame(Duration.seconds(0.2), e -> celda.setStyle("-fx-background-color: #880000"))
@@ -1442,7 +1486,6 @@ public class JuegoController extends AbstractController{
         scale.setToY(1.2);
         scale.setAutoReverse(true);
         scale.setCycleCount(2);
-        
         celda.setStyle("-fx-background-color: #aaffaa;");
         scale.play();
     }
@@ -1498,33 +1541,6 @@ public class JuegoController extends AbstractController{
             fadeIn(mostrarInventarioVbox, miliSegundos);
             pausarTemporizador(false);
         }
-    }
-
-     /** 
-      * Hace un fade-in (opacidad 0→1) y deja el nodo visible 
-      */
-    private void fadeIn(Node node, double millis) {
-        node.setOpacity(0);
-        node.setVisible(true);
-        FadeTransition fadeTransition = new FadeTransition(Duration.millis(millis), node);
-        fadeTransition.setFromValue(0);
-        fadeTransition.setToValue(1);
-        fadeTransition.play();
-    }
-
-    /** 
-     * Hace un fade-out (1→0) y al terminar oculta el nodo
-     * 
-     */
-    private void fadeOut(Node node, double millis) {
-        FadeTransition fadeTransition = new FadeTransition(Duration.millis(millis), node);
-        fadeTransition.setFromValue(1);
-        fadeTransition.setToValue(0);
-        fadeTransition.setOnFinished(e -> {
-            node.setVisible(false);
-            node.setOpacity(1);
-        });
-        fadeTransition.play();
     }
 
     /**

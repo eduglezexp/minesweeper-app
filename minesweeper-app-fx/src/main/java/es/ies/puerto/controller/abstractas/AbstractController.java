@@ -11,21 +11,18 @@ import es.ies.puerto.model.services.ObjetoService;
 import es.ies.puerto.model.services.UsuarioPowerupsService;
 import es.ies.puerto.model.services.UsuarioService;
 import es.ies.puerto.model.services.UsuarioTemasService;
+import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * @author eduglezexp
@@ -160,6 +157,18 @@ public abstract class AbstractController {
 
     @FXML
     private Button buttonVolverAtras;
+
+    @FXML
+    private Button abrirWarningButton;
+
+    @FXML 
+    private Text textWarning;
+
+    @FXML
+    private Button eliminarButton;
+
+    @FXML
+    private Button cancelarButton;
 
     /**
      * PasswordController
@@ -361,6 +370,18 @@ public abstract class AbstractController {
         }
         if (buttonVolverAtras != null) {
             buttonVolverAtras.setText(ConfigManager.ConfigProperties.getProperty("buttonVolverAtras"));
+        }
+        if (abrirWarningButton != null) {
+            abrirWarningButton.setText(ConfigManager.ConfigProperties.getProperty("abrirWarningButton"));
+        }
+        if (textWarning != null) {
+            textWarning.setText(ConfigManager.ConfigProperties.getProperty("textWarning"));
+        }
+        if (eliminarButton != null) {
+            eliminarButton.setText(ConfigManager.ConfigProperties.getProperty("eliminarButton"));
+        }
+        if (cancelarButton != null) {
+            cancelarButton.setText(ConfigManager.ConfigProperties.getProperty("cancelarButton"));
         }
         /**
          * PasswordController
@@ -588,5 +609,32 @@ public abstract class AbstractController {
             String temaCss = getClass().getResource(cssPath).toExternalForm();
             scene.getStylesheets().add(temaCss);
         }
+    }
+
+     /** 
+      * Hace un fade-in (opacidad 0→1) y deja el nodo visible 
+      */
+    public void fadeIn(Node node, double millis) {
+        node.setOpacity(0);
+        node.setVisible(true);
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(millis), node);
+        fadeTransition.setFromValue(0);
+        fadeTransition.setToValue(1);
+        fadeTransition.play();
+    }
+
+    /** 
+     * Hace un fade-out (1→0) y al terminar oculta el nodo
+     * 
+     */
+    public void fadeOut(Node node, double millis) {
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(millis), node);
+        fadeTransition.setFromValue(1);
+        fadeTransition.setToValue(0);
+        fadeTransition.setOnFinished(e -> {
+            node.setVisible(false);
+            node.setOpacity(1);
+        });
+        fadeTransition.play();
     }
 }

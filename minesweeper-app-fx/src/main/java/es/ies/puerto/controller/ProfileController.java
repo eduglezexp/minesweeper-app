@@ -49,6 +49,8 @@ public class ProfileController extends AbstractController {
     @FXML
     private Button buttonVolverAtras;
 
+    private UsuarioEntity usuarioEntity;
+
     /**
      * Metodo de inicializacion de la interfaz
      */
@@ -64,6 +66,7 @@ public class ProfileController extends AbstractController {
      */
     public void cargarDatosUsuario(UsuarioEntity usuario) {
         if (usuario != null) {
+            this.usuarioEntity = usuario;
             textFieldUsuario.setText(usuario.getUser());
             textFieldNombre.setText(usuario.getName());
             textFieldEmail.setText(usuario.getEmail());
@@ -76,16 +79,8 @@ public class ProfileController extends AbstractController {
      */
     @FXML
     protected void openEditarClick() {
-        try {
-            List<UsuarioEntity> usuarios = getUsuarioService().obtenerUsuarioPorEmailOUser(textFieldUsuario.getText());
-            if (!usuarios.isEmpty()) {
-                UsuarioEntity usuario = usuarios.get(0);
-                String tituloPantalla = ConfigManager.ConfigProperties.getProperty("registroTitle");
-                mostrarPantalla(openEditarButton, "registro.fxml", tituloPantalla, usuario);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        String tituloPantalla = ConfigManager.ConfigProperties.getProperty("editarTitle");
+        mostrarPantalla(openEditarButton, "registro.fxml", tituloPantalla, usuarioEntity);
     }
 
     /**
@@ -94,16 +89,8 @@ public class ProfileController extends AbstractController {
      */
     @FXML
     protected void openJugarClick() {
-        try {
-            List<UsuarioEntity> usuarios = getUsuarioService().obtenerUsuarioPorEmailOUser(textFieldUsuario.getText());
-            if (!usuarios.isEmpty()) {
-                UsuarioEntity usuario = usuarios.get(0);
-                String tituloPantalla = ConfigManager.ConfigProperties.getProperty("juegoTitle");
-                mostrarPantalla(openJugarButton, "juego.fxml", tituloPantalla, usuario);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        String tituloPantalla = ConfigManager.ConfigProperties.getProperty("juegoTitle");
+        mostrarPantalla(openJugarButton, "juego.fxml", tituloPantalla, usuarioEntity);
     }
 
     /**

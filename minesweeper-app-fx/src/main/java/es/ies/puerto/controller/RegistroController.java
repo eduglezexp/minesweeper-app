@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -21,6 +22,7 @@ import javafx.stage.Stage;
 public class RegistroController extends AbstractController{
 
     private UsuarioEntity usuarioEditado;
+    private UsuarioEntity usuarioEliminar;
 
     @FXML
     public Text textRegistroTitulo;
@@ -52,6 +54,23 @@ public class RegistroController extends AbstractController{
     @FXML
     private Button buttonVolverAtras;
 
+    @FXML
+    private Button abrirWarningButton;
+
+    @FXML
+    private VBox mostrarWarningVbox;
+
+    @FXML 
+    private Text textWarning;
+
+    @FXML
+    private Button eliminarButton;
+
+    @FXML
+    private Button cancelarButton;
+
+    private int miliSegundos = 300;
+
     /**
      * Metodo de inicializacion de la interfaz
      */
@@ -68,9 +87,14 @@ public class RegistroController extends AbstractController{
     public void cargarDatosUsuario(UsuarioEntity usuario) {
         if (usuario != null) {
             this.usuarioEditado = usuario;
+            this.usuarioEliminar = usuario;
             textFieldUsuario.setText(usuario.getUser());
             textFieldNombre.setText(usuario.getName());
             textFieldEmail.setText(usuario.getEmail());
+            textRegistroTitulo.setText(ConfigManager.ConfigProperties.getProperty("editarTitulo"));
+            abrirWarningButton.setVisible(true);
+        } else {
+            abrirWarningButton.setVisible(false);
         }
     }
 
@@ -163,5 +187,44 @@ public class RegistroController extends AbstractController{
         } else {
             textMensaje.setText("errorPreviousScene");
         }
+    }
+
+    /**
+     * Maneja el evento de clic en el boton de eliminar
+     * Muestra una pantalla de warning de que el usuario
+     * se va a eliminar con las opciones eliminar o cancelar
+     */
+    @FXML
+    protected void onAbrirWarningButtonClick() {
+        boolean abrirWarningVisible = mostrarWarningVbox.isVisible();
+        if (abrirWarningVisible) {
+            fadeOut(mostrarWarningVbox, miliSegundos);
+            return;
+        }
+        fadeIn(mostrarWarningVbox, miliSegundos);
+    }
+
+    /**
+     * Maneja el evento de clic en el boton de eliminar
+     * Elimina el usuario 
+     */
+    @FXML
+    protected void onEliminarButtonClick() {
+        try {
+            getUsuarioService().eliminarUsuario(usuarioEliminar.getEmail());
+            String tituloPantalla = ConfigManager.ConfigProperties.getProperty("loginTitle");
+            mostrarPantalla(eliminarButton, "login.fxml", tituloPantalla);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Maneja el evento de clic en el boton de cancelar
+     * Cancela la eliminacion del usuario y sale del warning
+     */
+    @FXML
+    protected void onCancelarButtonClick() {
+        fadeOut(mostrarWarningVbox, miliSegundos);
     }
 }
