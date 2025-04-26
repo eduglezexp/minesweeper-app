@@ -20,24 +20,24 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="770.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.ies.puerto.controller.JuegoController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="770.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.ies.puerto.controller.JuegoController">
    <top>
       <HBox alignment="CENTER" prefHeight="130.0" prefWidth="350.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="95.0" prefWidth="100.0">
+            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="95.0" prefWidth="120.0">
                <children>
-                  <Button fx:id="tiendaButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onTiendaClick" prefHeight="25.0" prefWidth="100.0" text="Tienda">
+                  <Button fx:id="tiendaButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onTiendaClick" prefHeight="25.0" prefWidth="120.0" text="Tienda">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </Button>
-                  <ComboBox fx:id="comboDificultad" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#seleccionarDificultadClick" prefWidth="100.0" promptText="Dificultad">
+                  <ComboBox fx:id="comboDificultad" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#seleccionarDificultadClick" prefWidth="120.0" promptText="Dificultad">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </ComboBox>
                   <Button fx:id="personalizarButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onPersonalizarClick" prefWidth="100.0" text="Personalizar" visible="false" />
-                  <Button fx:id="aleatorioButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAleatorioClick" prefWidth="100.0" text="Aleatorio" visible="false">
+                  <Button fx:id="aleatorioButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAleatorioClick" prefWidth="120.0" text="Aleatorio" visible="false">
                      <VBox.margin>
                         <Insets bottom="10.0" top="-25.0" />
                      </VBox.margin>
@@ -76,7 +76,7 @@
                   <Insets left="10.0" right="10.0" />
                </HBox.margin>
             </VBox>
-            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="80.0">
+            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="100.0">
                <children>
                   <ImageView fx:id="imageViewFotoPerfil" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" styleClass="fotoPerfil">
                      <VBox.margin>
@@ -86,7 +86,7 @@
                         <Image url="@img/usuario.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="estadisticasButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onEstadisticasClick" prefWidth="80.0" text="Estadisticas">
+                  <Button fx:id="estadisticasButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onEstadisticasClick" prefWidth="100.0" text="Estadisticas">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
@@ -689,7 +689,7 @@
                   </ScrollPane>
                </children>
             </VBox>
-            <VBox fx:id="mostrarFinDelJuegoVbox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" visible="false">
+            <VBox fx:id="mostrarFinDelJuegoVbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="260.0" prefWidth="260.0" styleClass="mostrarFinJuego">
                <children>
                   <Text fx:id="textFinJuego" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="finJuegoTitulo" text="Fin de la partida" visible="false">
                      <font>
@@ -731,7 +731,7 @@
                   <Insets right="10.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="inventarioButton" mnemonicParsing="false" onAction="#onInventarioClick" text="Inventario" />
+            <Button fx:id="inventarioButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onInventarioClick" prefHeight="25.0" prefWidth="100.0" text="Inventario" />
             <Button fx:id="buttonVolverAtras" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onVolverAtrasClick" prefHeight="25.0" prefWidth="100.0" text="Volver Atrás">
                <HBox.margin>
                   <Insets left="10.0" />

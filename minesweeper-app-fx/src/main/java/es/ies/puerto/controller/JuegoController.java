@@ -44,6 +44,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -329,7 +330,7 @@ public class JuegoController extends AbstractController{
         try {
             List<UsuarioPowerupsEntity> lista = getUsuarioPowerupsService()
                 .obtenerUsuariosPowerupsPorId(usuario.getId());
-            int escudos   = lista.stream()
+            int escudos = lista.stream()
                                   .filter(p -> p.getPowerupId() == ESCUDO_ID)
                                   .findFirst()
                                   .map(UsuarioPowerupsEntity::getCantidad)
@@ -339,7 +340,7 @@ public class JuegoController extends AbstractController{
                                   .findFirst()
                                   .map(UsuarioPowerupsEntity::getCantidad)
                                   .orElse(0);
-            int alquimia  = lista.stream()
+            int alquimia = lista.stream()
                                   .filter(p -> p.getPowerupId() == ALQUIMIA_ID)
                                   .findFirst()
                                   .map(UsuarioPowerupsEntity::getCantidad)
@@ -392,11 +393,11 @@ public class JuegoController extends AbstractController{
                 dificultadMultiplier = 1.0;
                 break;
             case 1: // Intermedio
-                config = new BoardConfig(14, 10, 28);
+                config = new BoardConfig(17, 11, 38);
                 dificultadMultiplier = 1.5;
                 break;
             case 2: // Experto
-                config = new BoardConfig(18, 12, 43);
+                config = new BoardConfig(24, 14, 70);
                 dificultadMultiplier = 2.0;
                 break;
             case 3: // Aleatorio
@@ -442,8 +443,8 @@ public class JuegoController extends AbstractController{
         int filas;
         int columnas;
         do {
-            filas = random.nextInt(13) + 6; 
-            columnas = random.nextInt(7) + 6;
+            filas = random.nextInt(21) + 6; 
+            columnas = random.nextInt(9) + 6;
         } while (!validarDimensiones(filas, columnas));
         int minas = (filas * columnas) / 5; 
         aleatorioButton.setVisible(true);
@@ -525,16 +526,18 @@ public class JuegoController extends AbstractController{
         double cellWidth = stackPaneContenedorTablero.getWidth() / columnas;
         double cellHeight = stackPaneContenedorTablero.getHeight() / filas;
         double cellSize = Math.min(cellWidth, cellHeight);
+        double fontSize = cellSize * 0.35; 
+        Font cellFont = Font.font(fontSize);
         inicializarVariables(filas, columnas, numeroMinas);
         actualizarTemporizador();
         pararTemporizador();
         for (int fila = 0; fila < filas; fila++) {
             for (int columna = 0; columna < columnas; columna++) {
                 Button celda = new Button();
+                celda.setFont(cellFont);
                 celda.setPrefSize(cellSize, cellSize);
                 celda.setMinSize(cellSize, cellSize);
                 celda.setMaxSize(cellSize, cellSize);
-                celda.setStyle("-fx-font-size: 14;");
                 celda.setTranslateY(-cellSize * 2);  
                 celda.setOpacity(0);
                 celdas[fila][columna] = celda;
@@ -697,7 +700,6 @@ public class JuegoController extends AbstractController{
         if (currentRacha > usuario.getMejorRacha()) {
             usuario.setMejorRacha(currentRacha);
         }
-        textFieldPuntos.setText(String.valueOf(usuario.getPuntos()));
         textFieldDerrotas.setText(String.valueOf(derrotasTotales));
         textFieldRacha.setText("0");
         textFieldMejorRacha.setText(String.valueOf(usuario.getMejorRacha()));
@@ -708,6 +710,7 @@ public class JuegoController extends AbstractController{
         } catch (Exception e) {
             e.printStackTrace();
         } 
+        actualizarPuntosEnVista(nuevosPuntos);
         textFinJuego.setText(ConfigManager.ConfigProperties.getProperty("mensajeDerrota"));
         String estadisticasFormat = ConfigManager.ConfigProperties.getProperty("estadisticasDerrota");
         String estadisticasTexto = MessageFormat.format(estadisticasFormat, 
@@ -829,7 +832,6 @@ public class JuegoController extends AbstractController{
         if (usuario.getRachaActual() > usuario.getMejorRacha()) {
             usuario.setMejorRacha(usuario.getRachaActual());
         }
-        textFieldPuntos.setText(String.valueOf(usuario.getPuntos()));
         textFieldVictorias.setText(String.valueOf(usuario.getVictorias()));
         textFieldRacha.setText(String.valueOf(usuario.getRachaActual()));
         textFieldMejorRacha.setText(String.valueOf(usuario.getMejorRacha()));
@@ -839,8 +841,7 @@ public class JuegoController extends AbstractController{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        textPuntosTienda.setText(String.valueOf(usuario.getPuntos()));
-        textPuntosInventario.setText(String.valueOf(usuario.getPuntos()));
+        actualizarPuntosEnVista(puntosTotales);
         textFinJuego.setText(ConfigManager.ConfigProperties.getProperty("mensajeVictoria"));
         String estadisticasFormat = ConfigManager.ConfigProperties.getProperty("estadisticasVictoria");
         String estadisticasTexto = MessageFormat.format(estadisticasFormat, 

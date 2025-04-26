@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="770.0" prefWidth="350.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.ies.puerto.controller.LoginController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="770.0" prefWidth="350.0" spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.ies.puerto.controller.LoginController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
@@ -27,6 +27,6 @@
    <Text fx:id="textMensaje" strokeType="OUTSIDE" strokeWidth="0.0" />
     <Button fx:id="openAceptarButton" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" onAction="#onLoginButtonClick" prefHeight="32.0" prefWidth="110.0" text="Aceptar" textAlignment="CENTER" />
     <Button fx:id="openRegistrarButton" alignment="CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#openRegistrarClick" prefHeight="32.0" prefWidth="110.0" text="Registrar" textAlignment="CENTER" />
-   <Button fx:id="openListarUsuariosButton" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#openListarUsuariosClick" prefHeight="32.0" prefWidth="110.0" text="Listar Usuarios" textAlignment="CENTER" />
-   <Button fx:id="buttonRecuperarContrasenia" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#openRecuperarContraseniaClick" prefHeight="34.0" prefWidth="167.0" text="Recuperar Contraseña" />
+   <Button fx:id="openListarUsuariosButton" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#openListarUsuariosClick" prefHeight="32.0" prefWidth="135.0" text="Lista de Usuarios" textAlignment="CENTER" />
+   <Button fx:id="buttonRecuperarContrasenia" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#openRecuperarContraseniaClick" prefHeight="32.0" prefWidth="160.0" text="Recuperar Contraseña" />
 </VBox>
