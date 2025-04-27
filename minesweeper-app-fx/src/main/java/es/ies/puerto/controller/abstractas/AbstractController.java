@@ -17,6 +17,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -316,82 +317,82 @@ public abstract class AbstractController {
     private Button inventarioButton;
 
     /**
-     * JuegoController texto ayuda
+     * JuegoController label ayuda
      */
     @FXML 
-    private Text helpTituloAyuda;
+    private Label helpTituloAyuda;
 
     @FXML 
-    private Text helpIntro;
+    private Label helpIntro;
 
     @FXML 
-    private Text helpSec1Title;
+    private Label helpSec1Title;
 
     @FXML 
-    private Text helpSec1Line1;
+    private Label helpSec1Line1;
 
     @FXML 
-    private Text helpSec1Line2;
+    private Label helpSec1Line2;
 
     @FXML 
-    private Text helpSec1Line3;
+    private Label helpSec1Line3;
 
     @FXML 
-    private Text helpSec2Title;
+    private Label helpSec2Title;
 
     @FXML 
-    private Text helpSec2Line1;
+    private Label helpSec2Line1;
 
     @FXML 
-    private Text helpSec2Line1a;
+    private Label helpSec2Line1a;
 
     @FXML 
-    private Text helpSec2Line1b;
+    private Label helpSec2Line1b;
 
     @FXML 
-    private Text helpSec2Line2;
+    private Label helpSec2Line2;
 
     @FXML 
-    private Text helpSec2Line2a;
+    private Label helpSec2Line2a;
 
     @FXML 
-    private Text helpSec3Title;
+    private Label helpSec3Title;
 
     @FXML 
-    private Text helpSec3Line1;
+    private Label helpSec3Line1;
 
     @FXML 
-    private Text helpSec3Line2;
+    private Label helpSec3Line2;
 
     @FXML 
-    private Text helpSec3Line3;
+    private Label helpSec3Line3;
 
     @FXML 
-    private Text helpSec3Line3a;
+    private Label helpSec3Line3a;
 
     @FXML 
-    private Text helpSec3Line3b;
+    private Label helpSec3Line3b;
 
     @FXML 
-    private Text helpSec3Line3c;
+    private Label helpSec3Line3c;
 
     @FXML 
-    private Text helpSec3Line4;
+    private Label helpSec3Line4;
 
     @FXML 
-    private Text helpSec3Warning;
+    private Label helpSec3Warning;
 
     @FXML 
-    private Text helpSec4Title;
+    private Label helpSec4Title;
 
     @FXML 
-    private Text helpSec4Line1;
+    private Label helpSec4Line1;
 
     @FXML 
-    private Text helpSec4Line2;
+    private Label helpSec4Line2;
 
     @FXML 
-    private Text helpOutro;
+    private Label helpOutro;
 
     /**
      * Metodo para cambiar el idioma
@@ -639,7 +640,7 @@ public abstract class AbstractController {
             helpSec2Line2.setText(ConfigManager.ConfigProperties.getProperty("helpSec2Line2"));
         }
         if (helpSec2Line2a != null) {
-            helpSec2Line2a.setText(ConfigManager.ConfigProperties.getProperty("helpSec2Line2"));
+            helpSec2Line2a.setText(ConfigManager.ConfigProperties.getProperty("helpSec2Line2a"));
         }
         if (helpSec3Title != null) {
             helpSec3Title.setText(ConfigManager.ConfigProperties.getProperty("helpSec3Title"));

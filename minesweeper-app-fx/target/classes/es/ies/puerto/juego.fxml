@@ -19,7 +19,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="770.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.ies.puerto.controller.JuegoController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="770.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.ies.puerto.controller.JuegoController">
    <top>
       <HBox alignment="CENTER" prefHeight="130.0" prefWidth="350.0" BorderPane.alignment="CENTER">
          <children>
@@ -235,45 +235,45 @@
             </VBox>
             <VBox fx:id="mostrarAyudaVBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="300.0" visible="false">
                <children>
-                  <ScrollPane fx:id="scrollAyuda" fitToWidth="true" hbarPolicy="NEVER" prefHeight="550.0" prefWidth="300.0" styleClass="scroll-pane" vbarPolicy="AS_NEEDED">
+                  <ScrollPane fx:id="scrollAyuda" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" prefWidth="300.0" prefHeight="550.0" styleClass="scroll-pane">
                      <content>
-                        <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="285.0" spacing="10" styleClass="contenido-scroll">
-                           <Text fx:id="helpTituloAyuda" styleClass="titulo">
-                              <!-- opcional: texto por defecto -->
-                           </Text>
-                           <Text fx:id="helpIntro" styleClass="texto-ayuda" />
-                           <Text fx:id="helpSec1Title" styleClass="texto-ayuda-titulo" />
-                           <Text fx:id="helpSec1Line1" styleClass="texto-ayuda" />
-                           <Text fx:id="helpSec1Line2" styleClass="texto-ayuda" />
-                           <Text fx:id="helpSec1Line3" styleClass="texto-ayuda" />
+                        <VBox alignment="TOP_CENTER" spacing="10" prefWidth="285.0" styleClass="contenido-scroll">
+                           <Label fx:id="helpTituloAyuda" wrapText="true" prefWidth="285" styleClass="titulo"/>
+
+                           <Label fx:id="helpIntro" wrapText="true" prefWidth="285" styleClass="label-ayuda"/>
+
+                           <!-- Sección 1 -->
+                           <Label fx:id="helpSec1Title" wrapText="true" prefWidth="285" styleClass="label-ayuda-titulo"/>
+                           <Label fx:id="helpSec1Line1" wrapText="true" prefWidth="285" styleClass="label-ayuda"/>
+                           <Label fx:id="helpSec1Line2" wrapText="true" prefWidth="285" styleClass="label-ayuda"/>
+                           <Label fx:id="helpSec1Line3" wrapText="true" prefWidth="285" styleClass="label-ayuda"/>
 
                            <!-- Sección 2 -->
-                           <Text fx:id="helpSec2Title" styleClass="texto-ayuda-titulo" />
-                           <Text fx:id="helpSec2Line1" styleClass="texto-ayuda" />
-                           <Text fx:id="helpSec2Line1a" styleClass="texto-ayuda" />
-                           <Text fx:id="helpSec2Line1b" styleClass="texto-ayuda" />
-                           <Text fx:id="helpSec2Line2" styleClass="texto-ayuda" />
-                           <Text fx:id="helpSec2Line2a" styleClass="texto-ayuda" />
+                           <Label fx:id="helpSec2Title" wrapText="true" prefWidth="285" styleClass="label-ayuda-titulo"/>
+                           <Label fx:id="helpSec2Line1" wrapText="true" prefWidth="285" styleClass="label-ayuda"/>
+                           <Label fx:id="helpSec2Line1a" wrapText="true" prefWidth="285" styleClass="label-ayuda"/>
+                           <Label fx:id="helpSec2Line1b" wrapText="true" prefWidth="285" styleClass="label-ayuda"/>
+                           <Label fx:id="helpSec2Line2" wrapText="true" prefWidth="285" styleClass="label-ayuda"/>
+                           <Label fx:id="helpSec2Line2a" wrapText="true" prefWidth="285" styleClass="label-ayuda"/>
 
                            <!-- Sección 3 -->
-                           <Text fx:id="helpSec3Title" styleClass="texto-ayuda-titulo" />
-                           <Text fx:id="helpSec3Line1" styleClass="texto-ayuda" />
-                           <Text fx:id="helpSec3Line2" styleClass="texto-ayuda" />
-                           <Text fx:id="helpSec3Line3" styleClass="texto-ayuda" />
-                           <Text fx:id="helpSec3Line3a" styleClass="texto-ayuda" />
-                           <Text fx:id="helpSec3Line3b" styleClass="texto-ayuda" />
-                           <Text fx:id="helpSec3Line3c" styleClass="texto-ayuda" />
-                           <Text fx:id="helpSec3Line4" styleClass="texto-ayuda" />
-                           <Text fx:id="helpSec3Warning" styleClass="texto-ayuda" />
+                           <Label fx:id="helpSec3Title" wrapText="true" prefWidth="285" styleClass="label-ayuda-titulo"/>
+                           <Label fx:id="helpSec3Line1" wrapText="true" prefWidth="285" styleClass="label-ayuda"/>
+                           <Label fx:id="helpSec3Line2" wrapText="true" prefWidth="285" styleClass="label-ayuda"/>
+                           <Label fx:id="helpSec3Line3" wrapText="true" prefWidth="285" styleClass="label-ayuda"/>
+                           <Label fx:id="helpSec3Line3a" wrapText="true" prefWidth="285" styleClass="label-ayuda"/>
+                           <Label fx:id="helpSec3Line3b" wrapText="true" prefWidth="285" styleClass="label-ayuda"/>
+                           <Label fx:id="helpSec3Line3c" wrapText="true" prefWidth="285" styleClass="label-ayuda"/>
+                           <Label fx:id="helpSec3Line4" wrapText="true" prefWidth="285" styleClass="label-ayuda"/>
+                           <Label fx:id="helpSec3Warning" wrapText="true" prefWidth="285" styleClass="label-ayuda"/>
 
                            <!-- Sección 4 -->
-                           <Text fx:id="helpSec4Title" styleClass="texto-ayuda-titulo" />
-                           <Text fx:id="helpSec4Line1" styleClass="texto-ayuda" />
-                           <Text fx:id="helpSec4Line2" styleClass="texto-ayuda" />
+                           <Label fx:id="helpSec4Title" wrapText="true" prefWidth="285" styleClass="label-ayuda-titulo"/>
+                           <Label fx:id="helpSec4Line1" wrapText="true" prefWidth="285" styleClass="label-ayuda"/>
+                           <Label fx:id="helpSec4Line2" wrapText="true" prefWidth="285" styleClass="label-ayuda"/>
 
                            <!-- Cierre -->
-                           <Text fx:id="helpOutro" styleClass="texto-ayuda" />
-
+                           <Label fx:id="helpOutro" wrapText="true" prefWidth="285" styleClass="label-ayuda"/>
                         </VBox>
                      </content>
                   </ScrollPane>

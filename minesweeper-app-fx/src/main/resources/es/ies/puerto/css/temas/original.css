@@ -116,6 +116,7 @@
 
 .scrollPane {
   -fx-background-color: transparent;
+  -fx-border-color: transparent;
 }
 
 .scroll-pane>.viewport {
@@ -221,16 +222,20 @@
 .titulo {
   -fx-font-size: 18px;
   -fx-font-weight: bold;
-  -fx-fill: grey;
 }
 
-.texto-ayuda {
+.contenido-scroll {
+  -fx-background-color: #ffffff;
+  -fx-padding: 10px; 
+}
+
+.label-ayuda {
   -fx-font-size: 12px;
-  -fx-fill: grey;
+  -fx-text-fill: grey;
 }
 
-.texto-ayuda-titulo {
-  -fx-font-size: 13px;
+.label-ayuda-titulo {
+  -fx-font-size: 14px;
   -fx-font-weight: bold;
-  -fx-fill: grey;
+  -fx-text-fill: Black;
 }

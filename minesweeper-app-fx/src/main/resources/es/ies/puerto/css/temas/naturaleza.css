@@ -225,13 +225,18 @@
     -fx-fill: #2e7d32;
 }
 
-.texto-ayuda {
-    -fx-font-size: 12px;
-    -fx-fill: #FFFFFF;
+.contenido-scroll {
+    -fx-background-color: #ffffff;
+    -fx-padding: 10px; 
 }
 
-.texto-ayuda-titulo {
-    -fx-font-size: 13px;
+.label-ayuda {
+    -fx-font-size: 12px;
+    -fx-text-fill: #7CB342;
+}
+
+.label-ayuda-titulo {
+    -fx-font-size: 14px;
     -fx-font-weight: bold;
-    -fx-fill: #00FFE7;
+    -fx-text-fill: #2e7d32;
 }

@@ -180,13 +180,23 @@
     -fx-background-color: #B84BCF;
 }
 
-.texto-ayuda {
+.contenido-scroll {
+    -fx-background-color: #2a0a3f;
+    -fx-border-color: #FFEA00;
+    -fx-padding: 10px; 
+}
+
+.contenido-scroll:hover {
+    -fx-background-color: #B84BCF;
+    -fx-padding: 10px; 
+}
+
+.label-ayuda {
     -fx-font-size: 12px;
-    -fx-fill: #FFFFFF;
-  }
-  
-  .texto-ayuda-titulo {
+}
+
+.label-ayuda-titulo {
     -fx-font-size: 13px;
     -fx-font-weight: bold;
-    -fx-fill: #00FFE7;
-  }
+    -fx-text-fill: #00FFE7;
+}
