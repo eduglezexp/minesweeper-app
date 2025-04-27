@@ -146,9 +146,7 @@ CREATE TABLE usuario_temas (
 
 DELETE FROM usuario_temas;  
 INSERT INTO usuario_temas (usuario_id, tema_id, activo)
-SELECT u.id,
-       t.id,
-       1
+SELECT u.id, t.id, 1
 FROM usuarios u
 CROSS JOIN temas t
 WHERE t.clave = 'original';
@@ -173,7 +171,28 @@ CREATE TABLE usuario_powerups (
     FOREIGN KEY (powerup_id) REFERENCES powerups(id)
 );
 
--- Temas
+CREATE TABLE avatares (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    clave TEXT UNIQUE NOT NULL, 
+    costo INTEGER NOT NULL DEFAULT 150,
+    img TEXT NOT NULL 
+);
+
+INSERT INTO avatares (clave, costo, img) VALUES
+    ('por defecto', 0, '/es/ies/puerto/img/avatares/usuario.png'),
+    ('ninja', 75, '/es/ies/puerto/img/avatares/ninja.png'),
+    ('policia', 75, '/es/ies/puerto/img/avatares/policia.png'),
+    ('bombero', 75, '/es/ies/puerto/img/avatares/bombero.png');
+
+CREATE TABLE usuario_avatares (
+    usuario_id INTEGER NOT NULL,
+    avatar_id INTEGER NOT NULL,
+    activo BOOLEAN DEFAULT 0, 
+    PRIMARY KEY (usuario_id, avatar_id),
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
+    FOREIGN KEY (avatar_id) REFERENCES avatares(id)
+);
+
 CREATE TABLE tema_traducciones (
     tema_id INTEGER NOT NULL,
     idioma TEXT NOT NULL,
@@ -183,7 +202,6 @@ CREATE TABLE tema_traducciones (
     FOREIGN KEY (tema_id) REFERENCES temas(id)
 );
 
--- Power-Ups
 CREATE TABLE powerup_traducciones (
     powerup_id INTEGER NOT NULL,
     idioma TEXT NOT NULL,
@@ -191,6 +209,15 @@ CREATE TABLE powerup_traducciones (
     descripcion TEXT NOT NULL,
     PRIMARY KEY (powerup_id, idioma),
     FOREIGN KEY (powerup_id) REFERENCES powerups(id)
+);
+
+CREATE TABLE avatar_traducciones (
+    avatar_id INTEGER NOT NULL,
+    idioma TEXT NOT NULL,
+    nombre TEXT NOT NULL,
+    descripcion TEXT NOT NULL,
+    PRIMARY KEY (avatar_id, idioma),
+    FOREIGN KEY (avatar_id) REFERENCES avatares(id)
 );
 
 -- Tema Oscuro (ID 1)
@@ -228,3 +255,25 @@ INSERT INTO powerup_traducciones (powerup_id, idioma, nombre, descripcion) VALUE
     (2, 'es', 'Escudo Anti-Minas', 'Te protege de una mina una vez'),
     (2, 'en', 'Anti-Mine Shield', 'Protects you from one mine'),
     (2, 'fr', 'Bouclier Anti-Mines', 'Vous protège d''une mine');
+
+-- Traducciones para avatares
+INSERT INTO avatar_traducciones (avatar_id, idioma, nombre, descripcion) VALUES
+    -- Avatar 1: Por defecto
+    (1, 'es', 'Por defecto', 'Avatar predeterminado del jugador'),
+    (1, 'en', 'Default', 'Default player avatar'),
+    (1, 'fr', 'Par défaut', 'Avatar par défaut du joueur'),
+
+    -- Avatar 2: Ninja
+    (2, 'es', 'Ninja', 'Maestro del sigilo'),
+    (2, 'en', 'Ninja', 'Master of stealth'),
+    (2, 'fr', 'Ninja', 'Maître de la furtivité'),
+
+    -- Avatar 3: Policia
+    (3, 'es', 'Policía', 'Guardian de la ley'),
+    (3, 'en', 'Police', 'Law enforcer'),
+    (3, 'fr', 'Police', 'Application de la loi'),
+
+    -- Avatar 4: Bombero
+    (4, 'es', 'Bombero', 'Héroe contra incendios'),
+    (4, 'en', 'Firefighter', 'Firefighting hero'),
+    (4, 'fr', 'Pompier', 'Héros du feu');

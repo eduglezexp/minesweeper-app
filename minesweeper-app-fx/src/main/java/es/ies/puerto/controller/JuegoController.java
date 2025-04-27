@@ -278,8 +278,9 @@ public class JuegoController extends AbstractController{
     private EventHandler<MouseEvent> alquimiaHandler;
     private static final int COSTO_ESCUDO = 100;
     private static final int COSTO_MINA_FANTASMA = 50;
-    private static final int COSTO_ALQUIMIA= 0;
+    private static final int COSTO_ALQUIMIA= 200;
     private static final int COSTO_TEMAS = 150;
+    private static final int COSTO_AVATARES = 75;
     private static final int MAX_POWERUPS = 9;
     private static final int MINA_FANTASMA_ID = 1;
     private static final int ESCUDO_ID = 2;
@@ -288,6 +289,9 @@ public class JuegoController extends AbstractController{
     private static final int TEMA_NATURALEZA_ID = 2;
     private static final int TEMA_RETRO_ID = 3;
     private static final int TEMA_ORIGINAL_ID = 4;
+    private static final int AVATAR_NINJA_ID = 2;
+    private static final int AVATAR_POLICIA_ID = 3;
+    private static final int AVATAR_BOMBERO_ID = 4;
     private static final int FLAG_CODE = 0x1F6A9;
     private static final String FLAG_EMOJI = new String(Character.toChars(FLAG_CODE));
 
@@ -324,6 +328,7 @@ public class JuegoController extends AbstractController{
         textFieldMejorRacha.setText(String.valueOf(usuario.getMejorRacha()));
         actualizarPuntosEnVista(usuario.getPuntos());
         cargarBadgesPowerups();
+        cargarFotoPerfil();
     }
 
     /**
@@ -353,6 +358,19 @@ public class JuegoController extends AbstractController{
             badgeLabelAlquimia.setText(String.valueOf(alquimia));
         } catch (SQLException ex) {
             ex.printStackTrace();
+        }
+    }
+
+    /**
+     * Metodo para cargar la foto de perfil
+     */
+    private void cargarFotoPerfil() {
+        try {
+            String imgPath = getUsuarioAvataresService().obtenerImgAvatarActivo(usuario.getId());
+            Image avatar = new Image(getClass().getResource(imgPath).toExternalForm());
+            imageViewFotoPerfil.setImage(avatar);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -1573,7 +1591,7 @@ public class JuegoController extends AbstractController{
      * @param claveObjeto es la clave del objeto en el archivo de propiedades de idiomas
      * @param claveInformacion es la clave de la informacion en el archivo de propiedades de idiomas
      */
-    private void cargarInformacionObjeto(String nombreCarpetaImg, String nombreImagen, String claveObjeto, String claveInformacion) {
+    private void cargarInformacion(String nombreCarpetaImg, String nombreImagen, String claveObjeto, String claveInformacion) {
         fadeIn(mostrarInformacionVbox, miliSegundos);
         cargarImagen(nombreCarpetaImg, nombreImagen);
         textObjeto.setText(ConfigManager.ConfigProperties.getProperty(claveObjeto));
@@ -1586,37 +1604,52 @@ public class JuegoController extends AbstractController{
      */
     @FXML
     protected void onEscudoInformacionClick() {
-        cargarInformacionObjeto("objetos", "escudo.png", "escudo", "infoEscudo");
+        cargarInformacion("objetos", "escudo.png", "escudo", "infoEscudo");
     }
 
     @FXML
     protected void onFantasmaInformacionClick() {
-        cargarInformacionObjeto("objetos","fantasma.png", "fantasma", "infoFantasma");
+        cargarInformacion("objetos","fantasma.png", "fantasma", "infoFantasma");
     }
 
     @FXML
     protected void onAlquimiaInformacionClick() {
-        cargarInformacionObjeto("objetos","alquimia.png", "alquimia", "infoAlquimia");
+        cargarInformacion("objetos","alquimia.png", "alquimia", "infoAlquimia");
     }
 
     @FXML
     protected void onTemaOscuroInformacionClick() {
-        cargarInformacionObjeto("temas","oscuro.png", "oscuro", "infoTemaOscuro");
+        cargarInformacion("temas","oscuro.png", "oscuro", "infoTemaOscuro");
     }
 
     @FXML
     protected void onTemaNaturalezaInformacionClick() {
-        cargarInformacionObjeto("temas","naturaleza.png", "naturaleza", "infoTemaNaturaleza");
+        cargarInformacion("temas","naturaleza.png", "naturaleza", "infoTemaNaturaleza");
     }
 
     @FXML
     protected void onTemaRetroInformacionClick() {
-        cargarInformacionObjeto("temas","retro.png", "retro", "infoTemaRetro");
+        cargarInformacion("temas","retro.png", "retro", "infoTemaRetro");
     }
 
     @FXML
     protected void onTemaOriginalInformacionClick() {
-        cargarInformacionObjeto("temas","original.png", "original", "infoTemaOriginal");
+        cargarInformacion("temas","original.png", "original", "infoTemaOriginal");
+    }
+
+    @FXML
+    protected void onAvatarNinjaInformacionClick() {
+        cargarInformacion("avatares","ninja.png", "ninja", "infoAvatarNinja");
+    }
+
+    @FXML
+    protected void onAvatarPoliciaInformacionClick() {
+        cargarInformacion("avatares","policia.png", "policia", "infoAvatarPolicia");
+    }
+
+    @FXML
+    protected void onAvatarBomberoInformacionClick() {
+        cargarInformacion("avatares","bombero.png", "bombero", "infoAvatarBombero");
     }
 
     /**
@@ -1745,6 +1778,113 @@ public class JuegoController extends AbstractController{
     @FXML
     protected void onUsarTemaOriginalClick() {
         aplicarTema(TEMA_ORIGINAL_ID);
+    }
+
+    /**
+     * Maneja el evento de clic en el boton de comprar avatares
+     * Se encarga de comprar un avatar y actualizar la interfaz
+     */
+    private void comprarAvatar(int avatarId, int costo) {
+        int puntos = usuario.getPuntos();
+        try {
+            if (getUsuarioAvataresService().tieneUsuarioAvatar(usuario.getId(), avatarId)) {
+                mostrarMensaje(ConfigManager.ConfigProperties.getProperty("avatarYaComprado"));
+                return;
+            }
+            if (puntos < costo) {
+                mostrarMensaje(ConfigManager.ConfigProperties.getProperty("noSuficientesPuntos"));
+                return;
+            }
+            getUsuarioAvataresService().comprarAvatar(usuario, avatarId);
+            usuario.setPuntos(puntos - costo);
+            actualizarPuntosEnVista(usuario.getPuntos());
+            getUsuarioService().actualizarPuntos(usuario.getPuntos(), usuario.getEmail());
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    /**
+     * Maneja el evento de clic en el boton de comprar avatar ninja
+     * Se encarga de comprar el avatar ninja y actualizar la interfaz
+     */
+    @FXML
+    protected void onComprarAvatarNinjaClick() {
+        comprarAvatar(AVATAR_NINJA_ID, COSTO_AVATARES);
+    }
+
+    /**
+     * Maneja el evento de clic en el boton de comprar avatar policia
+     * Se encarga de comprar el avatar policia y actualizar la interfaz
+     */
+    @FXML
+    protected void onComprarAvatarPoliciaClick() {
+        comprarAvatar(AVATAR_POLICIA_ID, COSTO_AVATARES);
+    }
+
+    /**
+     * Maneja el evento de clic en el boton de comprar avatar bombero
+     * Se encarga de comprar el avatar bombero y actualizar la interfaz
+     */
+    @FXML
+    protected void onComprarAvatarBomberoClick() {
+        comprarAvatar(AVATAR_BOMBERO_ID, COSTO_AVATARES);
+    }
+
+    /**
+     * Metodo para aplicar un avatar
+     * @param avatarId id del avatar a aplicar
+     */
+    private void aplicarAvatar(int avatarId) {
+        try {
+            if (!getUsuarioAvataresService().tieneUsuarioAvatar(usuario.getId(), avatarId)) {
+                mostrarMensaje(ConfigManager.ConfigProperties.getProperty("errorUsar"));
+                return;
+            }
+            boolean exito = getUsuarioAvataresService().actualizarUsuarioAvatares(true, usuario.getId(), avatarId);
+            if (exito) {
+                String imgPath = getUsuarioAvataresService().obtenerImgPorTemaId(avatarId);
+                Sesion.setImgAvatarAtivo(imgPath);
+                Image avatar = new Image(getClass().getResource(imgPath).toExternalForm());
+                imageViewFotoPerfil.setImage(avatar);
+                mostrarMensaje(ConfigManager.ConfigProperties.getProperty("avatarAplicado"));
+                return;
+            } 
+            mostrarMensaje(ConfigManager.ConfigProperties.getProperty("errorAplicarAvatar"));
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            mostrarMensaje(ConfigManager.ConfigProperties.getProperty("errorBbdd"));
+        }
+    }
+
+    /**
+     * Maneja el evento de clic en el boton de usar avatar ninja
+     * Se encarga de aplicar el avatar ninja a la foto de perfil
+     * del usuario
+     */
+    @FXML
+    protected void onUsarAvatarNinjaClick() {
+        aplicarAvatar(AVATAR_NINJA_ID);
+    }
+
+    /**
+     * Maneja el evento de clic en el boton de usar avatar policia
+     * Se encarga de aplicar el avatar policia a la foto de perfil
+     * del usuario
+     */
+    @FXML
+    protected void onUsarAvatarPoliciaClick() {
+        aplicarAvatar(AVATAR_POLICIA_ID);
+    }
+
+    /**
+     * Maneja el evento de clic en el boton de usar avatar bombero
+     * Se encarga de aplicar el avatar bombero a la foto de perfil
+     * del usuario
+     */
+    @FXML
+    protected void onUsarAvatarBomberoClick() {
+        aplicarAvatar(AVATAR_BOMBERO_ID);
     }
 
     /**

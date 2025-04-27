@@ -7,20 +7,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.ies.puerto.model.entities.UsuarioAvataresEntity;
 import es.ies.puerto.model.entities.UsuarioEntity;
-import es.ies.puerto.model.entities.UsuarioTemasEntity;
-import javafx.scene.Scene;
 
 /**
  * @author eduglezexp
  * @version 1.0.0
  */
 
-public class UsuarioTemasService extends UsuarioService {
+public class UsuarioAvataresService extends UsuarioService {
     /**
      * Constructor por defecto
      */
-    public UsuarioTemasService() {
+    public UsuarioAvataresService() {
 
     }
 
@@ -29,39 +28,39 @@ public class UsuarioTemasService extends UsuarioService {
      * @param unaRutaArchivoBD path de la bbdd
      * @throws SQLException error controlado
      */
-    public UsuarioTemasService(String unaRutaArchivoBD) throws SQLException {
+    public UsuarioAvataresService(String unaRutaArchivoBD) throws SQLException {
         super(unaRutaArchivoBD);
     }
 
     /**
-     * Metodo que obtiene los temas de un usuario por su id
+     * Metodo que obtiene los avatares de un usuario por su id
      * @param usuarioId id del usuario
-     * @return lista de temas del usuario
+     * @return lista de avatares del usuario
      * @throws SQLException error controlado
      */
-    public List<UsuarioTemasEntity> obtenerUsuariosTemasPorId(int usuarioId) throws SQLException {
-        String sql = "SELECT * FROM usuario_temas WHERE usuario_id = ?";
-        return obtenerUsuarioPowerups(sql, String.valueOf(usuarioId));
+    public List<UsuarioAvataresEntity> obtenerUsuariosAvataresPorId(int usuarioId) throws SQLException {
+        String sql = "SELECT * FROM usuario_avatares WHERE usuario_id = ?";
+        return obtenerUsuarioAvatares(sql, String.valueOf(usuarioId));
     }
 
     /**
-     * Metodo que obtiene todos los temas de un usuario
-     * @return lista de temas del usuario
+     * Metodo que obtiene todos los avatares de un usuario
+     * @return lista de avatares del usuario
      * @throws SQLException error controlado
      */
-    public List<UsuarioTemasEntity> obtenerUsuariosTemas() throws SQLException{
-        String sql = "SELECT * FROM usuario_temas";
-        return obtenerUsuarioPowerups(sql);
+    public List<UsuarioAvataresEntity> obtenerUsuariosAvatares() throws SQLException{
+        String sql = "SELECT * FROM usuario_avatares";
+        return obtenerUsuarioAvatares(sql);
     }
 
     /**
-     * Metodo que obtiene los temas de un usuario 
+     * Metodo que obtiene los avatares de un usuario 
      * @param usuarioId id del usuario
-     * @return lista de temas del usuario
+     * @return lista de avatares del usuario
      * @throws SQLException error controlado
      */
-    private List<UsuarioTemasEntity> obtenerUsuarioPowerups(String sql, String... parametros) throws SQLException{
-        List<UsuarioTemasEntity> temas = new ArrayList<UsuarioTemasEntity>();
+    private List<UsuarioAvataresEntity> obtenerUsuarioAvatares(String sql, String... parametros) throws SQLException{
+        List<UsuarioAvataresEntity> avatares = new ArrayList<UsuarioAvataresEntity>();
         try {
             PreparedStatement sentencia = getConnection().prepareStatement(sql);
             for (int i = 0; i < parametros.length; i++) {
@@ -70,40 +69,40 @@ public class UsuarioTemasService extends UsuarioService {
             ResultSet resultado = sentencia.executeQuery();
             while(resultado.next()){
                 int usuarioId = resultado.getInt("usuario_id");
-                int temaId = resultado.getInt("tema_id");
+                int avatarId = resultado.getInt("avatar_id");
                 boolean activo = resultado.getBoolean("activo");
-                UsuarioTemasEntity usuarioTemasEntity = new UsuarioTemasEntity(usuarioId, temaId, activo);
-                temas.add(usuarioTemasEntity);
+                UsuarioAvataresEntity usuarioAvataresEntity = new UsuarioAvataresEntity(usuarioId, avatarId, activo);
+                avatares.add(usuarioAvataresEntity);
             }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             cerrar();
         }
-        return temas;
+        return avatares;
     }
 
     /**
-     * Método para actualizar el tema activo de un usuario
+     * Método para actualizar el avatar activo de un usuario
      * @param activo true para activar, false para desactivar
      * @param usuarioId id del usuario
-     * @param temaId id del tema
+     * @param avatarId id del avatar
      * @return true si se actualizó correctamente
      */
-    public boolean actualizarUsuarioTemas(boolean activo, int usuarioId, int temaId) throws SQLException {
+    public boolean actualizarUsuarioAvatares(boolean activo, int usuarioId, int avatarId) throws SQLException {
         try {
             if (activo) {
-                String desactivarSql = "UPDATE usuario_temas SET activo = 0 WHERE usuario_id = ?";
+                String desactivarSql = "UPDATE usuario_avatares SET activo = 0 WHERE usuario_id = ?";
                 try (PreparedStatement stmt = getConnection().prepareStatement(desactivarSql)) {
                     stmt.setInt(1, usuarioId);
                     stmt.executeUpdate();
                 }
             }
-            String sql = "UPDATE usuario_temas SET activo = ? WHERE usuario_id = ? AND tema_id = ?";
+            String sql = "UPDATE usuario_avatares SET activo = ? WHERE usuario_id = ? AND avatar_id = ?";
             try (PreparedStatement stmt = getConnection().prepareStatement(sql)) {
                 stmt.setBoolean(1, activo);
                 stmt.setInt(2, usuarioId);
-                stmt.setInt(3, temaId);
+                stmt.setInt(3, avatarId);
                 int filasAfectadas = stmt.executeUpdate();
                 return filasAfectadas > 0;
             }
@@ -118,59 +117,59 @@ public class UsuarioTemasService extends UsuarioService {
     /**
      * Verifica si el usuario tiene acceso al tema
      */
-    public boolean tieneUsuarioTema(int usuarioId, int temaId) throws SQLException {
-        String sql = "SELECT COUNT(*) FROM usuario_temas WHERE usuario_id = ? AND tema_id = ?";
+    public boolean tieneUsuarioAvatar(int usuarioId, int avatarId) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM usuario_avatares WHERE usuario_id = ? AND avatar_id = ?";
         try (PreparedStatement stmt = getConnection().prepareStatement(sql)) {
             stmt.setInt(1, usuarioId);
-            stmt.setInt(2, temaId);
+            stmt.setInt(2, avatarId);
             ResultSet rs = stmt.executeQuery();
             return rs.next() && rs.getInt(1) > 0;
         }
     }
 
     /**
-     * Obtiene la ruta CSS de un tema
+     * Obtiene la ruta img de un avatar
      */
-    public String obtenerCssPorTemaId(int temaId) throws SQLException {
-        String sql = "SELECT css FROM temas WHERE id = ?";
+    public String obtenerImgPorTemaId(int avatarId) throws SQLException {
+        String sql = "SELECT img FROM avatares WHERE id = ?";
         try (PreparedStatement stmt = getConnection().prepareStatement(sql)) {
-            stmt.setInt(1, temaId);
+            stmt.setInt(1, avatarId);
             ResultSet rs = stmt.executeQuery();
-            return rs.next() ? rs.getString("css") : "/es/ies/puerto/css/style.css";
+            return rs.next() ? rs.getString("img") : "/es/ies/puerto/img/usuario.png";
         }
     }
 
     /**
-     * Obtiene la ruta CSS del tema activo de un usuario
+     * Obtiene la ruta img del avatar activo de un usuario
      * @param usuarioId id del usuario
-     * @return ruta CSS del tema activo
+     * @return ruta img del avatar activo
      * @throws SQLException error controlado
      */
-    public String obtenerCssTemaActivo(int usuarioId) throws SQLException {
-        String sql = "SELECT t.css FROM temas t " +
-                     "JOIN usuario_temas ut ON t.id = ut.tema_id " +
-                     "WHERE ut.usuario_id = ? AND ut.activo = 1";
+    public String obtenerImgAvatarActivo(int usuarioId) throws SQLException {
+        String sql = "SELECT a.img FROM avatares a " +
+                     "JOIN usuario_avatares ua ON a.id = ua.avatar_id " +
+                     "WHERE ua.usuario_id = ? AND ua.activo = 1";
         try (Connection conn = getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, usuarioId);
             ResultSet rs = stmt.executeQuery();
-            return rs.next() ? rs.getString("css") : "/es/ies/puerto/css/style.css";
+            return rs.next() ? rs.getString("img") : "/es/ies/puerto/img/usuario.png";
         }
     }
 
     /**
-     * Metodo para comprar un tema
-     * @param usuario usuario que compra el tema
-     * @param temaId id del tema
-     * @return true si se ha comprado el tema, false si no se ha podido comprar
+     * Metodo para comprar un avatar
+     * @param usuario usuario que compra el avatar
+     * @param avatarId id del avatar
+     * @return true si se ha comprado el avatar, false si no se ha podido comprar
      * @throws SQLException error controlado
      */
-    public boolean comprarTema(UsuarioEntity usuario, int temaId) throws SQLException {
-        String sql = "INSERT INTO usuario_temas (usuario_id, tema_id, activo) VALUES (?, ?, true) " +
-                     "ON CONFLICT(usuario_id, tema_id) DO UPDATE SET activo = true";
+    public boolean comprarAvatar(UsuarioEntity usuario, int avatarId) throws SQLException {
+        String sql = "INSERT INTO usuario_avatares (usuario_id, avatar_id, activo) VALUES (?, ?, true) " +
+                     "ON CONFLICT(usuario_id, avatar_id) DO UPDATE SET activo = true";
         try (PreparedStatement preparedStatement = getConnection().prepareStatement(sql)) {
             preparedStatement.setInt(1, usuario.getId());
-            preparedStatement.setInt(2, temaId);
+            preparedStatement.setInt(2, avatarId);
             preparedStatement.executeUpdate();
             return true;
         } catch (SQLException e) {

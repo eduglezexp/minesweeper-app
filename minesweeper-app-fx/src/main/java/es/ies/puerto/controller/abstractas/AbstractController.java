@@ -5,9 +5,11 @@ import java.lang.reflect.Method;
 import es.ies.puerto.MinesweeperApp;
 import es.ies.puerto.config.ConfigManager;
 import es.ies.puerto.config.Sesion;
+import es.ies.puerto.model.entities.UsuarioAvataresEntity;
 import es.ies.puerto.model.entities.UsuarioEntity;
 import es.ies.puerto.model.services.NivelService;
 import es.ies.puerto.model.services.ObjetoService;
+import es.ies.puerto.model.services.UsuarioAvataresService;
 import es.ies.puerto.model.services.UsuarioPowerupsService;
 import es.ies.puerto.model.services.UsuarioService;
 import es.ies.puerto.model.services.UsuarioTemasService;
@@ -15,6 +17,7 @@ import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -36,6 +39,7 @@ public abstract class AbstractController {
     private UsuarioService usuarioService;
     private UsuarioPowerupsService usuarioPowerupsService;
     private UsuarioTemasService usuarioTemasService;
+    private UsuarioAvataresService usuarioAvataresService;
     private NivelService nivelService;
     private ObjetoService objetoService;
     private Scene previousScene;
@@ -51,6 +55,7 @@ public abstract class AbstractController {
             usuarioService = new UsuarioService(PATH_DB);
             usuarioPowerupsService = new UsuarioPowerupsService(PATH_DB);
             usuarioTemasService = new UsuarioTemasService(PATH_DB);
+            usuarioAvataresService = new UsuarioAvataresService(PATH_DB);
             nivelService = new NivelService(PATH_DB);
             objetoService = new ObjetoService(PATH_DB);
         } catch (Exception e) {
@@ -71,6 +76,10 @@ public abstract class AbstractController {
 
     public UsuarioTemasService getUsuarioTemasService() {
         return usuarioTemasService;
+    }
+
+    public UsuarioAvataresService getUsuarioAvataresService() {
+        return usuarioAvataresService;
     }
 
     public NivelService getNivelService() {
@@ -296,6 +305,21 @@ public abstract class AbstractController {
     private Button usarTemaRetroButton;
 
     @FXML 
+    private Button usarTemaOriginalButton;
+
+    @FXML 
+    private Button usarAvatarNinjaButton;
+
+    @FXML 
+    private Button usarAvatarPoliciaButton;
+
+    @FXML 
+    private Button usarAvatarBomberoButton;
+
+    @FXML
+    private Text textAvataresTienda;
+
+    @FXML 
     private Button salirInformacionButton;
 
     @FXML
@@ -312,6 +336,9 @@ public abstract class AbstractController {
 
     @FXML
     private Text textTemasInventario;
+
+    @FXML
+    private Text textAvataresInventario;
 
     @FXML
     private Button inventarioButton;
@@ -564,6 +591,9 @@ public abstract class AbstractController {
         if (textTemasTienda != null) {
             textTemasTienda.setText(ConfigManager.ConfigProperties.getProperty("textTemasTienda"));
         }
+        if (textAvataresTienda != null) {
+            textAvataresTienda.setText(ConfigManager.ConfigProperties.getProperty("textAvataresTienda"));
+        }
         if (usarMinaFantasmaButton != null) {
             usarMinaFantasmaButton.setText(ConfigManager.ConfigProperties.getProperty("usarMinaFantasmaButton"));
         }
@@ -582,6 +612,18 @@ public abstract class AbstractController {
         if (usarTemaRetroButton != null) {
             usarTemaRetroButton.setText(ConfigManager.ConfigProperties.getProperty("usarTemaRetroButton"));
         }
+        if (usarTemaOriginalButton != null) {
+            usarTemaOriginalButton.setText(ConfigManager.ConfigProperties.getProperty("usarTemaOriginalButton"));
+        }
+        if (usarAvatarNinjaButton != null) {
+            usarAvatarNinjaButton.setText(ConfigManager.ConfigProperties.getProperty("usarAvatarNinjaButton"));
+        }
+        if (usarAvatarPoliciaButton != null) {
+            usarAvatarPoliciaButton.setText(ConfigManager.ConfigProperties.getProperty("usarAvatarPoliciaButton"));
+        }
+        if (usarAvatarBomberoButton != null) {
+            usarAvatarBomberoButton.setText(ConfigManager.ConfigProperties.getProperty("usarAvatarBomberoButton"));
+        }
         if (salirInformacionButton != null) {
             salirInformacionButton.setText(ConfigManager.ConfigProperties.getProperty("salirInformacionButton"));
         }
@@ -599,6 +641,9 @@ public abstract class AbstractController {
         }
         if (textTemasInventario != null) {
             textTemasInventario.setText(ConfigManager.ConfigProperties.getProperty("textTemasInventario"));
+        }
+        if (textAvataresInventario != null) {
+            textAvataresInventario.setText(ConfigManager.ConfigProperties.getProperty("textAvataresInventario"));
         }
         if (inventarioButton != null) {
             inventarioButton.setText(ConfigManager.ConfigProperties.getProperty("inventarioButton"));

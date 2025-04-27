@@ -19,9 +19,11 @@ module-info.class
 es\ies\puerto\controller\ProfileController.class
 es\ies\puerto\MinesweeperApp.class
 es\ies\puerto\model\abstractas\Conexion.class
+es\ies\puerto\model\services\UsuarioAvataresService.class
 es\ies\puerto\controller\JuegoController.class
 es\ies\puerto\model\entities\UsuarioEntity.class
 es\ies\puerto\controller\UsuariosController.class
 es\ies\puerto\model\entities\ObjetoEntity.class
+es\ies\puerto\model\entities\UsuarioAvataresEntity.class
 es\ies\puerto\model\entities\UsuarioPowerupsEntity.class
 es\ies\puerto\controller\JuegoController$BoardConfig.class

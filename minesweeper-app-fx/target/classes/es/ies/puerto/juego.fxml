@@ -82,7 +82,7 @@
                         <Insets />
                      </VBox.margin>
                      <image>
-                        <Image url="@img/usuario.png" />
+                        <Image url="@img/avatares/usuario.png" />
                      </image>
                   </ImageView>
                   <Button fx:id="estadisticasButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onEstadisticasClick" prefWidth="100.0" text="Estadisticas">
@@ -235,45 +235,45 @@
             </VBox>
             <VBox fx:id="mostrarAyudaVBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="300.0" visible="false">
                <children>
-                  <ScrollPane fx:id="scrollAyuda" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" prefWidth="300.0" prefHeight="550.0" styleClass="scroll-pane">
+                  <ScrollPane fx:id="scrollAyuda" fitToWidth="true" hbarPolicy="NEVER" prefHeight="550.0" prefWidth="300.0" styleClass="scroll-pane" vbarPolicy="AS_NEEDED">
                      <content>
-                        <VBox alignment="TOP_CENTER" spacing="10" prefWidth="285.0" styleClass="contenido-scroll">
-                           <Label fx:id="helpTituloAyuda" wrapText="true" prefWidth="285" styleClass="titulo"/>
+                        <VBox alignment="TOP_CENTER" prefWidth="285.0" spacing="10" styleClass="contenido-scroll">
+                           <Label fx:id="helpTituloAyuda" prefWidth="285" styleClass="titulo" wrapText="true" />
 
-                           <Label fx:id="helpIntro" wrapText="true" prefWidth="285" styleClass="label-ayuda"/>
+                           <Label fx:id="helpIntro" prefWidth="285" styleClass="label-ayuda" wrapText="true" />
 
                            <!-- Sección 1 -->
-                           <Label fx:id="helpSec1Title" wrapText="true" prefWidth="285" styleClass="label-ayuda-titulo"/>
-                           <Label fx:id="helpSec1Line1" wrapText="true" prefWidth="285" styleClass="label-ayuda"/>
-                           <Label fx:id="helpSec1Line2" wrapText="true" prefWidth="285" styleClass="label-ayuda"/>
-                           <Label fx:id="helpSec1Line3" wrapText="true" prefWidth="285" styleClass="label-ayuda"/>
+                           <Label fx:id="helpSec1Title" prefWidth="285" styleClass="label-ayuda-titulo" wrapText="true" />
+                           <Label fx:id="helpSec1Line1" prefWidth="285" styleClass="label-ayuda" wrapText="true" />
+                           <Label fx:id="helpSec1Line2" prefWidth="285" styleClass="label-ayuda" wrapText="true" />
+                           <Label fx:id="helpSec1Line3" prefWidth="285" styleClass="label-ayuda" wrapText="true" />
 
                            <!-- Sección 2 -->
-                           <Label fx:id="helpSec2Title" wrapText="true" prefWidth="285" styleClass="label-ayuda-titulo"/>
-                           <Label fx:id="helpSec2Line1" wrapText="true" prefWidth="285" styleClass="label-ayuda"/>
-                           <Label fx:id="helpSec2Line1a" wrapText="true" prefWidth="285" styleClass="label-ayuda"/>
-                           <Label fx:id="helpSec2Line1b" wrapText="true" prefWidth="285" styleClass="label-ayuda"/>
-                           <Label fx:id="helpSec2Line2" wrapText="true" prefWidth="285" styleClass="label-ayuda"/>
-                           <Label fx:id="helpSec2Line2a" wrapText="true" prefWidth="285" styleClass="label-ayuda"/>
+                           <Label fx:id="helpSec2Title" prefWidth="285" styleClass="label-ayuda-titulo" wrapText="true" />
+                           <Label fx:id="helpSec2Line1" prefWidth="285" styleClass="label-ayuda" wrapText="true" />
+                           <Label fx:id="helpSec2Line1a" prefWidth="285" styleClass="label-ayuda" wrapText="true" />
+                           <Label fx:id="helpSec2Line1b" prefWidth="285" styleClass="label-ayuda" wrapText="true" />
+                           <Label fx:id="helpSec2Line2" prefWidth="285" styleClass="label-ayuda" wrapText="true" />
+                           <Label fx:id="helpSec2Line2a" prefWidth="285" styleClass="label-ayuda" wrapText="true" />
 
                            <!-- Sección 3 -->
-                           <Label fx:id="helpSec3Title" wrapText="true" prefWidth="285" styleClass="label-ayuda-titulo"/>
-                           <Label fx:id="helpSec3Line1" wrapText="true" prefWidth="285" styleClass="label-ayuda"/>
-                           <Label fx:id="helpSec3Line2" wrapText="true" prefWidth="285" styleClass="label-ayuda"/>
-                           <Label fx:id="helpSec3Line3" wrapText="true" prefWidth="285" styleClass="label-ayuda"/>
-                           <Label fx:id="helpSec3Line3a" wrapText="true" prefWidth="285" styleClass="label-ayuda"/>
-                           <Label fx:id="helpSec3Line3b" wrapText="true" prefWidth="285" styleClass="label-ayuda"/>
-                           <Label fx:id="helpSec3Line3c" wrapText="true" prefWidth="285" styleClass="label-ayuda"/>
-                           <Label fx:id="helpSec3Line4" wrapText="true" prefWidth="285" styleClass="label-ayuda"/>
-                           <Label fx:id="helpSec3Warning" wrapText="true" prefWidth="285" styleClass="label-ayuda"/>
+                           <Label fx:id="helpSec3Title" prefWidth="285" styleClass="label-ayuda-titulo" wrapText="true" />
+                           <Label fx:id="helpSec3Line1" prefWidth="285" styleClass="label-ayuda" wrapText="true" />
+                           <Label fx:id="helpSec3Line2" prefWidth="285" styleClass="label-ayuda" wrapText="true" />
+                           <Label fx:id="helpSec3Line3" prefWidth="285" styleClass="label-ayuda" wrapText="true" />
+                           <Label fx:id="helpSec3Line3a" prefWidth="285" styleClass="label-ayuda" wrapText="true" />
+                           <Label fx:id="helpSec3Line3b" prefWidth="285" styleClass="label-ayuda" wrapText="true" />
+                           <Label fx:id="helpSec3Line3c" prefWidth="285" styleClass="label-ayuda" wrapText="true" />
+                           <Label fx:id="helpSec3Line4" prefWidth="285" styleClass="label-ayuda" wrapText="true" />
+                           <Label fx:id="helpSec3Warning" prefWidth="285" styleClass="label-ayuda" wrapText="true" />
 
                            <!-- Sección 4 -->
-                           <Label fx:id="helpSec4Title" wrapText="true" prefWidth="285" styleClass="label-ayuda-titulo"/>
-                           <Label fx:id="helpSec4Line1" wrapText="true" prefWidth="285" styleClass="label-ayuda"/>
-                           <Label fx:id="helpSec4Line2" wrapText="true" prefWidth="285" styleClass="label-ayuda"/>
+                           <Label fx:id="helpSec4Title" prefWidth="285" styleClass="label-ayuda-titulo" wrapText="true" />
+                           <Label fx:id="helpSec4Line1" prefWidth="285" styleClass="label-ayuda" wrapText="true" />
+                           <Label fx:id="helpSec4Line2" prefWidth="285" styleClass="label-ayuda" wrapText="true" />
 
                            <!-- Cierre -->
-                           <Label fx:id="helpOutro" wrapText="true" prefWidth="285" styleClass="label-ayuda"/>
+                           <Label fx:id="helpOutro" prefWidth="285" styleClass="label-ayuda" wrapText="true" />
                         </VBox>
                      </content>
                   </ScrollPane>
@@ -517,6 +517,106 @@
                                     </HBox>
                                  </children>
                               </VBox>
+                              <VBox layoutX="10.0" layoutY="160.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="300.0">
+                                 <children>
+                                    <Text fx:id="textAvataresTienda" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitulo" text="Avatares">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Text>
+                                    <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="126.0" prefWidth="280.0">
+                                       <children>
+                                          <VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="115.0" prefWidth="100.0">
+                                             <children>
+                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAvatarNinjaInformacionClick" prefHeight="80.0" prefWidth="80.0" styleClass="temaButton">
+                                                   <graphic>
+                                                      <ImageView fitHeight="75.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@img/avatares/ninja.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </Button>
+                                                <Button contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onComprarAvatarNinjaClick" prefHeight="25.0" prefWidth="80.0" styleClass="comprarButton" text="75">
+                                                   <VBox.margin>
+                                                      <Insets bottom="10.0" />
+                                                   </VBox.margin>
+                                                   <graphic>
+                                                      <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@img/coin.png" />
+                                                         </image>
+                                                         <cursor>
+                                                            <Cursor fx:constant="DEFAULT" />
+                                                         </cursor>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </Button>
+                                             </children>
+                                          </VBox>
+                                          <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
+                                             <children>
+                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAvatarPoliciaInformacionClick" prefHeight="80.0" prefWidth="80.0" styleClass="temaButton">
+                                                   <graphic>
+                                                      <ImageView fitHeight="75.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@img/avatares/policia.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </Button>
+                                                <Button contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onComprarAvatarPoliciaClick" prefHeight="25.0" prefWidth="80.0" styleClass="comprarButton" text="75">
+                                                   <VBox.margin>
+                                                      <Insets bottom="10.0" />
+                                                   </VBox.margin>
+                                                   <graphic>
+                                                      <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@img/coin.png" />
+                                                         </image>
+                                                         <cursor>
+                                                            <Cursor fx:constant="DEFAULT" />
+                                                         </cursor>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </Button>
+                                             </children>
+                                          </VBox>
+                                          <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="100.0">
+                                             <children>
+                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAvatarBomberoInformacionClick" prefHeight="80.0" prefWidth="80.0" styleClass="temaButton">
+                                                   <graphic>
+                                                      <ImageView fitHeight="75.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@img/avatares/bombero.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </Button>
+                                                <Button contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onComprarAvatarBomberoClick" prefHeight="25.0" prefWidth="80.0" styleClass="comprarButton" text="75">
+                                                   <VBox.margin>
+                                                      <Insets bottom="10.0" />
+                                                   </VBox.margin>
+                                                   <graphic>
+                                                      <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@img/coin.png" />
+                                                         </image>
+                                                         <cursor>
+                                                            <Cursor fx:constant="DEFAULT" />
+                                                         </cursor>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </Button>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                    </HBox>
+                                 </children>
+                              </VBox>
                            </children>
                         </VBox>
                      </content>
@@ -556,7 +656,7 @@
                   </HBox>
                   <ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="300.0" styleClass="scrollPane">
                      <content>
-                        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="300.0">
+                        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="300.0">
                            <children>
                               <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="300.0">
                                  <children>
@@ -631,7 +731,7 @@
                                     </HBox>
                                  </children>
                               </VBox>
-                              <VBox layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="260.0" prefWidth="300.0">
+                              <VBox layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="275.0" prefWidth="300.0">
                                  <children>
                                     <Text fx:id="textTemasInventario" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitulo" text="Temas">
                                        <font>
@@ -746,6 +846,73 @@
                                        </opaqueInsets>
                                        <VBox.margin>
                                           <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <VBox layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="300.0">
+                                 <children>
+                                    <Text fx:id="textAvataresInventario" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitulo" text="Avatares">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Text>
+                                    <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="115.0" prefWidth="280.0">
+                                       <children>
+                                          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="80.0">
+                                             <children>
+                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAvatarNinjaInformacionClick" prefHeight="80.0" prefWidth="80.0" styleClass="objetoButton">
+                                                   <graphic>
+                                                      <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@img/avatares/ninja.png" />
+                                                         </image>
+                                                         <rotationAxis>
+                                                            <Point3D />
+                                                         </rotationAxis>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </Button>
+                                                <Button fx:id="usarAvatarNinjaButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onUsarAvatarNinjaClick" prefWidth="80.0" styleClass="usarButton" text="Usar" translateY="80.0" />
+                                             </children>
+                                          </AnchorPane>
+                                          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="80.0">
+                                             <children>
+                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAvatarPoliciaInformacionClick" prefHeight="80.0" prefWidth="80.0" styleClass="objetoButton">
+                                                   <graphic>
+                                                      <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@img/avatares/policia.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </Button>
+                                                <Button fx:id="usarAvatarPoliciaButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onUsarAvatarPoliciaClick" prefWidth="80.0" styleClass="usarButton" text="Usar" translateY="80.0" />
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets left="20.0" right="20.0" />
+                                             </HBox.margin>
+                                          </AnchorPane>
+                                          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="80.0">
+                                             <children>
+                                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAvatarBomberoInformacionClick" prefHeight="80.0" prefWidth="80.0" styleClass="objetoButton">
+                                                   <graphic>
+                                                      <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@img/avatares/bombero.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </Button>
+                                                <Button fx:id="usarAvatarBomberoButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onUsarAvatarBomberoClick" prefWidth="80.0" styleClass="usarButton" text="Usar" translateY="80.0" />
+                                             </children>
+                                          </AnchorPane>
+                                       </children>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <VBox.margin>
+                                          <Insets />
                                        </VBox.margin>
                                     </HBox>
                                  </children>
