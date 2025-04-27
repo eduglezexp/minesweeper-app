@@ -1,10 +1,254 @@
 .root {
-    -fx-font-family: "Arial";
-    -fx-background-image: url('file:src/main/resources/es/ies/puerto/img/bomb.png');
-    -fx-background-size: cover;
+    -fx-background-color: #2f2f2f;
+    -fx-font-family: 'Arial';
 }
 
 .button {
-    -fx-background-color: black;  
+    -fx-background-color: #3a3a3a;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
+    -fx-border-color: #444444;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 8, 0, 4, 4);
+    -fx-text-fill: #e0e0e0;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #454545;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.7), 10, 0, 6, 6);
+}
+
+.button:pressed {
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.7), 8, 0, 4, 4),
+        dropshadow(gaussian, rgba(255, 255, 255, 0.1), 8, 0, -4, -4);
+}
+
+.objetoButton {
+    -fx-background-color: transparent;
+    -fx-border-color: #444444;
+    -fx-border-radius: 15;
+    -fx-padding: 5;
+}
+
+.temaButton {
+    -fx-background-color: transparent;
+    -fx-background-radius: 10;
+    -fx-border-color: #444444;
+    -fx-border-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 8, 0, 4, 4);
+}
+
+.comprarButton {
+    -fx-background-color: #4CAF50;
     -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+}
+
+.usarButton {
+    -fx-background-color: #3399FF;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+}
+
+.circuloContador {
+    -fx-fill: #3399FF;
+    -fx-stroke: #2f2f2f;
+    -fx-stroke-width: 2;
+}
+
+.mensaje {
+    -fx-fill: #ff6b6b;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-wrap-text: true;
+    -fx-max-width: 280px;
+    -fx-text-alignment: center;
+}
+
+.list-view {
+    -fx-background-color: #3a3a3a;
+    -fx-border-color: #444444;
+    -fx-border-width: 2px;
+    -fx-padding: 5px;
+    -fx-background-radius: 10px;
+}
+
+.list-view .list-cell {
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-border-color: #444444;
+    -fx-border-width: 1px;
+    -fx-margin: 10;
+    -fx-padding: 10;
+    -fx-background-color: #333333;
+    -fx-text-fill: #e0e0e0;
+}
+
+.list-view .list-cell:hover {
+    -fx-background-color: #454545;
+}
+
+.combo-box {
+    -fx-pref-width: 120px;
+    -fx-pref-height: 25px;
+    -fx-font-size: 12px;
+    -fx-background-color: #3a3a3a;
+    -fx-border-color: #444444;
+    -fx-border-radius: 10px;
+    -fx-text-fill: #e0e0e0;
+    -fx-background-radius: 10px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 5, 0.5, 2, 2);
+}
+
+.combo-box .list-cell {
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-text-fill: #e0e0e0;
+    -fx-border-color: #444444;
+    -fx-background-color: #3a3a3a;
+}
+
+.combo-box .list-cell:hover {
+    -fx-background-color: #454545;
+}
+
+.scrollPane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane>.viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: #444444;
+    -fx-background-radius: 2;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #666666;
+    -fx-background-radius: 2;
+}
+
+.text {
+    -fx-font-weight: bold;
+    -fx-fill: #e0e0e0;
+}
+
+.text-field,
+.password-field {
+    -fx-pref-height: 30px;
+    -fx-pref-width: 240px;
+    -fx-font-size: 14px;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #555555;
+    -fx-border-width: 1.5px;
+    -fx-background-color: #3a3a3a;
+    -fx-padding: 5px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 5, 0.5, 2, 2);
+    -fx-text-fill: #e0e0e0;
+}
+
+.text-field:focused,
+.password-field:focused {
+    -fx-border-color: #e0e0e0;
+}
+
+.buscar {
+    -fx-pref-height: 30px;
+}
+
+.image-view {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 10, 0, 0, 2);
+}
+
+.finJuegoTitulo {
+    -fx-fill: #4CAF50;
+    -fx-font-weight: bold;
+    -fx-font-size: 24px;
+}
+
+.resultado {
+    -fx-font-size: 14px;
+    -fx-line-spacing: 5px;
+    -fx-fill: #e0e0e0;
+}
+
+.temporizador,
+.banderas {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-fill: #e0e0e0;
+}
+
+.fotoPerfil {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.7), 10, 0, 0, 2);
+}
+
+.panelInfo,
+.warningEliminarUsuario,
+.mostrarFinJuego {
+    -fx-background-color: #333333;
+    -fx-text-fill: #e0e0e0;
+    -fx-background-radius: 16;
+    -fx-border-radius: 16;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 12, 0, 0, 2);
+    -fx-font-size: 14px;
+    -fx-font-weight: normal;
+}
+
+.panelInfo:hover {
+    -fx-background-color: #3a3a3a;
+}
+
+.celda {
+    -fx-background-color: grey;
+    -fx-opacity: 1;
+}
+
+.resaltarMina {
+    -fx-background-color: #ffd54f;
+}
+
+.titulo {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-fill: #e0e0e0;
+}
+
+.subtitulo {
+    -fx-fill: #e0e0e0;
+}
+
+.puntos {
+    -fx-fill: #e0e0e0;
+}
+
+.contenido-scroll {
+    -fx-padding: 10px; 
+}
+
+.tituloAyuda {
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 10px 0;
+}
+
+.texto-ayuda {
+    -fx-font-size: 12px;
+    -fx-fill: #00FFE7;
+}
+
+.texto-ayuda-titulo {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-fill: #00FFE7;
 }

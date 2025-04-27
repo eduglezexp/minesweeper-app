@@ -29,7 +29,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -46,6 +45,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Duration;
@@ -287,6 +287,7 @@ public class JuegoController extends AbstractController{
     private static final int TEMA_OSCURO_ID = 1;
     private static final int TEMA_NATURALEZA_ID = 2;
     private static final int TEMA_RETRO_ID = 3;
+    private static final int TEMA_ORIGINAL_ID = 4;
     private static final int FLAG_CODE = 0x1F6A9;
     private static final String FLAG_EMOJI = new String(Character.toChars(FLAG_CODE));
 
@@ -304,6 +305,8 @@ public class JuegoController extends AbstractController{
         cambiarIdioma();
         String dificultad = ConfigManager.ConfigProperties.getProperty("comboPrincipiante"); 
         comboDificultad.setValue(dificultad);
+        textMensaje.setWrappingWidth(280);
+        textMensaje.setTextAlignment(TextAlignment.CENTER);
         Platform.runLater(() -> manejarSeleccion(0));
     }
 
@@ -389,15 +392,15 @@ public class JuegoController extends AbstractController{
         BoardConfig config;
         switch (indice) {
             case 0: // Principiante
-                config = new BoardConfig(10, 8, 10);
+                config = new BoardConfig(10, 6, 10);
                 dificultadMultiplier = 1.0;
                 break;
             case 1: // Intermedio
-                config = new BoardConfig(17, 11, 38);
+                config = new BoardConfig(14, 8, 23);
                 dificultadMultiplier = 1.5;
                 break;
             case 2: // Experto
-                config = new BoardConfig(24, 14, 70);
+                config = new BoardConfig(18, 10, 40);
                 dificultadMultiplier = 2.0;
                 break;
             case 3: // Aleatorio
@@ -405,6 +408,7 @@ public class JuegoController extends AbstractController{
                 dificultadMultiplier = 1.2;
                 break;
             case 4: // Personalizado
+                textMensajePersonalizar.setText("");
                 accederPersonalizarTablero();
                 return;
             default:
@@ -443,8 +447,8 @@ public class JuegoController extends AbstractController{
         int filas;
         int columnas;
         do {
-            filas = random.nextInt(21) + 6; 
-            columnas = random.nextInt(9) + 6;
+            filas = random.nextInt(13) + 6; 
+            columnas = random.nextInt(5) + 6;
         } while (!validarDimensiones(filas, columnas));
         int minas = (filas * columnas) / 5; 
         aleatorioButton.setVisible(true);
@@ -526,7 +530,7 @@ public class JuegoController extends AbstractController{
         double cellWidth = stackPaneContenedorTablero.getWidth() / columnas;
         double cellHeight = stackPaneContenedorTablero.getHeight() / filas;
         double cellSize = Math.min(cellWidth, cellHeight);
-        double fontSize = cellSize * 0.35; 
+        double fontSize = cellSize * 0.1; 
         Font cellFont = Font.font(fontSize);
         inicializarVariables(filas, columnas, numeroMinas);
         actualizarTemporizador();
@@ -547,10 +551,11 @@ public class JuegoController extends AbstractController{
                     if (gameOver) return;
                     MouseButton button = event.getButton();
                     if (button == MouseButton.PRIMARY) {
-                        revelarCelda(filaActual, columnaActual);
-                        celda.setStyle("-fx-background-color: grey; -fx-opacity: 1;");
+                        if (!FLAG_EMOJI.equals(celda.getText())) {
+                            revelarCelda(filaActual, columnaActual);
+                        }
                     } else if (button == MouseButton.SECONDARY && !primerClick) {
-                        colocarBandera(filaActual, columnaActual, celda);
+                        colocarBandera(filas, columnaActual, celda);
                     }
                 });
                 grid.add(celda, columna, fila);
@@ -741,7 +746,7 @@ public class JuegoController extends AbstractController{
     
         Button celda = celdas[fila][columna];
         celda.setDisable(true);
-        celda.setStyle("-fx-background-color: grey; -fx-opacity: 1;");
+        celda.getStyleClass().add("celda");
     
         if (minasAdyacentes[fila][columna] > 0) {
             celda.setText(String.valueOf(minasAdyacentes[fila][columna]));
@@ -763,7 +768,6 @@ public class JuegoController extends AbstractController{
      */
     private void colocarBandera(int filas, int columna, Button celda) {
         if (gameOver || celda.isDisabled()) return;
-    
         if (FLAG_EMOJI.equals(celda.getText())) {
             celda.setText("");
             banderasColocadas--;
@@ -1213,7 +1217,7 @@ public class JuegoController extends AbstractController{
             int[] posicion = minasPosiciones.get(random.nextInt(minasPosiciones.size()));
             Button celda = celdas[posicion[0]][posicion[1]];
             String estiloOriginal = celda.getStyle();
-            celda.setStyle(estiloOriginal + "-fx-background-color: yellow;");
+            celda.getStyleClass().add("resaltarMina");
             Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), e -> {
                 celda.setStyle(estiloOriginal);
             }));
@@ -1267,9 +1271,10 @@ public class JuegoController extends AbstractController{
      */
     private void mostrarMensaje(String mensaje) {
         textMensaje.setText(mensaje);
+        mostrarMensajeVbox.toFront();
         fadeIn(mostrarMensajeVbox, miliSegundos);
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), 
-            e -> fadeOut(mostrarMensajeVbox, miliSegundos))
+            e -> fadeOut(mostrarMensajeVbox, 1500))
         );
         timeline.play();
     }
@@ -1609,6 +1614,11 @@ public class JuegoController extends AbstractController{
         cargarInformacionObjeto("temas","retro.png", "retro", "infoTemaRetro");
     }
 
+    @FXML
+    protected void onTemaOriginalInformacionClick() {
+        cargarInformacionObjeto("temas","original.png", "original", "infoTemaOriginal");
+    }
+
     /**
      * Metodo para salir de la pantalla de informacion del objeto
      * Se encarga de ocultar la pantalla de informacion y volver a la tienda o inventario
@@ -1726,6 +1736,15 @@ public class JuegoController extends AbstractController{
     @FXML
     protected void onUsarTemaRetroClick() {
         aplicarTema(TEMA_RETRO_ID);
+    }
+
+    /**
+     * Maneja el evento de clic en el boton de usar tema retro
+     * Se encarga de aplicar el tema original al tablero
+     */
+    @FXML
+    protected void onUsarTemaOriginalClick() {
+        aplicarTema(TEMA_ORIGINAL_ID);
     }
 
     /**

@@ -1,3 +1,192 @@
-:root {
-    background-color: purple;
+.root {
+    -fx-background-color: #2a0a3f;
+    -fx-font-family: 'Courier New', monospace;
 }
+
+.button {
+    -fx-background-color: #B84BCF;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+    -fx-border-width: 1;
+    -fx-border-color: #00FFE7;
+    -fx-effect: dropshadow(gaussian, rgba(0, 255, 231, 0.8), 6, 0, 0, 0);
+    -fx-text-fill: #FFFFFF;
+    -fx-cursor: hand;
+    -fx-font-size: 10px;
+}
+
+.button:hover {
+    -fx-background-color: #D76BEC;
+    -fx-effect: dropshadow(gaussian, rgba(255, 0, 255, 0.8), 8, 0, 0, 0);
+}
+
+.button:pressed {
+    -fx-background-color: #9A3BB2;
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.5), 4, 0, 0, 0);
+}
+
+.objetoButton {
+    -fx-background-color: transparent;
+    -fx-border-color: #FFEA00;
+    -fx-border-width: 1.5;
+    -fx-padding: 4;
+}
+
+.temaButton {
+    -fx-background-color: transparent;
+    -fx-border-color: #00FFE7;
+    -fx-border-width: 1.5;
+}
+
+.comprarButton {
+    -fx-background-color: #FF0080;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: bold;
+}
+
+.usarButton {
+    -fx-background-color: #00FFE7;
+    -fx-text-fill: #2a0a3f;
+    -fx-font-weight: bold;
+}
+
+.circuloContador {
+    -fx-fill: #B84BCF;
+    -fx-stroke: #FFEA00;
+    -fx-stroke-width: 3;
+}
+
+.mensaje {
+    -fx-fill: #FF0080;
+    -fx-font-family: 'Courier New';
+    -fx-font-size: 13px;
+}
+
+.list-view {
+    -fx-background-color: #3e1240;
+    -fx-border-color: #FFEA00;
+    -fx-border-width: 2;
+}
+
+.list-view .list-cell {
+    -fx-background-color: #2a0a3f;
+    -fx-border-color: #00FFE7;
+    -fx-border-width: 1;
+    -fx-font-family: 'Courier New';
+    -fx-text-fill: #FFFFFF;
+}
+
+.list-view .list-cell:hover {
+    -fx-background-color: #4c1f5b;
+}
+
+.combo-box {
+    -fx-pref-width: 120px;
+    -fx-pref-height: 25px;
+    -fx-background-color: #B84BCF;
+    -fx-border-color: #FFEA00;
+    -fx-border-width: 1.5;
+    -fx-font-size: 10px;
+    -fx-font-family: 'Courier New';
+    -fx-text-fill: #FFFFFF;
+}
+
+.combo-box .list-cell:hover {
+    -fx-background-color: #D76BEC;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #FF0080;
+}
+
+.text {
+    -fx-fill: #00FFE7;
+    -fx-font-family: 'Courier New';
+}
+
+.text-field,
+.password-field {
+    -fx-background-color: #3e1240;
+    -fx-border-color: #FFEA00;
+    -fx-border-width: 1.5;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-family: 'Courier New';
+}
+
+.finJuegoTitulo {
+    -fx-fill: #FFEA00;
+    -fx-font-family: 'Courier New';
+    -fx-font-size: 26px;
+}
+
+.resultado {
+    -fx-fill: #FFFFFF;
+    -fx-font-family: 'Courier New';
+}
+
+.temporizador,
+.banderas {
+    -fx-fill: #FF0080;
+    -fx-font-family: 'Courier New';
+}
+
+.panelInfo,
+.warningEliminarUsuario,
+.mostrarFinJuego {
+    -fx-background-color: #2a0a3f;
+    -fx-border-color: #00FFE7;
+    -fx-border-width: 2;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-family: 'Courier New';
+}
+
+.panelInfo:hover {
+    -fx-background-color: #B84BCF;
+}
+
+.celda {
+    -fx-background-color: #4c1f5b;
+    -fx-opacity: 1;
+}
+
+.resaltarMina {
+    -fx-background-color: #FFEA00;
+}
+
+.titulo {
+    -fx-fill: #00FFE7;
+    -fx-font-family: 'Courier New';
+    -fx-font-size: 20px;
+}
+
+.subtitulo {
+    -fx-fill: #FFEA00;
+}
+
+.puntos {
+    -fx-fill: #00FFE7;
+}
+
+.scroll-pane {
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: #2a0a3f;
+}
+
+.scroll-pane .viewport:hover {
+    -fx-background-color: #B84BCF;
+}
+
+.texto-ayuda {
+    -fx-font-size: 12px;
+    -fx-fill: #FFFFFF;
+  }
+  
+  .texto-ayuda-titulo {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-fill: #00FFE7;
+  }

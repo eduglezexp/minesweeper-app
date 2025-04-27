@@ -13,14 +13,14 @@
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
     <children>
-        <Text fx:id="textListaUsuario" text="Lista de Usuarios" />
+        <Text fx:id="textListaUsuario" styleClass="titulo" text="Lista de Usuarios" />
       <HBox prefHeight="24.0" prefWidth="285.0">
          <children>
-            <TextField fx:id="textFieldBuscarUsuario" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="213.0" />
-          <Button fx:id="buscarUsuariosButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="72.0" mnemonicParsing="false" onAction="#onBuscarUsuarios" prefHeight="25.0" prefWidth="0.0" text="Buscar" />
+            <TextField fx:id="textFieldBuscarUsuario" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="238.0" />
+          <Button fx:id="buscarUsuariosButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="72.0" mnemonicParsing="false" onAction="#onBuscarUsuarios" prefHeight="25.0" prefWidth="0.0" styleClass="buscar" text="Buscar" />
          </children>
       </HBox>
-        <Text fx:id="textMensaje" strokeType="OUTSIDE" strokeWidth="0.0" />
+        <Text fx:id="textMensaje" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="mensaje" />
         <ListView fx:id="listViewUsuarios" onMouseClicked="#onMouseClicked" prefHeight="400.0" prefWidth="301.0" />
         <Button fx:id="buttonVolverAtras" mnemonicParsing="false" onAction="#onVolverAtrasClick" prefHeight="32.0" prefWidth="110.0" text="Volver Atrás" />
     </children>

@@ -13,14 +13,14 @@
    <children>
       <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="770.0" prefWidth="350.0" spacing="20.0">
          <children>
-            <Text fx:id="textRegistroTitulo" strokeType="OUTSIDE" strokeWidth="0.0" text="¡Registrate Ahora!" />
+            <Text fx:id="textRegistroTitulo" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titulo" text="¡Registrate Ahora!" />
             <TextField fx:id="textFieldUsuario" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" promptText="Introducir Usuario" />
             <PasswordField fx:id="textFieldPassword" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" promptText="Introducir contraseña" />
             <PasswordField fx:id="textFieldPasswordRepit" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" promptText="Repetir contraseña" />
             <TextField fx:id="textFieldNombre" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" promptText="Introducir Nombre" />
             <TextField fx:id="textFieldEmail" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" promptText="Introducir Correo Electrónico" />
             <TextField fx:id="textFieldEmailRepit" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" promptText="Repetir Correo Electrónico" />
-            <Text fx:id="textMensaje" strokeType="OUTSIDE" strokeWidth="0.0" />
+            <Text fx:id="textMensaje" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="mensaje" />
             <Button fx:id="openRegistrarButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onRegistrarButtonClick" prefHeight="32.0" prefWidth="110.0" text="Aceptar" />
             <Button fx:id="buttonVolverAtras" mnemonicParsing="false" onAction="#onVolverAtrasClick" prefHeight="32.0" prefWidth="110.0" text="Volver Atrás" />
             <Button fx:id="abrirWarningButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAbrirWarningButtonClick" prefHeight="32.0" prefWidth="110.0" text="Eliminar" visible="false" />

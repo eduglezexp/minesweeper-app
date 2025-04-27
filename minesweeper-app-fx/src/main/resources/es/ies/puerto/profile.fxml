@@ -11,13 +11,13 @@
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
    <children>
-      <Text fx:id="textUsuario" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuario" />
+      <Text fx:id="textUsuario" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titulo" text="Usuario" />
       <TextField fx:id="textFieldUsuario" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" />
-      <Text fx:id="textNombre" layoutX="135.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre" />
+      <Text fx:id="textNombre" layoutX="135.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titulo" text="Nombre" />
       <TextField fx:id="textFieldNombre" editable="false" layoutX="60.0" layoutY="66.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" />
-      <Text fx:id="textEmail" layoutX="138.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Correo Electrónico" />
+      <Text fx:id="textEmail" layoutX="138.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titulo" text="Correo Electrónico" />
       <TextField fx:id="textFieldEmail" editable="false" layoutX="60.0" layoutY="230.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" />
-      <Text fx:id="textMensaje" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text fx:id="textMensaje" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="mensaje" />
       <Button fx:id="openEditarButton" layoutX="130.0" layoutY="480.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#openEditarClick" prefHeight="32.0" prefWidth="110.0" text="Editar" />
       <Button fx:id="openJugarButton" layoutX="130.0" layoutY="506.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#openJugarClick" prefHeight="32.0" prefWidth="110.0" text="Jugar" />
       <Button fx:id="buttonVolverAtras" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#onVolverAtrasClick" prefHeight="32.0" prefWidth="110.0" text="Volver Atrás" />

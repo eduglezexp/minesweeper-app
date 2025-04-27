@@ -20,11 +20,11 @@
          <Image url="@img/logo.png" />
       </image>
    </ImageView>
-   <Text fx:id="textUsuarioEmail" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuario" />
+   <Text fx:id="textUsuarioEmail" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titulo" text="Usuario" />
    <TextField fx:id="textFieldUsuarioEmail" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" promptText="Introducir Usuario" />
-   <Text fx:id="textContrasenia" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña" />
+   <Text fx:id="textContrasenia" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titulo" text="Contraseña" />
    <PasswordField fx:id="textFieldPassword" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" promptText="Introducir Password" />
-   <Text fx:id="textMensaje" strokeType="OUTSIDE" strokeWidth="0.0" />
+   <Text fx:id="textMensaje" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="mensaje" />
     <Button fx:id="openAceptarButton" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" onAction="#onLoginButtonClick" prefHeight="32.0" prefWidth="110.0" text="Aceptar" textAlignment="CENTER" />
     <Button fx:id="openRegistrarButton" alignment="CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#openRegistrarClick" prefHeight="32.0" prefWidth="110.0" text="Registrar" textAlignment="CENTER" />
    <Button fx:id="openListarUsuariosButton" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#openListarUsuariosClick" prefHeight="32.0" prefWidth="135.0" text="Lista de Usuarios" textAlignment="CENTER" />

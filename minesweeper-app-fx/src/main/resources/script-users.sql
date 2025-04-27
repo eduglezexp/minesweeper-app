@@ -132,7 +132,8 @@ CREATE TABLE temas (
 INSERT INTO temas (clave, costo, css) VALUES
     ('oscuro', 150, '/es/ies/puerto/css/temas/oscuro.css'),
     ('naturaleza', 150, '/es/ies/puerto/css/temas/naturaleza.css'),
-    ('retro', 150, '/es/ies/puerto/css/temas/retro.css');
+    ('retro', 150, '/es/ies/puerto/css/temas/retro.css'),
+    ('original', 0, '/es/ies/puerto/css/temas/original.css');
 
 CREATE TABLE usuario_temas (
     usuario_id INTEGER NOT NULL,
@@ -143,6 +144,15 @@ CREATE TABLE usuario_temas (
     FOREIGN KEY (tema_id) REFERENCES temas(id)
 );
 
+DELETE FROM usuario_temas;  
+INSERT INTO usuario_temas (usuario_id, tema_id, activo)
+SELECT u.id,
+       t.id,
+       1
+FROM usuarios u
+CROSS JOIN temas t
+WHERE t.clave = 'original';
+
 CREATE TABLE powerups (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     clave TEXT UNIQUE NOT NULL, 
@@ -151,7 +161,8 @@ CREATE TABLE powerups (
 
 INSERT INTO powerups (clave, costo) VALUES
     ('mina_fantasma', 50),
-    ('escudo', 100);
+    ('escudo', 100),
+    ('alquimia', 200);
 
 CREATE TABLE usuario_powerups (
     usuario_id INTEGER NOT NULL,
@@ -199,6 +210,12 @@ INSERT INTO tema_traducciones (tema_id, idioma, nombre, descripcion) VALUES
     (3, 'es', 'Tema Retro', 'Estilo pixel art 8-bits'),
     (3, 'en', 'Retro Theme', '8-bit pixel art style'),
     (3, 'fr', 'Thème Rétro', 'Style pixel art 8-bits');
+
+-- Tema Original (ID 4)
+INSERT INTO tema_traducciones (tema_id, idioma, nombre, descripcion) VALUES
+    (4, 'es', 'Tema Original', 'Estilo original'),
+    (4, 'en', 'Retro Theme', '8-bit pixel art style'),
+    (4, 'fr', 'Thème Rétro', 'Style pixel art 8-bits');
 
 -- Mina Fantasma (ID 1)
 INSERT INTO powerup_traducciones (powerup_id, idioma, nombre, descripcion) VALUES

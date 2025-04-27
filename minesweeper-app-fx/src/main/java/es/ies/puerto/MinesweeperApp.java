@@ -19,7 +19,7 @@ public class MinesweeperApp extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MinesweeperApp.class.getResource("login.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        String css = this.getClass().getResource("css/style.css").toExternalForm();
+        String css = this.getClass().getResource("css/temas/original.css").toExternalForm();
         scene.getStylesheets().add(css);
         Image icon = new Image(getClass().getResource("/es/ies/puerto/img/logo.png").toExternalForm());
         stage.getIcons().add(icon);

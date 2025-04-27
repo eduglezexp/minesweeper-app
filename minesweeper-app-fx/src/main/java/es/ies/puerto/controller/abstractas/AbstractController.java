@@ -316,6 +316,84 @@ public abstract class AbstractController {
     private Button inventarioButton;
 
     /**
+     * JuegoController texto ayuda
+     */
+    @FXML 
+    private Text helpTituloAyuda;
+
+    @FXML 
+    private Text helpIntro;
+
+    @FXML 
+    private Text helpSec1Title;
+
+    @FXML 
+    private Text helpSec1Line1;
+
+    @FXML 
+    private Text helpSec1Line2;
+
+    @FXML 
+    private Text helpSec1Line3;
+
+    @FXML 
+    private Text helpSec2Title;
+
+    @FXML 
+    private Text helpSec2Line1;
+
+    @FXML 
+    private Text helpSec2Line1a;
+
+    @FXML 
+    private Text helpSec2Line1b;
+
+    @FXML 
+    private Text helpSec2Line2;
+
+    @FXML 
+    private Text helpSec2Line2a;
+
+    @FXML 
+    private Text helpSec3Title;
+
+    @FXML 
+    private Text helpSec3Line1;
+
+    @FXML 
+    private Text helpSec3Line2;
+
+    @FXML 
+    private Text helpSec3Line3;
+
+    @FXML 
+    private Text helpSec3Line3a;
+
+    @FXML 
+    private Text helpSec3Line3b;
+
+    @FXML 
+    private Text helpSec3Line3c;
+
+    @FXML 
+    private Text helpSec3Line4;
+
+    @FXML 
+    private Text helpSec3Warning;
+
+    @FXML 
+    private Text helpSec4Title;
+
+    @FXML 
+    private Text helpSec4Line1;
+
+    @FXML 
+    private Text helpSec4Line2;
+
+    @FXML 
+    private Text helpOutro;
+
+    /**
      * Metodo para cambiar el idioma
      */
     @FXML
@@ -524,6 +602,84 @@ public abstract class AbstractController {
         if (inventarioButton != null) {
             inventarioButton.setText(ConfigManager.ConfigProperties.getProperty("inventarioButton"));
         }
+        /**
+         * JuegoController Texto ayuda
+         */
+        if (helpTituloAyuda != null) {
+            helpTituloAyuda.setText(ConfigManager.ConfigProperties.getProperty("helpTituloAyuda"));
+        }
+        if (helpIntro != null) {
+            helpIntro.setText(ConfigManager.ConfigProperties.getProperty("helpIntro"));
+        }
+        if (helpSec1Title != null) {
+            helpSec1Title.setText(ConfigManager.ConfigProperties.getProperty("helpSec1Title"));
+        }
+        if (helpSec1Line1 != null) {
+            helpSec1Line1.setText(ConfigManager.ConfigProperties.getProperty("helpSec1Line1"));
+        }
+        if (helpSec1Line2 != null) {
+            helpSec1Line2.setText(ConfigManager.ConfigProperties.getProperty("helpSec1Line2"));
+        }
+        if (helpSec1Line3 != null) {
+            helpSec1Line3.setText(ConfigManager.ConfigProperties.getProperty("helpSec1Line3"));
+        }
+        if (helpSec2Title != null) {
+            helpSec2Title.setText(ConfigManager.ConfigProperties.getProperty("helpSec2Title"));
+        }
+        if (helpSec2Line1 != null) {
+            helpSec2Line1.setText(ConfigManager.ConfigProperties.getProperty("helpSec2Line1"));
+        }
+        if (helpSec2Line1a != null) {
+            helpSec2Line1a.setText(ConfigManager.ConfigProperties.getProperty("helpSec2Line1a"));
+        }
+        if (helpSec2Line1b != null) {
+            helpSec2Line1b.setText(ConfigManager.ConfigProperties.getProperty("helpSec2Line1b"));
+        }
+        if (helpSec2Line2 != null) {
+            helpSec2Line2.setText(ConfigManager.ConfigProperties.getProperty("helpSec2Line2"));
+        }
+        if (helpSec2Line2a != null) {
+            helpSec2Line2a.setText(ConfigManager.ConfigProperties.getProperty("helpSec2Line2"));
+        }
+        if (helpSec3Title != null) {
+            helpSec3Title.setText(ConfigManager.ConfigProperties.getProperty("helpSec3Title"));
+        }
+        if (helpSec3Line1 != null) {
+            helpSec3Line1.setText(ConfigManager.ConfigProperties.getProperty("helpSec3Line1"));
+        }
+        if (helpSec3Line2 != null) {
+            helpSec3Line2.setText(ConfigManager.ConfigProperties.getProperty("helpSec3Line2"));
+        }
+        if (helpSec3Line3 != null) {
+            helpSec3Line3.setText(ConfigManager.ConfigProperties.getProperty("helpSec3Line3"));
+        }
+        if (helpSec3Line3a != null) {
+            helpSec3Line3a.setText(ConfigManager.ConfigProperties.getProperty("helpSec3Line3a"));
+        }
+        if (helpSec3Line3b != null) {
+            helpSec3Line3b.setText(ConfigManager.ConfigProperties.getProperty("helpSec3Line3b"));
+        }
+        if (helpSec3Line3c != null) {
+            helpSec3Line3c.setText(ConfigManager.ConfigProperties.getProperty("helpSec3Line3c"));
+        }
+        if (helpSec3Line4 != null) {
+            helpSec3Line4.setText(ConfigManager.ConfigProperties.getProperty("helpSec3Line4"));
+        }
+        if (helpSec3Warning != null) {
+            helpSec3Warning.setText(ConfigManager.ConfigProperties.getProperty("helpSec3Warning"));
+        }
+        if (helpSec4Title != null) {
+            helpSec4Title.setText(ConfigManager.ConfigProperties.getProperty("helpSec4Title"));
+        }
+        if (helpSec4Line1 != null) {
+            helpSec4Line1.setText(ConfigManager.ConfigProperties.getProperty("helpSec4Line1"));
+        }
+        if (helpSec4Line2 != null) {
+            helpSec4Line2.setText(ConfigManager.ConfigProperties.getProperty("helpSec4Line2"));
+        }
+        if (helpOutro != null) {
+            helpOutro.setText(ConfigManager.ConfigProperties.getProperty("helpOutro"));
+        }
     }
 
     /**
@@ -540,7 +696,7 @@ public abstract class AbstractController {
             Stage stage = (Stage) button.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(MinesweeperApp.class.getResource(fxml));
             Scene scene = new Scene(fxmlLoader.load());
-            String cssBase = "/es/ies/puerto/css/style.css";
+            String cssBase = "/es/ies/puerto/css/temas/original.css";
             scene.getStylesheets().add(getClass().getResource(cssBase).toExternalForm());
             if (Sesion.getCssTemaActivo() != null) {
                 scene.getStylesheets().add(getClass().getResource(Sesion.getCssTemaActivo()).toExternalForm());
@@ -576,7 +732,7 @@ public abstract class AbstractController {
             Stage stage = (Stage) node.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(MinesweeperApp.class.getResource(fxml));
             Scene scene = new Scene(fxmlLoader.load());
-            String cssBase = "/es/ies/puerto/css/style.css";
+            String cssBase = "/es/ies/puerto/css/temas/original.css";
             scene.getStylesheets().add(getClass().getResource(cssBase).toExternalForm());
             if (Sesion.getCssTemaActivo() != null) {
                 scene.getStylesheets().add(getClass().getResource(Sesion.getCssTemaActivo()).toExternalForm());
