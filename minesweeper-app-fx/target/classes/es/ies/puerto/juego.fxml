@@ -19,7 +19,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="770.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.ies.puerto.controller.JuegoController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="770.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.ies.puerto.controller.JuegoController">
    <top>
       <HBox alignment="CENTER" prefHeight="130.0" prefWidth="350.0" BorderPane.alignment="CENTER">
          <children>
@@ -238,7 +238,7 @@
                   <ScrollPane fx:id="scrollAyuda" fitToWidth="true" hbarPolicy="NEVER" prefHeight="550.0" prefWidth="300.0" styleClass="scroll-pane" vbarPolicy="AS_NEEDED">
                      <content>
                         <VBox alignment="TOP_CENTER" prefWidth="285.0" spacing="10" styleClass="contenido-scroll">
-                           <Label fx:id="helpTituloAyuda" prefWidth="285" styleClass="titulo" wrapText="true" />
+                           <Label fx:id="helpTituloAyuda" prefWidth="285" styleClass="label-ayuda-titulo-principal" wrapText="true" />
 
                            <Label fx:id="helpIntro" prefWidth="285" styleClass="label-ayuda" wrapText="true" />
 
@@ -930,7 +930,7 @@
                         <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="280.0" prefWidth="280.0">
                            <children>
                               <ImageView fx:id="imageViewObjeto" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" />
-                              <Text fx:id="textObjeto" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titulo" text="Objeto">
+                              <Text fx:id="textObjeto" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitulo" text="Objeto">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
@@ -938,7 +938,7 @@
                                     <Insets bottom="10.0" top="10.0" />
                                  </VBox.margin>
                               </Text>
-                              <Text fx:id="textInformacion" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="230.0" />
+                              <Text fx:id="textInformacion" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="descripcion" wrappingWidth="230.0" />
                               <Button fx:id="salirInformacionButton" mnemonicParsing="false" onAction="#onSalirInfomacionClick" text="Volver">
                                  <VBox.margin>
                                     <Insets top="10.0" />

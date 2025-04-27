@@ -220,12 +220,16 @@
 }
 
 .titulo {
-    -fx-font-size: 18px;
+    -fx-font-size: 20px;
     -fx-font-weight: bold;
     -fx-fill: #e0e0e0;
 }
 
 .subtitulo {
+    -fx-fill: #e0e0e0;
+}
+
+.descripcion {
     -fx-fill: #e0e0e0;
 }
 
@@ -245,6 +249,12 @@
 
 .label-ayuda-titulo {
     -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #e0e0e0;
+}
+
+.label-ayuda-titulo-principal {
+    -fx-font-size: 20px;
     -fx-font-weight: bold;
     -fx-text-fill: #e0e0e0;
 }

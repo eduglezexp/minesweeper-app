@@ -10,7 +10,7 @@
     -fx-border-width: 1;
     -fx-border-color: #00FFE7;
     -fx-effect: dropshadow(gaussian, rgba(0, 255, 231, 0.8), 6, 0, 0, 0);
-    -fx-text-fill: #FFFFFF;
+    -fx-text-fill: #00FFE7;
     -fx-cursor: hand;
     -fx-font-size: 10px;
 }
@@ -40,13 +40,13 @@
 
 .comprarButton {
     -fx-background-color: #FF0080;
-    -fx-text-fill: #FFFFFF;
+    -fx-text-fill: #00FFE7;
     -fx-font-weight: bold;
 }
 
 .usarButton {
     -fx-background-color: #00FFE7;
-    -fx-text-fill: #2a0a3f;
+    -fx-text-fill: #FF0080;
     -fx-font-weight: bold;
 }
 
@@ -58,6 +58,7 @@
 
 .mensaje {
     -fx-fill: #FF0080;
+    -fx-font-weight: bold;
     -fx-font-family: 'Courier New';
     -fx-font-size: 13px;
 }
@@ -88,7 +89,6 @@
     -fx-border-width: 1.5;
     -fx-font-size: 10px;
     -fx-font-family: 'Courier New';
-    -fx-text-fill: #FFFFFF;
 }
 
 .combo-box .list-cell:hover {
@@ -100,7 +100,7 @@
 }
 
 .text {
-    -fx-fill: #00FFE7;
+    -fx-text-fill: #00FFE7;
     -fx-font-family: 'Courier New';
 }
 
@@ -163,6 +163,10 @@
     -fx-fill: #FFEA00;
 }
 
+.descripcion {
+    -fx-fill: #00FFE7;
+}
+
 .puntos {
     -fx-fill: #00FFE7;
 }
@@ -193,10 +197,17 @@
 
 .label-ayuda {
     -fx-font-size: 12px;
+    -fx-text-fill: #00FFE7;
 }
 
 .label-ayuda-titulo {
     -fx-font-size: 13px;
     -fx-font-weight: bold;
-    -fx-text-fill: #00FFE7;
+    -fx-text-fill: #FFEA00;
+}
+
+.label-ayuda-titulo-principal {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FFEA00;
 }

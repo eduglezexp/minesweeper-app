@@ -41,14 +41,14 @@
 
 .comprarButton {
     -fx-background-color: #7CB342;
-    -fx-text-fill: #ffffff;
+    -fx-text-fill: #2e7d32;
     -fx-font-weight: bold;
     -fx-background-radius: 5;
 }
 
 .usarButton {
     -fx-background-color: #7CB342;
-    -fx-text-fill: #ffffff;
+    -fx-text-fill: #2e7d32;
     -fx-font-weight: bold;
     -fx-background-radius: 5;
 }
@@ -140,7 +140,7 @@
 
 .text {
     -fx-font-weight: bold;
-    -fx-fill: #2e7d32;
+    -fx-text-fill: #7CB342;
 }
 
 .text-field,
@@ -220,9 +220,23 @@
 }
 
 .titulo {
-    -fx-font-size: 18px;
+    -fx-font-size: 20px;
     -fx-font-weight: bold;
     -fx-fill: #2e7d32;
+}
+
+.subtitulo {
+    -fx-fill: #2e7d32;
+}
+
+
+.descripcion {
+    -fx-fill: #7CB342;
+}
+
+.puntos {
+    -fx-fill: #2e7d32;
+    -fx-font-weight: bold;
 }
 
 .contenido-scroll {
@@ -237,6 +251,12 @@
 
 .label-ayuda-titulo {
     -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2e7d32;
+}
+
+.label-ayuda-titulo-principal {
+    -fx-font-size: 20px;
     -fx-font-weight: bold;
     -fx-text-fill: #2e7d32;
 }
