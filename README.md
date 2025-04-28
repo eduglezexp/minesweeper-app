@@ -48,34 +48,34 @@ Versión mejorada del clásico Buscaminas, con modos de juego adicionales, tiend
 
 ### 🏬 Tienda, Objetos e Inventario
 
-<p align="center">
-  <img src="ruta/a/tienda.png" alt="Tienda de objetos" width="600" />
-</p>
-
 - **Escudo**: protege de una bomba.  
 - **Fantasma**: revela el mapa de minas durante 5 segundos.  
 - **Alquimia**: convierte una mina en escudo, convierte una celda en segura… ¡o explota!
 
-#### ¿Cómo usarlos?
-
 <p align="center">
-  <img src="ruta/a/uso_potenciadores.gif" alt="Uso de potenciadores" width="600" />
+  <img src="gift/potenciadores/activarEscudo.gif" alt="Tienda de objetos" width="200" />
+  <img src="gift/potenciadores/activarFantasma.gif" alt="Tienda de objetos" width="200" />
+  <img src="gift/potenciadores/activarAlquimia.gif" alt="Tienda de objetos" width="200" />
 </p>
 
 ---
 
 ### 🎨 Temas y Avatares
 
-- **Temas**: claro, oscuro y retro.
+- **Temas**: oscuro, claro y retro.
 
 <p align="center">
-  <img src="ruta/a/uso_temas.gif" alt="Cambio de temas" width="600" />
+  <img src="gift/temas/temaOscuro.gif" alt="Cambio de tema oscuro" width="200" />
+  <img src="gift/temas/temaNaturaleza.gif" alt="Cambio de tema naturaleza" width="200" />
+  <img src="gift/temas/temaRetro.gif" alt="Cambio de tema retro" width="200" />
 </p>
 
 - **Avatares**: selección de personajes para tu perfil.
 
 <p align="center">
-  <img src="ruta/a/uso_avatares.gif" alt="Elección de avatares" width="600" />
+  <img src="gift/avatares/avatarNinja.gif" alt="Elección de avatares" width="200" />
+  <img src="gift/avatares/avatarPolicia.gif" alt="Elección de avatares" width="200" />
+  <img src="gift/avatares/avatarBombero.gif" alt="Elección de avatares" width="200" />
 </p>
 
 ---
@@ -88,7 +88,7 @@ Disponible en:
 - 🇫🇷 Francés  
 
 <p align="center">
-  <img src="ruta/a/uso_idioma.gif" alt="Cambio de idioma" width="600" />
+  <img src="gift/cambiarIdioma.gif" alt="Cambio de idioma" width="200" />
 </p>
 
 ---
