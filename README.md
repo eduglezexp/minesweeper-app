@@ -34,7 +34,9 @@
 Versión mejorada del clásico Buscaminas, con modos de juego adicionales, tienda de potenciadores, personalización visual y soporte multilingüe. Ideal tanto para nostálgicos como para nuevos jugadores.
 
 <p align="center">
-  <img src="ruta/a/captura_inicial.png" alt="Captura de pantalla inicial" width="600" />
+  <img src="gift/gameplay/pantallaDerrota1.gif" alt="Captura de pantalla inicial" width="200" />
+  <img src="gift/gameplay/pantallaVictoria.gif" alt="Captura de pantalla inicial" width="200" />
+  <img src="gift/gameplay/pantallaDerrota2.gif" alt="Captura de pantalla inicial" width="200" />
 </p>
 
 ---
